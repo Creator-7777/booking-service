@@ -30,3 +30,6 @@ sms:
   user: ${SMS_USER}
   password: ${SMS_PASSWORD}
   sender: ${SMS_SENDER}
+
+server:
+  port: ${PORT:8080}
