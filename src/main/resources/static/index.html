@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <title>Запись на приём</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+          font-family: 'Raleway', sans-serif;
+          background: url('https://i.imgur.com/1p3nAoG.jpeg') no-repeat center center fixed;
+          background-size: cover;
+          margin: 0;
+          padding: 40px 20px;
+          min-height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .form-container {
+          background: rgba(255, 255, 255, 0.96);
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+          max-width: 420px;
+          width: 100%;
+          animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container h2 {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        .form-container img.logo {
+          width: 55%;
+          border-radius: 115px;
+          margin-bottom: 5px;
+          margin-left: 95px;
+        }
+
+        input, select, button {
+          width: 100%;
+          margin-top: 10px;
+          padding: 12px;
+          font-size: 16px;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+          box-sizing: border-box;
+        }
+
+        button {
+          background: #4CAF50;
+          color: white;
+          border: none;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+          background: #43a047;
+          transform: scale(1.02);
+        }
+
+        #status {
+          text-align: center;
+          margin-top: 12px;
+          font-weight: 500;
+        }
+        a:hover img {
+          opacity: 0.8;
+          transform: scale(1.1);
+          transition: all 0.2s ease;
+        }
+
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <img class="logo" src="https://i.imgur.com/SGjW8gC.jpeg" alt="Логотип">
+
+    <div style="text-align:center; margin-top: 20px;">
+        <a href="https://www.instagram.com/elenanail.rlz?igsh=MTdxcTYza3BtYXRseg==" target="_blank" title="Instagram">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" style="width:32px; height:32px; vertical-align:middle;">
+        </a>
+    </div>
+
+    <h2>Запись на приём</h2>
+    <form id="form">
+        <input name="name" placeholder="Имя" required>
+
+        <input name="phone" id="phone" placeholder="05XXXXXXXX" pattern="^05\d\d{7}$" required>
+        <span id="phone-error" style="color:red; display:none;">❌ Номер должен быть в формате 05XXXXXXXX</span>
+
+        <button type="button" id="sendCodeBtn">Получить SMS-код</button>
+
+        <div id="codeSection" style="display: none; margin-top: 10px;">
+            <input
+                    id="codeInput"
+                    type="text"
+                    placeholder="Введите код из SMS"
+            />
+        </div>
+
+        <select name="service" id="service" multiple required>
+            <option value="">Услуга</option>
+            <option value="Маникюр — 120₪">Маникюр — 120₪</option>
+            <option value="Маникюр+укреп — 200₪">Маникюр+укреп — 200₪</option>
+            <option value="Наращивание — 350₪">Наращивание — 350₪</option>
+            <option value="Ремонт ногтя — 10₪">Ремонт ногтя — 10₪</option>
+            <option value="Доращивание — 20₪">Доращивание — 20₪</option>
+            <option value="Фрэнч — 30₪">Фрэнч — 30₪</option>
+            <option value="Простой дизайн — 10₪">Простой дизайн — 10₪</option>
+            <option value="Сложный дизайн — 30₪">Сложный дизайн — 30₪</option>
+            <option value="Царь ноготь — 50₪">Царь ноготь — 50₪</option>
+            <option value="Зачистка — 40₪">Зачистка — 40₪</option>
+            <option value="Педикюр гиг. полный — 180₪">Педикюр гиг. полный— 180₪</option>
+            <option value="Педикюр гиг. пальцы - 160₪">Педикюр гиг. пальцы — 160₪</option>
+            <option value="Педикюр+гельлак — 220₪">Педикюр+гельлак — 220₪</option>
+            <option value="Педикюр обычный — 200₪">Педикюр обычный — 200₪</option>
+            <option value="Зачистка — 50₪">Зачистка — 50₪</option>
+            <option value="Удлаение мазолей — 50₪">Удлаение мазолей — 50₪</option>
+            <option value="Работа с трещинами — 50₪">Работа с трещинами — 50₪</option>
+            <option value="Удаление вросшего ногтя — 50₪">Удаление вросшего ногтя — 50₪</option>
+            <option value="Тампонада жидкая — 50₪">Тампонада жидкая — 50₪</option>
+        </select>
+
+        <input name="date" placeholder="dd/mm/yyyy" type="date" required>
+
+        <select name="time" id="time" required>
+            <option value="">Выберите время</option>
+        </select>
+
+        <button type="submit">Записаться</button>
+    </form>
+    <p id="status"></p>
+    <p id="no-slots" style="text-align:center; color: red; display: none;">На выбранную дату всё занято 😢</p>
+</div>
+
+<script>
+    const timeSlots = ["10:00–12:00", "12:00–14:00", "14:00–16:00", "16:00–18:00"];
+    const dateInput = document.querySelector('input[name="date"]');
+    if (!dateInput) {
+      alert("date input missing");
+    } else {
+      dateInput.setAttribute( "min", new Date().toISOString().split("T")[0]);
+    }
+
+
+      const timeSelect = document.getElementById("time");
+      dateInput.addEventListener("change", () => {
+
+      const selectedDate = dateInput.value;
+      const day = new Date(selectedDate).getDay(); // 0 - Sunday, 6 - Saturday
+
+
+        // ❌ Блокируем пятницу (5) и субботу (6)
+        if (day === 5 || day === 6) {
+          alert("❌ Запись невозможна на пятницу или субботу. Пожалуйста, выберите другой день.");
+          dateInput.value = ""; // сброс выбора
+          timeSelect.innerHTML = '<option value="">Выберите время</option>';
+          document.getElementById("no-slots").style.display = "none";
+          return; // остановить выполнение
+        }
+
+        // ✅ Продолжаем обычную логику
+
+      timeSelect.innerHTML = '<option value="">Загрузка...</option>';
+      document.getElementById("no-slots").style.display = "none";
+
+        console.log("Selected date =", selectedDate);
+		fetch("/api/bookings/booked-times?date=" + encodeURIComponent(selectedDate)).then(r => r.json()).then(bookedTimes => {
+
+          console.log("Booked times =", bookedTimes);
+		  timeSelect.innerHTML = '<option value="">Выберите время</option>';
+		  let available = false;
+		  timeSlots.forEach(slot => {
+			if (!bookedTimes.includes(slot)) {
+			  const option = document.createElement("option");
+			  option.value = slot;
+			  option.textContent = slot;
+			  timeSelect.appendChild(option);
+			  available = true;
+			}
+		  });
+		  console.log("Options count =", timeSelect.options.length);
+		  if (!available) {
+			document.getElementById("no-slots").style.display = "block";
+		  }
+		});
+
+	});
+
+      function validatePhone(phone) {
+        const pattern = /^05\d\d{7}$/;
+        return pattern.test(phone.trim());
+      }
+
+      document.getElementById("phone").addEventListener("input", () => {
+        const phone = document.getElementById("phone").value;
+        const error = document.getElementById("phone-error");
+
+        if (!validatePhone(phone)) {
+          error.style.display = "inline";
+        } else {
+          error.style.display = "none";
+        }
+      });
+
+      function normalizePhone(phone) {
+      phone = phone.replace(/[^\d]/g, "");
+      if (phone.startsWith("972")) {
+        return "0" + phone.slice(3);
+      }
+      if (phone.startsWith("+972")) {
+        return "0" + phone.slice(4);
+      }
+      if (!phone.startsWith("0")) {
+        return "0" + phone;
+      }
+      return phone;
+    }
+
+      document.getElementById("sendCodeBtn").addEventListener("click", () => {
+      let phone = document.getElementById("phone").value;
+      const pattern = /^05[0-9][0-9]{7}$/;
+
+      if (!pattern.test(phone)) {
+      alert("❌ Неверный формат телефона. Пример: 05XXXXXXXX");
+      return;
+      }
+
+      const normalizedPhone = normalizePhone(phone);
+
+
+      console.log("📤 Отправляем номер на сервер:", normalizedPhone);
+
+      fetch("/api/sms/send-code", {
+          method: "POST",
+          headers: {
+            "Content-Type":"application/json"
+          },
+
+          body: JSON.stringify({
+            phone: normalizedPhone,
+
+          })
+
+        }
+      );
+
+      document.getElementById("codeSection").style.display = "block";
+      document.getElementById("codeInput").value = ""; // сбрасываем старое
+      //document.getElementById("codeInput").setAttribute("required", "true"); // добавлено
+      alert("Код отправлен по SMS");
+      });
+
+      document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const codeSection = document.getElementById("codeSection");
+        const codeInput = document.getElementById("codeInput");
+
+
+        // Проверяем, если код секция показана, но код не введён
+        if (codeSection.style.display !== "none" && codeInput.value.trim() == "") {
+          e.preventDefault();
+          codeInput.setCustomValidity("Пожалуйста, введите код из SMS");
+          codeInput.reportValidity();
+          return;
+        }
+
+          // Обнуляем кастомную ошибку если всё ок
+          codeInput.setCustomValidity("");
+
+          const phone = document.getElementById("phone").value;
+          const inputCode = codeInput.value;
+
+
+        if (!inputCode) {
+          alert("⚠️ Пожалуйста, введите код из SMS");
+          return;
+        }
+
+      // вызываем серверную проверку
+      fetch("/api/sms/validate", {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          phone: phone,
+          code: inputCode
+        })
+      }).then(r => r.json()).then(result => {
+        if (!result.valid) {
+          alert("❌ Неверный или просроченный код");
+          return;
+        }
+        submitBooking();
+      }).catch(err => {
+        alert( "⚠️ Ошибка проверки кода" );
+        console.error(err);
+      });
+
+      function submitBooking() {
+        const form = document.getElementById("form");
+        const data = {
+          name: form.name.value,
+          phone: form.phone.value,
+          service: Array.from(form.service.selectedOptions).map(opt => opt.value).join(", "),
+          date: form.date.value,
+          time: form.time.value
+        };
+
+		  fetch("/api/bookings",{
+			method: "POST",
+			  headers: {
+				"Content-Type": "application/json"
+			  },
+			  body: JSON.stringify(data)
+		  }).then(() => {
+			document.getElementById("status").textContent = "✅ Заявка отправлена!";
+			form.reset();
+			document.getElementById("codeSection").style.display = "none";
+			smsCode = null;
+		  });
+	    }
+
+	}); // form submit listener
+
+
+</script>
+
+</body>
+</html>
