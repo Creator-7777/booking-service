@@ -2,9 +2,10 @@ package com.alena.booking.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +26,9 @@ public class Sms4FreeService {
     @Value("${sms.sender}")
     private String smsSender;
 
-    private final RestTemplate restTemplate =
-            new RestTemplate();
+    //private final RestTemplate restTemplate = new RestTemplate();
+
+    private final WebClient webClient = WebClient.create();
 
     public void sendSms(String phone, String message) {
 
@@ -40,8 +42,15 @@ public class Sms4FreeService {
         payload.put("recipient", phone);
         payload.put("msg", message);
 
-        ResponseEntity<String> response = restTemplate.postForEntity("https://api.sms4free.co.il/ApiSMS/v2/SendSMS", payload, String.class);
+        //ResponseEntity<String> response = restTemplate.postForEntity("https://api.sms4free.co.il/ApiSMS/v2/SendSMS", payload, String.class);
+        String response =
+                webClient.post()
+                        .uri("https://api.sms4free.co.il/ApiSMS/v2/SendSMS", payload, String.class)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .retrieve()
+                        .bodyToMono(String.class)
+                        .block();
 
-        System.out.println("SMS RESPONSE = " + response.getBody());
+        System.out.println("SMS RESPONSE = " + response);
     }
 }
