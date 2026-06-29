@@ -43,14 +43,26 @@ public class Sms4FreeService {
         payload.put("msg", message);
 
         //ResponseEntity<String> response = restTemplate.postForEntity("https://api.sms4free.co.il/ApiSMS/v2/SendSMS", payload, String.class);
-        String response =
-                webClient.post()
-                        .uri("https://api.sms4free.co.il/ApiSMS/v2/SendSMS", payload, String.class)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .retrieve()
-                        .bodyToMono(String.class)
-                        .block();
 
-        System.out.println("SMS RESPONSE = " + response);
+        try {
+
+            System.out.println("=== SMS REQUEST ===");
+            System.out.println("Recipient = " + phone);
+            System.out.println("Sender = " + smsSender);
+            System.out.println("User = " + smsUser);
+
+            String response =
+                    webClient.post()
+                            .uri("https://api.sms4free.co.il/ApiSMS/v2/SendSMS", payload, String.class)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .bodyValue(payload)
+                            .retrieve()
+                            .bodyToMono(String.class)
+                            .block();
+
+            System.out.println("SMS RESPONSE = " + response);
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 }
