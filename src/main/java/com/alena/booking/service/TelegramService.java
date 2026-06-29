@@ -2,6 +2,7 @@ package com.alena.booking.service;
 
 import com.alena.booking.entity.Appointment;
 import lombok.RequiredArgsConstructor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,9 +29,9 @@ public class TelegramService {
 
     public void sendBooking(Appointment appointment) {
 
-        System.out.println("TOKEN = " + token  );
-        System.out.println("CHAT_ID = " + chatId );
-        System.out.println("URL = https://api.telegram.org/bot" + token + "/sendMessage");
+        log.info("TOKEN = {}", token);
+        log.info("CHAT_ID = {}", chatId);
+        log.info("URL = https://api.telegram.org/bot{}/sendMessage", token);
 
         String message =
                 """

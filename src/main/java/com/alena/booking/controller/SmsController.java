@@ -5,12 +5,13 @@ import com.alena.booking.dto.SmsRequest;
 import com.alena.booking.service.Sms4FreeService;
 import com.alena.booking.service.SmsCodeStorage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/sms")
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class SmsController {
         String code = String.valueOf(ThreadLocalRandom.current().nextInt(1000, 10000));
 
         storage.save(request.phone(), code);
-        System.out.println("PHONE=" + request.phone()+ " CODE=" + code);
+        log.info("PHONE={} CODE={}", request.phone(), code);
         sms4FreeService.sendSms(request.phone(), "Ваш код подтверждения: " + code);
 
         return ResponseEntity.ok().build();

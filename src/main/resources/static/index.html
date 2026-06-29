@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-          font-family: 'Raleway', sans-serif;
+          font-family: 'Raleway', 'Segoe UI', Roboto, Arial, sans-serif;
           background: url('https://i.imgur.com/1p3nAoG.jpeg') no-repeat center center fixed;
           background-size: cover;
           margin: 0;
@@ -16,11 +16,41 @@
           display: flex;
           justify-content: center;
           align-items: center;
+		  font-size:18px;
+		  line-height:1.5;
+		  box-shadow: 0 15px 45px rgba(0,0,0,.12);
         }
+
+		.container{
+			max-width:650px;
+			width:95%;
+		}
+
+		@media (max-width:768px){
+
+			.container{
+				width:98%;
+				margin:10px auto;
+				padding:24px;
+			}
+
+			input,
+			select,
+			textarea,
+			button{
+
+				font-size:18px;
+				padding:18px;
+			}
+
+			h1{
+				font-size:32px;
+			}
+		}
 
         .form-container {
           background: rgba(255, 255, 255, 0.96);
-          padding: 20px;
+          padding: 28px;
           border-radius: 10px;
           box-shadow: 0 8px 20px rgba(0,0,0,0.2);
           max-width: 420px;
@@ -35,7 +65,7 @@
 
         .form-container h2 {
           text-align: center;
-          margin-bottom: 20px;
+          margin-bottom: 22px;
         }
 
         .form-container img.logo {
@@ -48,9 +78,9 @@
         input, select, button {
           width: 100%;
           margin-top: 10px;
-          padding: 12px;
-          font-size: 16px;
-          border-radius: 6px;
+          padding: 18px;
+          font-size: 18px;
+          border-radius: 10px;
           border: 1px solid #ccc;
           box-sizing: border-box;
         }
@@ -59,10 +89,17 @@
           background: #4CAF50;
           color: white;
           border: none;
-          font-weight: bold;
+          font-weight: 600;
           cursor: pointer;
           transition: background 0.3s ease, transform 0.2s ease;
+		  width:100%;
+		  padding:18px;
+		  font-size:18px;
+		  border-radius:10px;
+		  height:56px;
         }
+
+
 
         button:hover {
           background: #43a047;

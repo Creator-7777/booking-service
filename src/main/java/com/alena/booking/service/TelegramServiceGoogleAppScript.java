@@ -5,10 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
+
 
 import java.util.Map;
 
@@ -21,6 +20,8 @@ public class TelegramServiceGoogleAppScript {
 
     private final WebClient webClient =
             WebClient.create();
+
+    private static final Logger log = LoggerFactory.getLogger(TelegramServiceGoogleAppScript.class);
 
     public void sendBooking(
             Appointment appointment) {
@@ -41,6 +42,6 @@ public class TelegramServiceGoogleAppScript {
                         .bodyToMono(String.class)
                         .block();
 
-        System.out.println(response);
+        log.info(response);
     }
 }
