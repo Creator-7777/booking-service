@@ -14,25 +14,14 @@ html{
 }
 
 body{
-    font-family:'Poppins',sans-serif;
-    background:
-        linear-gradient(
-            rgba(0,0,0,.35),
-            rgba(0,0,0,.35)
-        ),
-
-        url("https://i.imgur.com/1p3nAoG.jpeg")
-        center center / cover
-        no-repeat
-        fixed;
-
+    margin:0;
+    padding:20px;
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:40px 20px;
-    color:#333;
-
+    font-family:'Raleway',sans-serif;
+    background:url('https://i.imgur.com/1p3nAoG.jpeg') center center/cover no-repeat fixed;
 }
 
 .page{
@@ -74,10 +63,12 @@ body{
 .logo{
     width:180px;
     height:180px;
+    display:block;
+    margin:-120px auto 25px;
     border-radius:50%;
+    border:8px solid white;
     object-fit:cover;
-    border:6px solid white;
-    box-shadow:0 12px 30px rgba(0,0,0,.18);
+    box-shadow:0 10px 35px rgba(0,0,0,.25);
 }
 
 .socials{
@@ -86,32 +77,43 @@ body{
 }
 
 .socials img{
-    width:40px;
+    width:60px;
     transition:.25s;
 }
 
 .socials img:hover{
-    transform:scale(1.18);
+    transform:scale(1.1);
 }
 
 h1{
     text-align:center;
-    margin-top:24px;
-    font-size:34px;
+    margin:0;
+    font-size:46px;
     font-weight:700;
     color:#222;
 }
 
 .subtitle{
     text-align:center;
-    color:#666;
-    margin-bottom:35px;
-    font-size:18px;
+    color:#777;
+    margin:15px 0 35px;
+    font-size:24px;
 }
 
 form{
     display:flex;
     flex-direction:column;
+}
+
+.form-container{
+    width:100%;
+    max-width:620px;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(10px);
+    border-radius:30px;
+    padding:45px;
+    box-shadow: 0 25px 60px rgba(0,0,0,.25);
+    box-sizing:border-box;
 }
 
 .field{
@@ -121,27 +123,31 @@ form{
 }
 
 label{
-    margin-bottom:8px;
+    display:block;
+    margin-top:25px;
+    margin-bottom:10px;
     font-weight:600;
+    font-size:20px;
     color:#444;
 }
 
 input,
 select{
     width:100%;
-    padding:16px 18px;
-    border-radius:14px;
-    border:1px solid #ddd;
-    font-size:17px;
+    padding:18px 22px;
+    border-radius:16px;
+    border:2px solid #ddd;
+    font-size:19px;
     background:white;
     transition:.25s;
+    box-sizing:border-box;
 }
 
 input:focus,
 select:focus{
     outline:none;
-    border-color:#7d4cff;
-    box-shadow:0 0 0 4px rgba(125,76,255,.18);
+    border-color:#ff6fa8;
+    box-shadow:0 0 12px rgba(255,111,168,.3);
 
 }
 
@@ -150,12 +156,38 @@ select[multiple]{
 }
 
 button{
+    width:100%;
+    padding:20px;
+    margin-top:22px;
     border:none;
+    border-radius:16px;
+    background:#20b66b;
+    color:white;
+    font-size:22px;
+    font-weight:700;
     cursor:pointer;
-    border-radius:14px;
-    font-size:18px;
-    font-weight:600;
     transition:.25s;
+}
+
+button:hover{
+    background:#18995a;
+    transform:translateY(-2px);
+}
+
+#codeSection{
+    margin-top:20px;
+}
+
+#service{
+    min-height:260px;
+}
+
+#status{
+    margin-top:25px;
+    text-align:center;
+    font-size:22px;
+    font-weight:700;
+    color:#27ae60;
 }
 
 .primary{
@@ -199,13 +231,6 @@ button:disabled{
     font-weight:600;
 }
 
-.status{
-    margin-top:24px;
-    min-height:28px;
-    text-align:center;
-    font-weight:600;
-    color:#18a44c;
-}
 
 phone-error{
     margin-top:8px;
@@ -234,60 +259,52 @@ footer{
     background:#888;
 }
 
-@media(max-width:768px){
+@media (max-width:768px){
 
-    .booking-card{
-        padding:28px;
+    body{
+        padding:15px;
+        align-items:flex-start;
+    }
+
+    .form-container{
+        max-width:100%;
         border-radius:22px;
+        padding:30px 22px;
     }
 
     .logo{
-        width:140px;
-        height:140px;
+        width:145px;
+        height:145px;
+        margin:-90px auto 20px;
     }
 
     h1{
-        font-size:28px;
+        font-size:36px;
     }
 
     .subtitle{
-        font-size:16px;
+        font-size:20px;
+    }
+
+    label{
+        font-size:18px;
     }
 
     input,
-    select,
+    select{
+        font-size:18px;
+        padding:16px;
+    }
+
     button{
-        font-size:17px;
-    }
-
-    .primary{
+        font-size:20px;
         padding:18px;
     }
 
-    .secondary{
-        padding:18px;
+    #service{
+        min-height:210px;
     }
+
 }
 
-@media(max-width:420px){
-    body{
-        padding:15px;
-    }
-
-    .booking-card{
-        padding:22px;
-    }
-
-    .logo{
-        width:120px;
-        height:120px;
-    }
-
-    h1{
-        font-size:24px;
-    }
-
-    .subtitle{
-        font-size:15px;
-    }
 }
