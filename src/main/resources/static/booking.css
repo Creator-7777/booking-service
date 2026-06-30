@@ -1,0 +1,293 @@
+/* ===========================================
+   Elena Nail Studio
+   booking.css
+=========================================== */
+
+{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:
+        linear-gradient(
+            rgba(0,0,0,.35),
+            rgba(0,0,0,.35)
+        ),
+
+        url("https://i.imgur.com/1p3nAoG.jpeg")
+        center center / cover
+        no-repeat
+        fixed;
+
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+    color:#333;
+
+}
+
+.page{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.booking-card{
+    width:100%;
+    max-width:650px;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(18px);
+    border-radius:28px;
+    padding:42px;
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.30),
+        0 8px 25px rgba(0,0,0,.12);
+    animation:fadeIn .6s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(35px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.logo-wrapper{
+    text-align:center;
+}
+
+.logo{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    object-fit:cover;
+    border:6px solid white;
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+}
+
+.socials{
+    margin-top:20px;
+    text-align:center;
+}
+
+.socials img{
+    width:40px;
+    transition:.25s;
+}
+
+.socials img:hover{
+    transform:scale(1.18);
+}
+
+h1{
+    text-align:center;
+    margin-top:24px;
+    font-size:34px;
+    font-weight:700;
+    color:#222;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:35px;
+    font-size:18px;
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:22px;
+}
+
+label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#444;
+}
+
+input,
+select{
+    width:100%;
+    padding:16px 18px;
+    border-radius:14px;
+    border:1px solid #ddd;
+    font-size:17px;
+    background:white;
+    transition:.25s;
+}
+
+input:focus,
+select:focus{
+    outline:none;
+    border-color:#7d4cff;
+    box-shadow:0 0 0 4px rgba(125,76,255,.18);
+
+}
+
+select[multiple]{
+    height:220px;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    border-radius:14px;
+    font-size:18px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.primary{
+    background:#7d4cff;
+    color:white;
+    padding:18px;
+}
+
+.primary:hover{
+    background:#6940df;
+    transform:translateY(-2px);
+}
+
+.secondary{
+    background:#18b56a;
+    color:white;
+    padding:16px;
+    margin-bottom:18px;
+}
+
+.secondary:hover{
+    background:#119858;
+}
+
+button:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+}
+
+.hidden{
+    display:none;
+}
+
+.warning{
+    margin-top:22px;
+    padding:16px;
+    border-radius:14px;
+    background:#fff2f2;
+    color:#c62828;
+    text-align:center;
+    font-weight:600;
+}
+
+.status{
+    margin-top:24px;
+    min-height:28px;
+    text-align:center;
+    font-weight:600;
+    color:#18a44c;
+}
+
+phone-error{
+    margin-top:8px;
+    color:#d32f2f;
+    font-size:14px;
+    display:none;
+}
+
+footer{
+    margin-top:35px;
+    text-align:center;
+    color:#777;
+    font-size:14px;
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#bbb;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#888;
+}
+
+@media(max-width:768px){
+
+    .booking-card{
+        padding:28px;
+        border-radius:22px;
+    }
+
+    .logo{
+        width:140px;
+        height:140px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    .subtitle{
+        font-size:16px;
+    }
+
+    input,
+    select,
+    button{
+        font-size:17px;
+    }
+
+    .primary{
+        padding:18px;
+    }
+
+    .secondary{
+        padding:18px;
+    }
+}
+
+@media(max-width:420px){
+    body{
+        padding:15px;
+    }
+
+    .booking-card{
+        padding:22px;
+    }
+
+    .logo{
+        width:120px;
+        height:120px;
+    }
+
+    h1{
+        font-size:24px;
+    }
+
+    .subtitle{
+        font-size:15px;
+    }
+}
