@@ -274,14 +274,14 @@ select[multiple]{
     padding:12px;
 }
 
-@media (max-width:580px){
+@media (max-width:600px){
 
     body{
         padding:14px 8px;
     }
 
     .form-container{
-        width:100vw;
+        width:120vw;
         padding:18px;
     }
 
