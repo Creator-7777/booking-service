@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,9 +33,12 @@ public class CalendarService {
     @Value("${google.calendar-id}")
     private String calendarId;
 
+    @Value("${google.credentials-json}")
+    private String credentialsJson;
+
     private Calendar calendar;
 
-    @PostConstruct
+/*    @PostConstruct
     public void init() throws Exception {
 
         InputStream credentialsStream =
@@ -41,6 +47,26 @@ public class CalendarService {
 
         GoogleCredentials credentials =
                 GoogleCredentials.fromStream(credentialsStream)
+                        .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
+
+        calendar =
+                new Calendar.Builder(
+                        GoogleNetHttpTransport.newTrustedTransport(),
+                        GsonFactory.getDefaultInstance(),
+                        new HttpCredentialsAdapter(credentials))
+                        .setApplicationName("Booking Service")
+                        .build();
+
+        log.info("Google Calendar initialized.");
+    }*/
+
+    @PostConstruct
+    public void init() throws Exception {
+
+        GoogleCredentials credentials =
+                GoogleCredentials.fromStream(
+                                new ByteArrayInputStream(
+                                        credentialsJson.getBytes(StandardCharsets.UTF_8)))
                         .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
         calendar =
@@ -61,8 +87,8 @@ public class CalendarService {
             LocalDate date = booking.getAppointmentDate();
 //            String[] parts = booking.getAppointmentDate().split("-");
             String timeSlot = booking.getAppointmentTime();
-            String[] parts = booking.getAppointmentTime().split("-");
-            //String[] parts = booking.getAppointmentTime().split("[\\-–]");  // (длинное тире – )
+            //String[] parts = booking.getAppointmentTime().split("-");
+            String[] parts = booking.getAppointmentTime().split("[\\-–]");  // (длинное тире – )
             LocalTime startTime = LocalTime.parse(parts[0].trim());
             LocalTime endTime = LocalTime.parse(parts[1].trim());
 
