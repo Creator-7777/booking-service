@@ -37,3 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Google Calendar  #####
+src/main/resources/google/*.json
+src/main/resources/google-service-account.json

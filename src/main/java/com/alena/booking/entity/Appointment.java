@@ -30,4 +30,6 @@ public class Appointment {
     private String appointmentTime;
 
     private LocalDateTime createdAt;
+
+
 }

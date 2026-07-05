@@ -22,6 +22,7 @@ public class BookingService {
     //private final TelegramService telegramService;
     private final TelegramServiceGoogleAppScript telegramService;
     private final GoogleSheetService googleSheetService;
+    private final CalendarService calendarService;
     private static final Logger log = LoggerFactory.getLogger(BookingService.class);
 
     @Transactional
@@ -46,13 +47,13 @@ public class BookingService {
             log.error("Booking save to DB failed", e);
         }
 
-/*        try {
-            log.info("Sending Telegram...");
-            telegramService.sendBooking(appointment);
-            log.info("Telegram SUCCESS");
+        try {
+            log.info("Sending to Calendar...");
+            calendarService.createEvent(appointment);
+            log.info("Calendar SUCCESS");
         } catch (Exception e) {
-            log.error("Telegram notification failed", e);
-        }*/
+            log.error("Calendar event failed", e);
+        }
 
         try {
             log.info("Sending to Google Sheet...");
