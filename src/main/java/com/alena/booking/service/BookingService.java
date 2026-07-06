@@ -2,6 +2,7 @@ package com.alena.booking.service;
 
 import com.alena.booking.dto.BookingRequest;
 import com.alena.booking.entity.Appointment;
+import com.alena.booking.exception.BookingAlreadyExistsException;
 import com.alena.booking.repository.AppointmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -26,8 +28,7 @@ public class BookingService {
     private static final Logger log = LoggerFactory.getLogger(BookingService.class);
 
     @Transactional
-    public void createBooking(
-            BookingRequest request) {
+    public void createBooking(BookingRequest request) {
 
         Appointment appointment = Appointment.builder()
                         .customerName(request.getName())
@@ -37,6 +38,25 @@ public class BookingService {
                         .appointmentTime(request.getTime())
                         .createdAt(LocalDateTime.now())
                         .build();
+
+        LocalTime start =
+                LocalTime.parse(
+                        request.getTime().split("-")[0].trim());
+
+        LocalTime end =
+                LocalTime.parse(
+                        request.getTime().split("-")[1].trim());
+
+        boolean available =
+                calendarService.isTimeSlotAvailable(
+                        appointment.getAppointmentDate(),
+                        start,
+                        end);
+
+        if (!available) {
+            throw new BookingAlreadyExistsException(
+                    "Selected time slot is already booked - Выбранное время уже забронировано.");
+        }
 
 
         try {

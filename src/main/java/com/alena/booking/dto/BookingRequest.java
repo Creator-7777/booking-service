@@ -1,7 +1,9 @@
 package com.alena.booking.dto;
 
 import lombok.Data;
+import lombok.Getter;
 
+@Getter
 @Data
 public class BookingRequest {
 

@@ -3,10 +3,12 @@ package com.alena.booking.service;
 import com.alena.booking.entity.Appointment;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
+import com.google.api.services.calendar.model.Events;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.ServiceAccountCredentials;
@@ -48,13 +50,10 @@ public class CalendarService {
                                         credentialsJson.getBytes(StandardCharsets.UTF_8)))
                         .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
-/*        ServiceAccountCredentials sa = (ServiceAccountCredentials) credentials;
-
+/*       ServiceAccountCredentials sa = (ServiceAccountCredentials) credentials;
         log.info("Email: {}", sa.getClientEmail());
         log.info("KeyId: {}", sa.getPrivateKeyId());
-
         log.info("Credentials JSON: {}", credentialsJson);
-
         credentials = sa.createScoped(Collections.singleton(CalendarScopes.CALENDAR));*/
 
         calendar =
@@ -111,6 +110,31 @@ public class CalendarService {
             log.info("Calendar event created.");
         } catch (Exception ex) {
             log.error("Cannot create calendar event", ex);
+        }
+    }
+
+    public boolean isTimeSlotAvailable(LocalDate date, LocalTime startTime, LocalTime endTime) {
+
+        try {
+            ZoneId zone = ZoneId.of("Asia/Jerusalem");
+            LocalDateTime start = LocalDateTime.of(date, startTime);
+            LocalDateTime end = LocalDateTime.of(date, endTime);
+            DateTime googleStart = new DateTime(Date.from(start.atZone(zone).toInstant()));
+            DateTime googleEnd = new DateTime(Date.from(end.atZone(zone).toInstant()));
+
+            Events events = calendar.events()
+                    .list(calendarId)
+                    .setTimeMin(googleStart)
+                    .setTimeMax(googleEnd)
+                    .setSingleEvents(true)
+                    .execute();
+
+            return events.getItems().isEmpty();
+
+        } catch (Exception ex) {
+            log.error("Cannot verify calendar availability", ex);
+            // Better to reject booking than double-book
+            return false;
         }
     }
 }
