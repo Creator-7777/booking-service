@@ -39,28 +39,6 @@ public class CalendarService {
 
     private Calendar calendar;
 
-/*    @PostConstruct
-    public void init() throws Exception {
-
-        InputStream credentialsStream =
-                new ClassPathResource("google/elena-booking.json")
-                        .getInputStream();
-
-        GoogleCredentials credentials =
-                GoogleCredentials.fromStream(credentialsStream)
-                        .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
-
-        calendar =
-                new Calendar.Builder(
-                        GoogleNetHttpTransport.newTrustedTransport(),
-                        GsonFactory.getDefaultInstance(),
-                        new HttpCredentialsAdapter(credentials))
-                        .setApplicationName("Booking Service")
-                        .build();
-
-        log.info("Google Calendar initialized.");
-    }*/
-
     @PostConstruct
     public void init() throws Exception {
 
@@ -70,14 +48,14 @@ public class CalendarService {
                                         credentialsJson.getBytes(StandardCharsets.UTF_8)))
                         .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
-        ServiceAccountCredentials sa = (ServiceAccountCredentials) credentials;
+/*        ServiceAccountCredentials sa = (ServiceAccountCredentials) credentials;
 
         log.info("Email: {}", sa.getClientEmail());
         log.info("KeyId: {}", sa.getPrivateKeyId());
 
         log.info("Credentials JSON: {}", credentialsJson);
 
-        credentials = sa.createScoped(Collections.singleton(CalendarScopes.CALENDAR));
+        credentials = sa.createScoped(Collections.singleton(CalendarScopes.CALENDAR));*/
 
         calendar =
                 new Calendar.Builder(
@@ -95,7 +73,6 @@ public class CalendarService {
         try {
 
             LocalDate date = booking.getAppointmentDate();
-//            String[] parts = booking.getAppointmentDate().split("-");
             String timeSlot = booking.getAppointmentTime();
             //String[] parts = booking.getAppointmentTime().split("-");
             String[] parts = booking.getAppointmentTime().split("[\\-–]");  // (длинное тире – )
