@@ -41,11 +41,11 @@ public class BookingService {
 
         LocalTime start =
                 LocalTime.parse(
-                        appointment.getAppointmentTime().split("-")[0].trim());
+                        appointment.getAppointmentTime().split("[\\-–]")[0].trim());
 
         LocalTime end =
                 LocalTime.parse(
-                        appointment.getAppointmentTime().split("-")[1].trim());
+                        appointment.getAppointmentTime().split("[\\-–]")[1].trim());
 
         boolean available =
                 calendarService.isTimeSlotAvailable(
