@@ -9,6 +9,7 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -68,6 +69,15 @@ public class CalendarService {
                                 new ByteArrayInputStream(
                                         credentialsJson.getBytes(StandardCharsets.UTF_8)))
                         .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
+
+        ServiceAccountCredentials sa = (ServiceAccountCredentials) credentials;
+
+        log.info("Email: {}", sa.getClientEmail());
+        log.info("KeyId: {}", sa.getPrivateKeyId());
+
+        log.info("Credentials JSON: {}", credentialsJson);
+
+        credentials = sa.createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
         calendar =
                 new Calendar.Builder(
