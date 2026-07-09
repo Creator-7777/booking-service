@@ -49,7 +49,8 @@ public class BookingService {
 
         boolean available =
                 calendarService.isTimeSlotAvailable(
-                        appointment.getAppointmentDate(),
+                        LocalDate.parse(request.getDate()),
+                        //appointment.getAppointmentDate(),
                         start,
                         end);
 
