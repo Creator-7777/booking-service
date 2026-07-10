@@ -47,18 +47,25 @@ public class BookingService {
                 LocalTime.parse(
                         appointment.getAppointmentTime().split("[\\-–]")[1].trim());
 
-        boolean available =
-                calendarService.isTimeSlotAvailable(
+        // Verify free time slots in Calendar
+        boolean available = calendarService.isTimeSlotAvailable(
                         LocalDate.parse(request.getDate()),
                         //appointment.getAppointmentDate(),
                         start,
                         end);
 
-        if (!available) {
+        // Verify free time slots in Google Sheet
+        List<String> booked = googleSheetService.getBookedTimes(appointment.getAppointmentDate());
+
+        if (!available || booked.contains(appointment.getAppointmentTime())) {
             throw new BookingAlreadyExistsException(
                     "Selected time slot is already booked - Выбранное время уже забронировано.");
         }
 
+
+//        if (booked.contains(appointment.getAppointmentTime())) {
+//            throw new IllegalStateException("This time slot is already booked. - Выбранное время уже забронировано");
+//        }
 
         try {
             log.info("Sending to DB...");

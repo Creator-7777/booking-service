@@ -4,10 +4,15 @@ import com.alena.booking.entity.Appointment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class GoogleSheetService {
@@ -40,5 +45,14 @@ public class GoogleSheetService {
         } catch (Exception e) {
             log.error("Google Sheet FAILED", e);
         }
+    }
+
+    public List<String> getBookedTimes(LocalDate date) {
+
+        String url = appsScriptUrl + "?action=bookedTimes&date=" + date;
+
+        ResponseEntity<String[]> response = restTemplate.getForEntity(url, String[].class);
+
+        return Arrays.asList(Objects.requireNonNull(response.getBody()));
     }
 }

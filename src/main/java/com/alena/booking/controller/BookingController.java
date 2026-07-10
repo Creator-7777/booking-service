@@ -2,6 +2,7 @@ package com.alena.booking.controller;
 
 import com.alena.booking.dto.BookingRequest;
 import com.alena.booking.service.BookingService;
+import com.alena.booking.service.GoogleSheetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,13 @@ import java.util.List;
 public class BookingController {
 
     private final BookingService service;
+    private final GoogleSheetService googleSheetService;
 
     @GetMapping("/booked-times")
-    public List<String> bookedTimes(
-            @RequestParam LocalDate date) {
+    public List<String> bookedTimes(@RequestParam LocalDate date) {
 
-        return service.getBookedTimes(date);
+        return googleSheetService.getBookedTimes(date);
+        //return service.getBookedTimes(date);
     }
 
     @PostMapping
