@@ -1,3 +1,4 @@
+/*
 package com.alena.booking.scheduler;
 
 import com.alena.booking.entity.Appointment;
@@ -32,3 +33,4 @@ public class ReminderScheduler {
         });
     }
 }
+*/
