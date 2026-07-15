@@ -1,9 +1,0 @@
-{
-  "build": {
-    "builder": "DOCKERFILE"
-  },
-  "deploy": {
-    "startCommand": "java ${JAVA_OPTS} -jar /app/app.jar"
-  }
-}
-
