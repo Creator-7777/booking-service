@@ -19,6 +19,7 @@ public class SmsController {
 
     private final SmsCodeStorage storage;
     private final Sms4FreeService sms4FreeService;
+    private final SmsCodeStorage smsCodeStorage;
 
     @PostMapping("/send-code")
     public ResponseEntity<Void> sendCode(@RequestBody SmsRequest request) {
@@ -34,7 +35,12 @@ public class SmsController {
 
     @PostMapping("/validate")
     public Map<String, Boolean> validate(@RequestBody SmsRequest request) {
-        return Map.of("valid", storage.validate(request.phone(), request.code()));
+        return Map.of("valid", storage.validate(request.phone(), request.code(), request.name()));
+    }
+
+    @GetMapping("/is-verified")
+    public ResponseEntity<Boolean> isVerified( @RequestParam String phone) {
+        return ResponseEntity.ok(smsCodeStorage.isVerified(phone));
     }
 
 

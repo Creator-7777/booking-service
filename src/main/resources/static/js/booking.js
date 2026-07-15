@@ -51,15 +51,6 @@ dateInput.addEventListener("change", () => {
         });
 });
 
-// Проверка телефона
-const phoneInput = document.getElementById("phone");
-const phoneError =  document.getElementById("phone-error");
-phoneInput.addEventListener("input", () => {
-    const ok =  /^05\d\d{7}$/.test(phoneInput.value);
-    phoneError.style.display =
-        ok ? "none" : "inline";
-});
-
 // Нормализация номера
 function normalizePhone(phone) {
     phone = phone.replace(/[^\d]/g, "");
@@ -77,14 +68,63 @@ function normalizePhone(phone) {
     return phone;
 }
 
-// Отправка SMS
+// New function saveVerifiedPhone 15-07-2026
+function saveVerifiedPhone(phone, name) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("VerifiedPhones");
+  const data = sheet.getDataRange().getValues();
+  phone = normalizePhone(phone);
+  const exists = data.slice(1).some(row => normalizePhone(row[0]) === phone);
+  if (exists) {
+      return;
+  }
+  sheet.appendRow([
+      phone,
+      name,
+      new Date()
+  ]);
+}
 
-document.getElementById("sendCodeBtn")
-.addEventListener("click", () => {
+// Проверка телефона
+const phoneInput = document.getElementById("phone");
+
+//const phoneError =  document.getElementById("phone-error");
+//phoneInput.addEventListener("input", () => {
+//    const ok =  /^05\d\d{7}$/.test(phoneInput.value);
+//    phoneError.style.display =
+//        ok ? "none" : "inline";
+//});
+
+// New style for verification 15-07-2026
+phoneInput.addEventListener("blur", async () => {
+    const phone = normalizePhone(phoneInput.value);
+    if (!/^05\d\d{7}$/.test(phone))
+        return;
+    const response =  await fetch( "/api/sms/is-verified?phone="  + encodeURIComponent(phone));
+    const verified = await response.json();
+    if (verified) {
+        document.getElementById("sendCodeBtn").style.display = "none";
+        document.getElementById("codeSection").classList.add("hidden");
+    } else {
+        document.getElementById("sendCodeBtn").style.display = "block";
+    }
+});
+
+
+// Отправка SMS
+document.getElementById("sendCodeBtn").addEventListener("click", () => {
     const phone = normalizePhone(phoneInput.value);
     if (!/^05\d\d{7}$/.test(phone)) {
         alert("Введите телефон правильно");
         return;
+    }
+
+    // Verify for existing customer 15-07-2026
+    fetch("/api/customers/verified?phone=" + encodeURIComponent(phone)).then(r => r.json()).then(isVerified => {
+        if (isVerified) {
+            document.getElementById("codeSection").classList.add("hidden");
+            alert("Номер уже подтвержден");
+            return;
+        }
     }
 
     fetch("/api/sms/send-code", {
@@ -107,8 +147,7 @@ document.getElementById("sendCodeBtn")
 });
 
 // Проверка SMS и отправка формы
-document.getElementById("form")
-.addEventListener("submit", async function(e){
+document.getElementById("form").addEventListener("submit", async function(e){
     e.preventDefault();
     const code =   document.getElementById("codeInput").value;
 
@@ -117,22 +156,54 @@ document.getElementById("form")
         return;
     }
 
-    const validation = await fetch("/api/sms/validate",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
+    // Phone number verification 15-07-2026
+    const phone = normalizePhone(phoneInput.value);
+    const verified = await fetch("/api/customers/verified?phone=" + encodeURIComponent(phone));
+    const alreadyVerified = await verified.json();
+    if (alreadyVerified){
+        const booking = {
+            name: form.name.value,
+            phone: form.phone.value,
+            service: Array.from(form.service.selectedOptions).map(x=>x.value).join(", "),
+            date: form.date.value,
+            time: form.time.value
+        };
 
-        body:JSON.stringify({
-            phone: phoneInput.value,
-            code: code
-        })
-    });
+        await fetch("/api/bookings",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(booking)
+        });
 
-    const result = await validation.json();
-    if (!result.valid){
-        alert("Неверный код");
+        document.getElementById("status").textContent = "✅ Заявка успешно отправлена";
+        form.reset();
         return;
+    }
+
+    // Сначала узнаём, подтвержден ли телефон. 15-07-2026
+    const verifiedResponse = await fetch( "/api/sms/is-verified?phone=" + encodeURIComponent( normalizePhone(phoneInput.value)));
+    const verified = await verifiedResponse.json();
+
+    if (!verified) {
+        const validation = await fetch("/api/sms/validate",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+                phone: phoneInput.value,
+                code: code
+            })
+        });
+
+        const result = await validation.json();
+        if (!result.valid){
+            alert("Неверный код");
+            return;
+        }
     }
 
     const form = this;
