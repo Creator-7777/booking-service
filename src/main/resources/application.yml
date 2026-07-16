@@ -31,8 +31,8 @@ google:
   calendar-id: ${GOOGLE_CALENDAR_ID}
   credentials-json: ${data.GOOGLE_SERVICE_ACCOUNT_JSON}
 
-data:
-  GOOGLE_SERVICE_ACCOUNT_JSON: resources/google-service-account.json
+#data:
+#  GOOGLE_SERVICE_ACCOUNT_JSON: resources/google-service-account.json
 
 sms:
   api-key: ${SMS_API_KEY}
