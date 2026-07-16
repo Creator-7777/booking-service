@@ -1,7 +1,7 @@
 spring:
 
   messages:
-    basename: messages
+    basename: i18n/messages/messages
     encoding: UTF-8
 
   datasource:
