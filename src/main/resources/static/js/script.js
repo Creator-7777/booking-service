@@ -28,6 +28,14 @@ function applyTranslations(){
             element.textContent =  t(key);
         });
 }
+// for placeholders
+document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+
+    if (translations[key]) {
+        el.placeholder = translations[key];
+    }
+});
 
 const languageSelect =  document.getElementById("language");
 const savedLanguage =  localStorage.getItem("language") ||  navigator.language.substring(0,2);
