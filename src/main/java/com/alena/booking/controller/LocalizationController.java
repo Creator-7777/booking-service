@@ -20,8 +20,7 @@ public class LocalizationController {
     private final MessageSource messageSource;
 
     @GetMapping("/{lang}")
-    public Map<String,String> getTranslations(
-            @PathVariable String lang) {
+    public Map<String,String> getTranslations(@PathVariable String lang) {
 
         Locale locale = Locale.forLanguageTag(lang);
         ResourceBundle bundle = ResourceBundle.getBundle("i18n/messages", locale);

@@ -1,5 +1,9 @@
 spring:
 
+  messages:
+    basename: messages
+    encoding: UTF-8
+
   datasource:
     url: ${DB_URL}
     username: ${DB_USER}
@@ -25,7 +29,10 @@ telegram:
 google:
   apps-script-url: ${GOOGLE_APPS_SCRIPT_URL}
   calendar-id: ${GOOGLE_CALENDAR_ID}
-  credentials-json: ${GOOGLE_SERVICE_ACCOUNT_JSON}
+  credentials-json: ${data.GOOGLE_SERVICE_ACCOUNT_JSON}
+
+data:
+  GOOGLE_SERVICE_ACCOUNT_JSON: resources/google-service-account.json
 
 sms:
   api-key: ${SMS_API_KEY}
@@ -36,3 +43,6 @@ sms:
 server:
   port: ${PORT:8080}
   forward-headers-strategy: framework
+
+
+
