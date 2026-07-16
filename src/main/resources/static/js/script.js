@@ -9,6 +9,39 @@ const timeSlots = [
     "16:00–18:00"
 ];
 
+let translations = {};
+async function loadLanguage(lang){
+    const response = await fetch("/api/i18n/" + lang);
+    translations = await response.json();
+    applyTranslations();
+}
+
+function t(key){
+    return translations[key] || key;
+}
+
+//функция автоматически переведет ВСЮ страницу.
+function applyTranslations(){
+    document.querySelectorAll("[data-i18n]")
+        .forEach(element=>{
+            const key =  element.dataset.i18n;
+            element.textContent =  t(key);
+        });
+}
+
+const languageSelect =  document.getElementById("language");
+const savedLanguage =  localStorage.getItem("language") ||  navigator.language.substring(0,2);
+languageSelect.value = savedLanguage;
+loadLanguage(savedLanguage);
+
+languageSelect.addEventListener(  "change",  async ()=>{
+        const lang =  languageSelect.value;
+        localStorage.setItem(  "language",  lang
+        );
+        await loadLanguage(lang);
+    }
+);
+
 // ==========================================
 // DOM
 // ==========================================
@@ -55,8 +88,7 @@ function validPhone(phone) {
 
 if (dateInput) {
 
-    dateInput.min =
-        new Date().toISOString().split("T")[0];
+    dateInput.min =  new Date().toISOString().split("T")[0];
 
 }
 
@@ -64,202 +96,109 @@ if (dateInput) {
 // Load free slots
 // ==========================================
 
-dateInput.addEventListener("change", async () => {
-
-    const selectedDate = dateInput.value;
-
-    const day =
-        new Date(selectedDate).getDay();
-
+dateInput.addEventListener("change", async () => { const selectedDate = dateInput.value; const day =  new Date(selectedDate).getDay();
     // Friday / Saturday
 
     if (day === 5 || day === 6) {
-
         alert("❌ Запись невозможна в пятницу и субботу.");
-
         dateInput.value = "";
-
-        timeSelect.innerHTML =
-            '<option value="">Выберите время</option>';
-
+        timeSelect.innerHTML = '<option value="">Выберите время</option>';
         noSlots.style.display = "none";
-
         return;
     }
 
-    timeSelect.innerHTML =
-        "<option>Загрузка...</option>";
-
+    timeSelect.innerHTML =  "<option>Загрузка...</option>";
     noSlots.style.display = "none";
-
     try {
-
-        const response =
-            await fetch(
-                "/api/bookings/booked-times?date="
-                + encodeURIComponent(selectedDate)
-            );
-
-        const booked =
-            await response.json();
-
-        timeSelect.innerHTML =
-            '<option value="">Выберите время</option>';
-
+        const response =  await fetch( "/api/bookings/booked-times?date="  + encodeURIComponent(selectedDate) );
+        const booked = await response.json();
+        timeSelect.innerHTML =  '<option value="">Выберите время</option>';
         let available = false;
-
         timeSlots.forEach(slot => {
-
             if (!booked.includes(slot)) {
                 const option =   document.createElement("option");
                 option.value = slot;
                 option.textContent = slot;
                 timeSelect.appendChild(option);
                 available = true;
-
             }
-
         });
 
         if (!available) {
             noSlots.style.display = "block";
-
         }
 
     } catch (e) {
         console.error(e);
-        alert("Ошибка загрузки свободных интервалов.");
-
+        alert(t("errorLoadingTimeSlots"));
     }
 });
 // ==========================================
 // Phone validation
 // ==========================================
-
 phoneInput.addEventListener("input", () => {
-
     const phone = normalizePhone(phoneInput.value);
-
     if (validPhone(phone)) {
-
         phoneInput.classList.remove("invalid");
-
     } else {
-
         phoneInput.classList.add("invalid");
-
     }
-
 });
 
 // ==========================================
 // Check whether phone is already verified
 // ==========================================
-
 phoneInput.addEventListener("blur", async () => {
-
     const phone = normalizePhone(phoneInput.value);
-
     if (!validPhone(phone)) {
-
         sendCodeBtn.style.display = "block";
         codeSection.classList.add("hidden");
-
         return;
-
     }
-
     try {
-
-        const response =
-            await fetch(
-                "/api/sms/is-verified?phone=" +
-                encodeURIComponent(phone));
-
-        const verified =
-            await response.json();
-
+        const response = await fetch( "/api/sms/is-verified?phone=" +   encodeURIComponent(phone));
+        const verified = await response.json();
         console.log("Phone verified =", verified);
-
         if (verified === true) {
-
             sendCodeBtn.style.display = "none";
-
             codeSection.classList.add("hidden");
-
         } else {
-
             sendCodeBtn.style.display = "block";
-
         }
 
     } catch (e) {
-
         console.error(e);
-
         sendCodeBtn.style.display = "block";
-
     }
-
 });
 
 // ==========================================
 // Send SMS Code
 // ==========================================
-
 sendCodeBtn.addEventListener("click", async () => {
-
-    const phone =
-        normalizePhone(phoneInput.value);
-
+    const phone = normalizePhone(phoneInput.value);
     if (!validPhone(phone)) {
-
-        alert("Введите правильный номер телефона.");
-
+        alert(t("phoneInvalid"));
         return;
-
     }
-
     try {
-
-        //
         // Check once again
-        //
-
-        const response =
-            await fetch(
-                "/api/sms/is-verified?phone=" +
-                encodeURIComponent(phone));
-
-        const verified =
-            await response.json();
-
+        const response = await fetch( "/api/sms/is-verified?phone=" + encodeURIComponent(phone));
+        const verified =  await response.json();
         if (verified === true) {
-
             sendCodeBtn.style.display = "none";
-
             codeSection.classList.add("hidden");
-
-            alert("Этот номер уже подтвержден.");
-
+            alert(t("numberIsVerified"));
             return;
-
         }
-
         //
         // Send SMS
         //
-
-        const smsResponse =
-            await fetch("/api/sms/send-code", {
-
+        const smsResponse =   await fetch("/api/sms/send-code", {
                 method: "POST",
-
                 headers: {
-
                     "Content-Type":
                         "application/json"
-
                 },
 
                 body: JSON.stringify({
@@ -270,220 +209,124 @@ sendCodeBtn.addEventListener("click", async () => {
         if (!smsResponse.ok) {
             throw new Error("SMS sending failed");
         }
-
         codeInput.value = "";
         codeSection.classList.remove("hidden");
-        alert("Код подтверждения отправлен.");
+        alert(t("smsSent"));
     }
 
     catch (e) {
         console.error(e);
-        alert("Ошибка отправки SMS.");
+        alert(t("errorSendSMS"));
     }
 });
 
 // ==========================================
 // Booking submit
 // ==========================================
-
 form.addEventListener("submit", async (e) => {
-
     e.preventDefault();
-
     status.textContent = "";
-
-    //-----------------------------------------------------
     // Collect booking data
-    //-----------------------------------------------------
-
     const booking = {
-
         name: form.name.value.trim(),
-
         phone: normalizePhone(form.phone.value),
-
         service: Array
             .from(form.service.selectedOptions)
             .map(x => x.value)
             .join(", "),
-
         date: form.date.value,
-
         time: form.time.value
-
     };
 
     //-----------------------------------------------------
     // Phone validation
     //-----------------------------------------------------
-
     if (!validPhone(booking.phone)) {
-
-        alert("Введите правильный номер телефона.");
-
+        alert( t("phoneInvalid"));
         return;
-
     }
-
     //-----------------------------------------------------
     // Date
     //-----------------------------------------------------
-
     if (!booking.date) {
-
-        alert("Выберите дату.");
-
+        alert(t("chooseDate"));
         return;
-
     }
-
     //-----------------------------------------------------
     // Time
     //-----------------------------------------------------
-
     if (!booking.time) {
-
-        alert("Выберите время.");
-
+        alert(t("chooseTime"));
         return;
-
     }
 
     try {
-
-        //-------------------------------------------------
         // Check whether phone already verified
-        //-------------------------------------------------
+        const verifiedResponse =  await fetch( "/api/sms/is-verified?phone=" + encodeURIComponent(booking.phone));
+        const alreadyVerified = await verifiedResponse.json();
 
-        const verifiedResponse =
-            await fetch(
-                "/api/sms/is-verified?phone="
-                + encodeURIComponent(booking.phone));
-
-        const alreadyVerified =
-            await verifiedResponse.json();
-
-        //-------------------------------------------------
         // New customer -> validate SMS
-        //-------------------------------------------------
-
         if (!alreadyVerified) {
-
-            const code =
-                codeInput.value.trim();
-
+            const code =+ codeInput.value.trim();
             if (code.length === 0) {
-
-                alert("Введите SMS код.");
-
+                alert(t("enterCode"));
                 return;
-
             }
-
-            const validationResponse =
-                await fetch("/api/sms/validate", {
-
+            const validationResponse =  await fetch("/api/sms/validate", {
                     method: "POST",
-
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
-
                     body: JSON.stringify({
-
                         phone: booking.phone,
-
                         code: code
-
                     })
-
                 });
 
-            const validation =
-                await validationResponse.json();
-
+            const validation =   await validationResponse.json();
             if (!validation.valid) {
-
-                alert("Неверный SMS код.");
-
+                alert(t("wrongCode"));
                 return;
-
             }
-
         }
 
         //-------------------------------------------------
         // Save booking
         //-------------------------------------------------
-
-        const saveResponse =
-            await fetch("/api/bookings", {
-
+        const saveResponse =  await fetch("/api/bookings", {
                 method: "POST",
-
                 headers: {
-
                     "Content-Type":
                         "application/json"
-
                 },
-
                 body: JSON.stringify(booking)
-
             });
 
         if (!saveResponse.ok) {
-
-            const message =
-                await saveResponse.text();
-
+            const message =  await saveResponse.text();
             throw new Error(message);
-
         }
-
         //-------------------------------------------------
         // SUCCESS
         //-------------------------------------------------
-
-        status.textContent =
-            "✅ Запись успешно создана.";
-
+        status.textContent =  t("bookingSuccess");
         form.reset();
-
         //-------------------------------------------------
         // Reset controls
         //-------------------------------------------------
-
         codeInput.value = "";
-
         codeSection.classList.add("hidden");
-
         sendCodeBtn.style.display = "block";
-
         noSlots.style.display = "none";
-
-        timeSelect.innerHTML =
-            '<option value="">Выберите время</option>';
-
+        timeSelect.innerHTML = '<option value="">Выберите время</option>';
     }
 
     catch (e) {
-
         console.error(e);
-
-        alert(
-
-            "Ошибка:\n\n"
-
-            + e.message
-
+        alert( "Ошибка:\n\n"  + e.message
         );
-
     }
-
 });
 
 
