@@ -13,6 +13,16 @@ let translations = {};
 async function loadLanguage(lang){
     const response = await fetch("/api/i18n/" + lang);
     translations = await response.json();
+
+    document.querySelector('input[name="name"]').placeholder =
+    translations.namePlaceholder;
+
+    document.getElementById("phone").placeholder =
+    translations.phonePlaceholder;
+
+    document.getElementById("codeInput").placeholder =
+    translations.codePlaceholder;
+
     applyTranslations();
 }
 

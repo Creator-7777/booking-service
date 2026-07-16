@@ -69,6 +69,25 @@ footer{
     }
 }
 
+ .language-selector{
+        width:220px;
+        margin:20px auto;
+    }
+
+    .language-selector select{
+        width:100%;
+        padding:10px 14px;
+        font-size:15px;
+        border-radius:12px;
+        cursor:pointer;
+    }
+
+    .language-selector{
+        display:flex;
+        justify-content:center;
+        margin-bottom:15px;
+    }
+
 .logo-wrapper{
     text-align:center;
 }
@@ -279,6 +298,25 @@ select[multiple]{
         width:100%;
         padding:24px 18px;
         border-radius:22px;
+    }
+
+    .language-selector{
+        width:220px;
+        margin:20px auto;
+    }
+
+    .language-selector select{
+        width:100%;
+        padding:10px 14px;
+        font-size:15px;
+        border-radius:12px;
+        cursor:pointer;
+    }
+
+    .language-selector{
+        display:flex;
+        justify-content:center;
+        margin-bottom:15px;
     }
 
     .logo{
