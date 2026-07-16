@@ -59,6 +59,12 @@ const codeInput = document.getElementById("codeInput");
 
 const status = document.getElementById("status");
 
+document.getElementById("name").placeholder =  t["placeholder.name"];
+
+document.getElementById("phone").placeholder =   t["placeholder.phone"];
+
+document.getElementById("codeInput").placeholder =  t["placeholder.code"];
+
 // ==========================================
 // Helpers
 // ==========================================
