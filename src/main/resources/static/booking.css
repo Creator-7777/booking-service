@@ -68,56 +68,51 @@ footer{
         transform:translateY(0);
     }
 }
-
 .language-selector{
-    position:absolute;
-    top:20px;
-    right:20px;
-}
+      position:absolute;
+      top:20px;
+      right:20px;
+  }
 
-.language-button{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    border:none;
-    background:white;
-    cursor:pointer;
-    font-size:24px;
-    box-shadow:0 2px 10px rgba(0,0,0,.15);
-    transition:.2s;
-}
+  .language-button{
+      width:40px;
+      height:40px;
+      border-radius:30%;
+      border:none;
+      cursor:pointer;
+      font-size:24px;
+      box-shadow:0 2px 10px rgba(0,0,0,.15);
+      transition:.2s;
+  }
 
-.language-button:hover{
-    transform:scale(1.08);
-}
+  .language-button:hover{
+      transform:scale(1.00);
+  }
 
-.language-menu{
-    margin-top:10px;
-    background:white;
-    border-radius:12px;
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-    overflow:hidden;
-    min-width:170px;
-}
+  .language-menu{
+      margin-top:10px;
+      border-radius:10px;
+      box-shadow:0 5px 20px rgba(0,0,0,.15);
+      overflow:hidden;
+      min-width:20px;
+  }
 
-.language-option{
-    width:100%;
-    padding:12px 16px;
-    border:none;
-    background:white;
-    text-align:left;
-    cursor:pointer;
-    font-size:15px;
-}
+  .language-option{
+      width:10%;
+      padding:10px 15px;
+      border:none;
+      text-align:center;
+      cursor:pointer;
+      font-size:15px;
+  }
 
-.language-option:hover{
-    background:#f6f6f6;
-}
+  .language-option:hover{
+      background:#f6f6f6;
+  }
 
-.hidden{
-    display:none;
-}
-
+  .hidden{
+      display:none;
+  }
 
 .logo-wrapper{
     text-align:center;
@@ -338,11 +333,10 @@ select[multiple]{
   }
 
   .language-button{
-      width:42px;
-      height:42px;
-      border-radius:50%;
+      width:40px;
+      height:40px;
+      border-radius:30%;
       border:none;
-      background:white;
       cursor:pointer;
       font-size:24px;
       box-shadow:0 2px 10px rgba(0,0,0,.15);
@@ -350,24 +344,22 @@ select[multiple]{
   }
 
   .language-button:hover{
-      transform:scale(1.08);
+      transform:scale(1.00);
   }
 
   .language-menu{
       margin-top:10px;
-      background:white;
-      border-radius:12px;
+      border-radius:10px;
       box-shadow:0 5px 20px rgba(0,0,0,.15);
       overflow:hidden;
-      min-width:170px;
+      min-width:20px;
   }
 
   .language-option{
-      width:100%;
-      padding:12px 16px;
+      width:10%;
+      padding:10px 15px;
       border:none;
-      background:white;
-      text-align:left;
+      text-align:center;
       cursor:pointer;
       font-size:15px;
   }
