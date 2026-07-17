@@ -1,8 +1,6 @@
 package com.alena.booking.service;
 
-import com.alena.booking.dto.VerifiedCustomerRequest;
 import com.alena.booking.entity.Appointment;
-import com.alena.booking.entity.VerifiedCustomer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
