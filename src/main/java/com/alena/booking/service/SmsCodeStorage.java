@@ -15,6 +15,8 @@ public class SmsCodeStorage {
 
     private final VerifiedCustomerService verifiedCustomerService;
     private final VerifiedCustomerRepository verifiedPhoneRepository;
+    private final GoogleSheetService googleSheetService;
+
 
     private final Map<String, SmsCode> codes =
             new ConcurrentHashMap<>();
@@ -39,8 +41,9 @@ public class SmsCodeStorage {
             return false;
         }
 
-        if(smsCode.code().equals(code)){
+        if(smsCode.code().equals(code) && !isVerified(phone)){
             verifiedCustomerService.saveVerified( name, phone);
+            googleSheetService.saveVerifiedCustomer(name, phone);
 
         }
 
@@ -48,7 +51,6 @@ public class SmsCodeStorage {
     }
 
     public boolean isVerified(String phone) {
-        return verifiedPhoneRepository
-                .existsByPhone(phone);
+        return verifiedPhoneRepository.existsByPhone(phone);
     }
 }

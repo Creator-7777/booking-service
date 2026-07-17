@@ -1,6 +1,8 @@
 package com.alena.booking.service;
 
+import com.alena.booking.dto.VerifiedCustomerRequest;
 import com.alena.booking.entity.Appointment;
+import com.alena.booking.entity.VerifiedCustomer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -54,5 +57,26 @@ public class GoogleSheetService {
         ResponseEntity<String[]> response = restTemplate.getForEntity(url, String[].class);
 
         return Arrays.asList(Objects.requireNonNull(response.getBody()));
+    }
+
+    public void saveVerifiedCustomer(String name , String phone) {
+
+        Map<String, Object> payload = Map.of(
+                "name", name,
+                "phone", phone,
+                "date", Instant.now().toString()
+
+        );
+        try {
+            restTemplate.postForEntity(
+                    appsScriptUrl,
+                    payload,
+                    String.class);
+
+            log.info("Google Sheet - Verified Customer has been saved to Verified Phones");
+
+        } catch (Exception e) {
+            log.error("Google Sheet - Verified Phones insert FAILED", e);
+        }
     }
 }

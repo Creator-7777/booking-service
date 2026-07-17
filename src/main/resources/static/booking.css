@@ -85,9 +85,6 @@ footer{
       transition:.2s;
   }
 
-  .language-button:hover{
-      transform:scale(1.00);
-  }
 
   .language-menu{
       margin-top:10px;
@@ -104,10 +101,6 @@ footer{
       text-align:center;
       cursor:pointer;
       font-size:15px;
-  }
-
-  .language-option:hover{
-      background:#f6f6f6;
   }
 
   .hidden{
@@ -343,10 +336,6 @@ select[multiple]{
       transition:.2s;
   }
 
-  .language-button:hover{
-      transform:scale(1.00);
-  }
-
   .language-menu{
       margin-top:10px;
       border-radius:10px;
@@ -362,10 +351,6 @@ select[multiple]{
       text-align:center;
       cursor:pointer;
       font-size:15px;
-  }
-
-  .language-option:hover{
-      background:#f6f6f6;
   }
 
   .hidden{
