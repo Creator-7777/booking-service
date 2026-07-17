@@ -25,7 +25,7 @@ public class LocalizationController {
         Locale locale = Locale.forLanguageTag(lang);
 
         String[] keys = {
-                "title",
+                "subtitle",
                 "name",
                 "phone",
                 "service",
@@ -45,7 +45,11 @@ public class LocalizationController {
                 "wrongCode",
                 "errorLoadingTimeSlots",
                 "numberIsVerified",
-                "errorSendSMS"
+                "errorSendSMS",
+                "bookingImposible",
+                "namePlaceholder",
+                "phonePlaceholder",
+                "verifyCodePlaceholder"
         };
 
         Map<String, String> result = new LinkedHashMap<>();

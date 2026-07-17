@@ -29,11 +29,29 @@
 
         <!-- Language selector -->
         <div class="language-selector">
-            <select id="language">
-                <option value="ru">Русский</option>
-                <option value="en">English</option>
-                <option value="he">עברית</option>
-            </select>
+            <button id="languageButton"
+                    class="language-button"
+                    type="button">
+                🌐
+            </button>
+
+            <div id="languageMenu"
+                 class="language-menu hidden">
+                <button class="language-option"
+                        data-lang="ru">
+                    🇷🇺 Русский
+                </button>
+
+                <button class="language-option"
+                        data-lang="en">
+                    🇬🇧 English
+                </button>
+
+                <button class="language-option"
+                        data-lang="he">
+                    🇮🇱 עברית
+                </button>
+            </div>
         </div>
 
         <div class="logo-wrapper">

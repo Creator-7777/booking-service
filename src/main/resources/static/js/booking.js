@@ -9,6 +9,50 @@ const timeSlots = [
     "16:00–18:00"
 ];
 
+let translations = {};
+async function loadLanguage(lang){
+    const response = await fetch("/api/i18n/" + lang);
+    translations = await response.json();
+    document.querySelector('input[name="name"]').placeholder = translations.namePlaceholder;
+    document.getElementById("phone").placeholder = translations.phonePlaceholder;
+    document.getElementById("codeInput").placeholder = translations.codePlaceholder;
+    applyTranslations();
+}
+
+function t(key){
+    return translations[key] || key;
+}
+
+//функция автоматически переведет ВСЮ страницу.
+function applyTranslations(){
+    document.querySelectorAll("[data-i18n]")
+        .forEach(element=>{
+            const key =  element.dataset.i18n;
+            element.textContent =  t(key);
+        });
+}
+// for placeholders
+document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+
+    if (translations[key]) {
+        el.placeholder = translations[key];
+    }
+});
+
+const languageSelect =  document.getElementById("language");
+const savedLanguage =  localStorage.getItem("language") ||  navigator.language.substring(0,2);
+languageSelect.value = savedLanguage;
+loadLanguage(savedLanguage);
+
+languageSelect.addEventListener(  "change",  async ()=>{
+        const lang =  languageSelect.value;
+        localStorage.setItem(  "language",  lang
+        );
+        await loadLanguage(lang);
+    }
+);
+
 // ==========================================
 // DOM
 // ==========================================
@@ -25,6 +69,12 @@ const codeSection = document.getElementById("codeSection");
 const codeInput = document.getElementById("codeInput");
 
 const status = document.getElementById("status");
+
+document.getElementById("name").placeholder =  t["placeholder.name"];
+
+document.getElementById("phone").placeholder =   t["placeholder.phone"];
+
+document.getElementById("codeInput").placeholder =  t["placeholder.code"];
 
 // ==========================================
 // Helpers
@@ -97,7 +147,7 @@ dateInput.addEventListener("change", async () => { const selectedDate = dateInpu
 
     } catch (e) {
         console.error(e);
-        alert("Ошибка загрузки свободных интервалов.");
+        alert(t("errorLoadingTimeSlots"));
     }
 });
 // ==========================================
@@ -145,7 +195,7 @@ phoneInput.addEventListener("blur", async () => {
 sendCodeBtn.addEventListener("click", async () => {
     const phone = normalizePhone(phoneInput.value);
     if (!validPhone(phone)) {
-        alert("Введите правильный номер телефона.");
+        alert(t("phoneInvalid"));
         return;
     }
     try {
@@ -155,7 +205,7 @@ sendCodeBtn.addEventListener("click", async () => {
         if (verified === true) {
             sendCodeBtn.style.display = "none";
             codeSection.classList.add("hidden");
-            alert("Этот номер уже подтвержден.");
+            alert(t("numberIsVerified"));
             return;
         }
         //
@@ -178,12 +228,12 @@ sendCodeBtn.addEventListener("click", async () => {
         }
         codeInput.value = "";
         codeSection.classList.remove("hidden");
-        alert("Код подтверждения отправлен.");
+        alert(t("smsSent"));
     }
 
     catch (e) {
         console.error(e);
-        alert("Ошибка отправки SMS.");
+        alert(t("errorSendSMS"));
     }
 });
 
@@ -209,21 +259,21 @@ form.addEventListener("submit", async (e) => {
     // Phone validation
     //-----------------------------------------------------
     if (!validPhone(booking.phone)) {
-        alert("Введите правильный номер телефона.");
+        alert( t("phoneInvalid"));
         return;
     }
     //-----------------------------------------------------
     // Date
     //-----------------------------------------------------
     if (!booking.date) {
-        alert("Выберите дату.");
+        alert(t("chooseDate"));
         return;
     }
     //-----------------------------------------------------
     // Time
     //-----------------------------------------------------
     if (!booking.time) {
-        alert("Выберите время.");
+        alert(t("chooseTime"));
         return;
     }
 
@@ -236,7 +286,7 @@ form.addEventListener("submit", async (e) => {
         if (!alreadyVerified) {
             const code =+ codeInput.value.trim();
             if (code.length === 0) {
-                alert("Введите SMS код.");
+                alert(t("enterCode"));
                 return;
             }
             const validationResponse =  await fetch("/api/sms/validate", {
@@ -253,7 +303,7 @@ form.addEventListener("submit", async (e) => {
 
             const validation =   await validationResponse.json();
             if (!validation.valid) {
-                alert("Неверный SMS код.");
+                alert(t("wrongCode"));
                 return;
             }
         }
@@ -277,7 +327,7 @@ form.addEventListener("submit", async (e) => {
         //-------------------------------------------------
         // SUCCESS
         //-------------------------------------------------
-        status.textContent =  "✅ Запись успешно создана.";
+        status.textContent =  t("bookingSuccess");
         form.reset();
         //-------------------------------------------------
         // Reset controls

@@ -13,16 +13,9 @@ let translations = {};
 async function loadLanguage(lang){
     const response = await fetch("/api/i18n/" + lang);
     translations = await response.json();
-
-    document.querySelector('input[name="name"]').placeholder =
-    translations.namePlaceholder;
-
-    document.getElementById("phone").placeholder =
-    translations.phonePlaceholder;
-
-    document.getElementById("codeInput").placeholder =
-    translations.codePlaceholder;
-
+    document.querySelector('input[name="name"]').placeholder = translations.namePlaceholder;
+    document.getElementById("phone").placeholder = translations.phonePlaceholder;
+    document.getElementById("codeInput").placeholder = translations.codePlaceholder;
     applyTranslations();
 }
 
@@ -47,18 +40,36 @@ document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
     }
 });
 
-const languageSelect =  document.getElementById("language");
-const savedLanguage =  localStorage.getItem("language") ||  navigator.language.substring(0,2);
-languageSelect.value = savedLanguage;
-loadLanguage(savedLanguage);
+const button = document.getElementById("languageButton");
+const menu = document.getElementById("languageMenu");
 
-languageSelect.addEventListener(  "change",  async ()=>{
-        const lang =  languageSelect.value;
-        localStorage.setItem(  "language",  lang
-        );
-        await loadLanguage(lang);
+// Open/Close menu
+button.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+});
+
+// Language selection
+document.querySelectorAll(".language-option").forEach(option => {
+    option.addEventListener("click", () => {
+        const lang = option.dataset.lang;
+        loadLanguage(lang);
+        localStorage.setItem("language", lang);
+        menu.classList.add("hidden");
+    });
+});
+
+// Restore last language
+window.addEventListener("load", () => {
+    const lang = localStorage.getItem("language") || "ru";
+    loadLanguage(lang);
+});
+
+// Close menu when clicking elsewhere
+document.addEventListener("click", e => {
+    if (!document.querySelector(".language-selector") .contains(e.target)) {
+        menu.classList.add("hidden");
     }
-);
+});
 
 // ==========================================
 // DOM
