@@ -46,8 +46,8 @@ const menu = document.getElementById("languageMenu");
 const languageSelect =  document.getElementById("language");
 const savedLanguage =  localStorage.getItem("language") ||  navigator.language.substring(0,2);
 
-languageSelect.value = savedLanguage;
-loadLanguage(savedLanguage);
+//languageSelect.value = savedLanguage;
+//loadLanguage(savedLanguage);
 
 languageSelect.addEventListener(  "change",  async ()=>{
         const lang =  languageSelect.value;
