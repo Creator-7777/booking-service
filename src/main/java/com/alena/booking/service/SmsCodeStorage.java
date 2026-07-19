@@ -43,7 +43,7 @@ public class SmsCodeStorage {
 
         if(smsCode.code().equals(code) && !isVerified(phone)){
             verifiedCustomerService.saveVerified( name, phone);
-            googleSheetService.saveVerifiedCustomer(name, phone);
+            googleSheetService.saveVerifiedPhone(name, phone);
 
         }
 

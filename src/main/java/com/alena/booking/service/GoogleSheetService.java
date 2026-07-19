@@ -57,7 +57,7 @@ public class GoogleSheetService {
         return Arrays.asList(Objects.requireNonNull(response.getBody()));
     }
 
-    public void saveVerifiedCustomer(String name , String phone) {
+    public void saveVerifiedPhone(String name , String phone) {
 
         Map<String, Object> payload = Map.of(
                 "action","saveVerifiedPhone",
