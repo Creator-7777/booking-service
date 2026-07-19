@@ -22,7 +22,9 @@ body{
     justify-content:flex-start;
     align-items:center;
     font-family:'Raleway',sans-serif;
-    background:url('https://i.imgur.com/1p3nAoG.jpeg') center center/cover no-repeat fixed;
+   /* background:url('https://i.imgur.com/1p3nAoG.jpeg') center center/cover no-repeat fixed;*/
+    background:url('https://i.imgur.com/jekr8h8.jpeg') center center/cover no-repeat fixed;
+
 }
 
 .page{
