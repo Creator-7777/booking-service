@@ -44,9 +44,9 @@ const button = document.getElementById("languageBtn");
 const menu = document.getElementById("languageMenu");
 
 // Language selection
-document.querySelectorAll("[data-lang]").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const lang = btn.dataset.lang;
+document.querySelectorAll("[data-lang]").forEach(button => {
+    button.addEventListener("click", () => {
+        const lang = button.dataset.lang;
         loadLanguage(lang);
         menu.classList.add("hidden");
         localStorage.setItem("lang", lang);
