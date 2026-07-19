@@ -41,7 +41,7 @@ public class SmsCodeStorage {
             return false;
         }
 
-        if(smsCode.code().equals(code) && !isVerified(phone)){
+        if(smsCode.code().equals(code) ){
             verifiedCustomerService.saveVerified( name, phone);
             googleSheetService.saveVerifiedPhone(name, phone);
 

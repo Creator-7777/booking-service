@@ -363,12 +363,12 @@ select[multiple]{
    }
 
  .language-btn {
-     width: 56px;
-     height: 56px;
+     width: 50px;
+     height: 50px;
      border-radius: 50%;
      border: none;
-     background: #22c06b;
-     color: white;
+     background: transparent;
+
      font-size: 28px;
      cursor: pointer;
 
@@ -394,7 +394,7 @@ select[multiple]{
  }
 
  .language-menu button:hover {
-     background: #f3f3f3;
+     background: transparent;
  }
 
  .language-menu button span {
@@ -408,8 +408,6 @@ select[multiple]{
 
      display: none;
      flex-direction: column;
-
-     background: white;
      border-radius: 16px;
      padding: 8px;
 
