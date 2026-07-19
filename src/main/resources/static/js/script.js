@@ -65,6 +65,7 @@ window.addEventListener("load", () => {
     loadLanguage(lang);
 });
 
+
 // Close menu when clicking elsewhere
 document.addEventListener("click", e => {
     if (!document.querySelector(".language-selector") .contains(e.target)) {
@@ -364,8 +365,8 @@ form.addEventListener("submit", async (e) => {
         );
     }
 
-    const savedLang = localStorage.getItem("lang") || "ru";
-    loadLanguage(savedLang);
+//    const savedLang = localStorage.getItem("lang") || "ru";
+//    loadLanguage(savedLang);
 });
 
 
