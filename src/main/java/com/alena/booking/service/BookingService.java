@@ -2,8 +2,10 @@ package com.alena.booking.service;
 
 import com.alena.booking.dto.BookingRequest;
 import com.alena.booking.entity.Appointment;
+import com.alena.booking.entity.VerifiedCustomer;
 import com.alena.booking.exception.BookingAlreadyExistsException;
 import com.alena.booking.repository.AppointmentRepository;
+import com.alena.booking.repository.VerifiedCustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ import java.util.List;
 public class BookingService {
 
     private final AppointmentRepository repository;
+    private final VerifiedCustomerRepository verifiedCustomerRepository;
     //private final TelegramService telegramService;
     private final TelegramServiceGoogleAppScript telegramService;
     private final GoogleSheetService googleSheetService;
@@ -63,13 +66,14 @@ public class BookingService {
         }
 
 
-//        if (booked.contains(appointment.getAppointmentTime())) {
-//            throw new IllegalStateException("This time slot is already booked. - Выбранное время уже забронировано");
-//        }
-
         try {
             log.info("Sending to DB...");
             repository.save(appointment);
+            VerifiedCustomer customer = verifiedCustomerRepository.findByPhone(appointment.getPhone()).orElse(null);
+            if (customer != null && (customer.getName() == null || customer.getName().isBlank())) {
+                customer.setName(appointment.getCustomerName());
+                verifiedCustomerRepository.save(customer);
+            }
             log.info("Booking saved to DB");
         } catch (Exception e) {
             log.error("Booking save to DB failed", e);

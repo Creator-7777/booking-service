@@ -60,6 +60,7 @@ public class GoogleSheetService {
     public void saveVerifiedCustomer(String name , String phone) {
 
         Map<String, Object> payload = Map.of(
+                "action","saveVerifiedPhone",
                 "name", name,
                 "phone", phone,
                 "date", Instant.now().toString()
