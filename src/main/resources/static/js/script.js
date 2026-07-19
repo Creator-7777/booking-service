@@ -57,14 +57,7 @@ document.querySelectorAll("[data-lang]").forEach(btn => {
         localStorage.setItem("lang", lang);
     });
 });
-/*document.querySelectorAll(".language-option").forEach(option => {
-    option.addEventListener("click", () => {
-        const lang = option.dataset.lang;
-        loadLanguage(lang);
-        localStorage.setItem("language", lang);
-        menu.classList.add("hidden");
-    });
-});*/
+
 
 // Restore last language
 window.addEventListener("load", () => {
