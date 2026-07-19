@@ -49,14 +49,22 @@ button.addEventListener("click", () => {
 });
 
 // Language selection
-document.querySelectorAll(".language-option").forEach(option => {
+document.querySelectorAll("[data-lang]").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const lang = btn.dataset.lang;
+        loadLanguage(lang);
+        menu.classList.add("hidden");
+        localStorage.setItem("lang", lang);
+    });
+});
+/*document.querySelectorAll(".language-option").forEach(option => {
     option.addEventListener("click", () => {
         const lang = option.dataset.lang;
         loadLanguage(lang);
         localStorage.setItem("language", lang);
         menu.classList.add("hidden");
     });
-});
+});*/
 
 // Restore last language
 window.addEventListener("load", () => {
@@ -362,6 +370,9 @@ form.addEventListener("submit", async (e) => {
         alert( "Ошибка:\n\n"  + e.message
         );
     }
+
+    const savedLang = localStorage.getItem("lang") || "ru";
+    loadLanguage(savedLang);
 });
 
 
