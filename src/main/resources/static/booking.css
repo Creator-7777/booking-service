@@ -73,25 +73,25 @@ footer{
 
   .language-selector{
       position:absolute;
-      top:20px;
-      left:20px;
+      top:100px;
+      left:50px;
   }
 
 .language-btn {
-    width: 56px;
-    height: 56px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     border: none;
-    background: #22c06b;
+    background: #87d6b1;
     color: white;
-    font-size: 28px;
+    font-size: 48px;
     cursor: pointer;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+    box-shadow: 0 0px 0px rgba(0,0,0,.2);
 }
 
 .language-menu button {
@@ -109,11 +109,11 @@ footer{
 }
 
 .language-menu button:hover {
-    background: #f3f3f3;
+    background: #3199cb;
 }
 
 .language-menu button span {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .language-menu {
@@ -358,78 +358,81 @@ select[multiple]{
         border-radius:22px;
     }
 
-   .language-selector{
-       position:absolute;
-       top:20px;
-       left:20px;
-   }
 
- .language-btn {
-     width: 50px;
-     height: 50px;
-     border-radius: 50%;
-     border: none;
-     background: transparent;
+  .language-selector{
+      position:absolute;
+      top:100px;
+      left:50px;
+  }
 
-     font-size: 28px;
-     cursor: pointer;
+.language-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: #87d6b1;
+    color: white;
+    font-size: 48px;
+    cursor: pointer;
 
-     display: flex;
-     align-items: center;
-     justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-     box-shadow: 0 5px 15px rgba(0,0,0,.2);
- }
+    box-shadow: 0 0px 0px rgba(0,0,0,.2);
+}
 
- .language-menu button {
-     display: flex;
-     align-items: center;
-     gap: 10px;
-     width: 100%;
-     background: transparent;
-     border: none;
-     border-radius: 10px;
-     padding: 12px;
-     cursor: pointer;
-     font-size: 17px;
-     transition: .25s;
- }
+.language-menu button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 17px;
+    transition: .25s;
+}
 
- .language-menu button:hover {
-     background: transparent;
- }
+.language-menu button:hover {
+    background: #3199cb;
+}
 
- .language-menu button span {
-     font-size: 24px;
- }
+.language-menu button span {
+    font-size: 20px;
+}
 
- .language-menu {
-     position: absolute;
-     top: 65px;
-     left: 0;
+.language-menu {
+    position: absolute;
+    top: 65px;
+    left: 0;
 
-     display: none;
-     flex-direction: column;
-     border-radius: 16px;
-     padding: 8px;
+    display: none;
+    flex-direction: column;
 
-     min-width: 170px;
-     box-shadow: 0 8px 25px rgba(0,0,0,.18);
-     z-index: 1000;
- }
+    background: white;
+    border-radius: 16px;
+    padding: 8px;
 
-   .language-option{
-       width:20%;
-       padding:10px 10px;
-       border:none;
-       text-align:center;
-       cursor:pointer;
-       font-size:10px;
-   }
+    min-width: 170px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.18);
+    z-index: 1000;
+}
 
-   .hidden{
-       display:none;
-   }
+  .language-option{
+      width:20%;
+      padding:10px 10px;
+      border:none;
+      text-align:center;
+      cursor:pointer;
+      font-size:10px;
+  }
+
+  .hidden{
+      display:none;
+  }
 
     .logo{
         width:90px;
