@@ -1,52 +1,61 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
 
-    <link rel="stylesheet" href="booking.css">
-    <base target="_top">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <title>Elena Nail Studio</title>
     <meta name="theme-color" content="#7d4cff">
-    <meta
-            name="description"
-            content="Онлайн запись на маникюр и педикюр">
+    <meta name="description"
+            content="Online booking for manicure and pedicure">
+    <link rel="stylesheet" href="booking.css">
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
-
     <link rel="preconnect"
           href="https://fonts.gstatic.com"
           crossorigin>
-
-    <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
+
 <body>
 <div class="page">
     <div class="booking-card">
 
-        <!-- Language selector -->
-        <div class="language-selector">
+        <!-- ========================= -->
+        <!-- Language selector         -->
+        <!-- ========================= -->
 
-            <button class="language-btn" id="languageBtn">
-                🌐
+        <div class="language-selector">
+            <button
+                    id="languageBtn"
+                    class="language-btn"
+                    type="button">
+
+                🌍
             </button>
 
-            <div class="language-menu" id="languageMenu">
-
-                <button data-lang="ru">
+            <div
+                    id="languageMenu"
+                    class="language-menu">
+                <button
+                        type="button"
+                        data-lang="ru">
                     <span>🇷🇺</span>
                     Русский
                 </button>
 
-                <button data-lang="en">
+                <button
+                        type="button"
+                        data-lang="en">
                     <span>🇬🇧</span>
                     English
                 </button>
 
-                <button data-lang="he">
+                <button
+                        type="button"
+                        data-lang="he">
                     <span>🇮🇱</span>
                     עברית
                 </button>
@@ -55,65 +64,126 @@
 
         </div>
 
+        <!-- ========================= -->
+        <!-- Logo                      -->
+        <!-- ========================= -->
+
         <div class="logo-wrapper">
-            <img class="logo"
-                 src="https://i.imgur.com/SGjW8gC.jpeg"
-                 alt="Elena Nail Studio">
+            <img
+                    class="logo"
+                    src="https://i.imgur.com/SGjW8gC.jpeg"
+                    alt="Elena Nail Studio">
         </div>
 
+        <!-- ========================= -->
+        <!-- Instagram                 -->
+        <!-- ========================= -->
+
         <div class="socials">
-            <a href="https://www.instagram.com/elenanail.rlz?igsh=MTdxcTYza3BtYXRseg=="target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+            <a href="https://www.instagram.com/elenanail.rlz?igsh=MTdxcTYza3BtYXRseg=="
+               target="_blank">
+                <img
+                        src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
+                        alt="Instagram">
             </a>
         </div>
 
-        <h1> Elena Nail Studio </h1>
-        <p class="subtitle" data-i18n="subtitle"> Онлайн запись </p>
+        <!-- ========================= -->
+        <!-- Header                    -->
+        <!-- ========================= -->
+
+        <h1>
+            Elena Nail Studio
+        </h1>
+        <p
+                class="subtitle"
+                data-i18n="title">
+            Online Booking
+        </p>
+
+        <!-- ========================= -->
+        <!-- Booking Form              -->
+        <!-- ========================= -->
 
         <form id="form">
+            <!-- Name -->
             <div class="field">
-                <label data-i18n="name">Имя</label>
-                <input name="name"
-                       id="name"
-                       data-i18n-placeholder="namePlaceholder"
-                       placeholder="Ваше имя" required>
+                <label
+                        for="name"
+                        data-i18n="name">
+                    Name
+                </label>
+                <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        data-i18n-placeholder="namePlaceholder"
+                        placeholder="Your name">
             </div>
-
+            <!-- Phone -->
             <div class="field">
-                <label data-i18n="phone">Телефон</label>
+                <label
+                        for="phone"
+                        data-i18n="phone">
+                    Phone
+                </label>
 
-                <input name="phone"
-                       id="phone"
-                       data-i18n-placeholder="phonePlaceholder"
-                       placeholder="05XXXXXXXX"
-                       pattern="^05\d\d{7}$" required>
-
-                <span id="phone-error"
-                      style="color:red; display:none;"
-                      data-i18n="phoneInvalid">❌ Номер должен быть в формате 05XXXXXXXX
+                <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        required
+                        pattern="^05\d\d{7}$"
+                        placeholder="05XXXXXXXX"
+                        data-i18n-placeholder="phonePlaceholder">
+                <span
+                        id="phone-error"
+                        class="error-message"
+                        style="display:none"
+                        data-i18n="phoneInvalid">
+                    Invalid phone number
                 </span>
-
             </div>
 
-            <button type="button"
+            <!-- Send SMS -->
+            <button
                     id="sendCodeBtn"
+                    type="button"
                     class="secondary"
-                    data-i18n="sendCode">Получить SMS-код
+                    data-i18n="sendCode">
+                Send SMS Code
             </button>
+            <!-- Verification -->
+            <div
+                    id="codeSection"
+                    class="hidden">
+                <label
+                        for="codeInput"
+                        data-i18n="verifyCode">
+                    Verification Code
+                </label>
 
-            <div id="codeSection"
-                 class="hidden">
-                <label data-i18n="verifyCode">Код подтверждения</label>
-                <input id="codeInput"
-                       type="text"
-                       data-i18n-placeholder="verifyCodePlaceholder"
-                       placeholder="Введите код из SMS">
+                <input
+                        id="codeInput"
+                        type="text"
+                        autocomplete="one-time-code"
+                        data-i18n-placeholder="verifyCodePlaceholder"
+                        placeholder="Enter SMS Code">
             </div>
+
+            <!-- ========================= -->
+            <!-- Services                  -->
+            <!-- ========================= -->
 
             <div class="field">
-                <label for="service"
-                       data-i18n="service">
-                    Услуги
+
+                <label
+                        for="service"
+                        data-i18n="service">
+
+                    Services
+
                 </label>
 
                 <select
@@ -192,53 +262,109 @@
 
             </div>
 
+            <!-- ========================= -->
+            <!-- Date                      -->
+            <!-- ========================= -->
+
             <div class="field">
-                <label for="date"
-                       data-i18n="date">
-                    Дата
+
+                <label
+                        for="date"
+                        data-i18n="date">
+
+                    Date
+
                 </label>
 
-                <input id="date"
-                       name="date"
-                       type="date" required>
+                <input
+                        id="date"
+                        name="date"
+                        type="date"
+                        required>
+
             </div>
 
+            <!-- ========================= -->
+            <!-- Time                      -->
+            <!-- ========================= -->
+
             <div class="field">
-                <label for="time"
-                       data-i18n="time">
-                    Время
+
+                <label
+                        for="time"
+                        data-i18n="time">
+
+                    Time
+
                 </label>
 
-                <select id="time" name="time" required>
+                <select
+                        id="time"
+                        name="time"
+                        required>
+
                     <option value=""
                             data-i18n="chooseTime">
-                        Выберите время
+
+                        Choose time
+
                     </option>
+
                 </select>
+
             </div>
+
+            <!-- ========================= -->
+            <!-- Submit                    -->
+            <!-- ========================= -->
 
             <button
                     id="submitBtn"
                     class="primary"
                     type="submit"
-                    data-i18n="submit">Записаться
+                    data-i18n="submit">
+
+                Book Now
+
             </button>
 
         </form>
-        <div id="status"
-             class="status">
+
+        <!-- ========================= -->
+        <!-- Status                    -->
+        <!-- ========================= -->
+
+        <div
+                id="status"
+                class="status">
 
         </div>
-        <div id="no-slots"
-             class="warning hidden"
-             data-i18n="noSlots">😢 На выбранную дату нет свободного времени
+
+        <!-- ========================= -->
+        <!-- No slots                  -->
+        <!-- ========================= -->
+
+        <div
+                id="no-slots"
+                class="warning hidden"
+                data-i18n="noSlots">
+
+            No available time slots
+
         </div>
 
     </div>
+
     <footer>
-        <p> © 2026 Elena Nail Studio</p>
+        <p>
+            © 2026 Elena Nail Studio
+        </p>
     </footer>
 </div>
+
+<!--<script src="js/translations.js"></script>
+<script src="js/language.js"></script>-->
 <script src="js/script.js"></script>
+
 </body>
 </html>
