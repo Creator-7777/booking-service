@@ -43,20 +43,6 @@ document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
 const button = document.getElementById("languageBtn");
 const menu = document.getElementById("languageMenu");
 
-const languageSelect =  document.getElementById("language");
-const savedLanguage =  localStorage.getItem("language") ||  navigator.language.substring(0,2);
-
-//languageSelect.value = savedLanguage;
-//loadLanguage(savedLanguage);
-
-languageSelect.addEventListener(  "change",  async ()=>{
-        const lang =  languageSelect.value;
-        localStorage.setItem(  "language",  lang
-        );
-        await loadLanguage(lang);
-    }
-);
-
 // Language selection
 document.querySelectorAll("[data-lang]").forEach(btn => {
     btn.addEventListener("click", () => {
