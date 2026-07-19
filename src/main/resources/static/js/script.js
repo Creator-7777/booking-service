@@ -40,7 +40,7 @@ document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
     }
 });
 
-const button = document.getElementById("languageButton");
+const button = document.getElementById("languageBtn");
 const menu = document.getElementById("languageMenu");
 
 // Open/Close menu
