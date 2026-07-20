@@ -10,17 +10,24 @@ const timeSlots = [
 ];
 
 let translations = {};
-async function loadLanguage(lang){
-    const response = await fetch("/api/i18n/" + lang);
-    translations = await response.json();
-//    document.querySelector('input[name="name"]').placeholder = translations.namePlaceholder;
-//    document.getElementById("phone").placeholder = translations.phonePlaceholder;
-//    document.getElementById("codeInput").placeholder = translations.codePlaceholder;
-    applyTranslations();
-}
 
 function t(key){
     return translations[key] || key;
+}
+
+async function loadLanguage(lang){
+    try {
+           const response = await fetch("/api/i18n/" + lang);
+           if (!response.ok) {
+               throw new Error("Cannot load language " + lang);
+           }
+           translations = await response.json();
+           applyTranslations();
+           localStorage.setItem("lang", lang);
+
+       } catch (e) {
+           console.error("Language loading failed", e);
+       }
 }
 
 //функция автоматически переведет ВСЮ страницу.
