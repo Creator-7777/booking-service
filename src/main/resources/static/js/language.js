@@ -54,10 +54,17 @@ function applyTranslations() {
 
         const key = element.dataset.i18n;
 
-        if (translations[key]) {
+        /*if (translations[key]) {
             element.textContent = translations[key];
-        }
+        }*/
 
+        if (translations[key]) {
+            if ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" ) {
+                el.placeholder = translations[key];
+            } else {
+                el.innerHTML = translations[key];
+            }
+        }
     });
 
     //---------------------------------------------------
@@ -68,8 +75,16 @@ function applyTranslations() {
 
         const key = element.dataset.i18nPlaceholder;
 
-        if (translations[key]) {
+/*        if (translations[key]) {
             element.placeholder = translations[key];
+        }*/
+
+         if (translations[key]) {
+            if ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" ) {
+                el.placeholder = translations[key];
+            } else {
+                el.innerHTML = translations[key];
+            }
         }
 
     });

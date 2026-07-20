@@ -106,30 +106,22 @@ const Utils = (() => {
     //-------------------------------------------------
     // HTTP POST JSON
     //-------------------------------------------------
-    async function postJSON(url, body) {
+    async function postJSON(url, data) {
 
         const response = await fetch(url, {
-
             method: "POST",
-
             headers: {
-
                 "Content-Type": "application/json"
-
             },
-
-            body: JSON.stringify(body)
-
+            body: JSON.stringify(data)
         });
 
         if (!response.ok) {
-
             throw new Error(await response.text());
-
         }
-
-        return await response.json();
-
+        const text = await response.text();
+        return text ? JSON.parse(text) : {};
+        //return await response.json();
     }
 
     //-------------------------------------------------
