@@ -29,7 +29,7 @@ function applyTranslations(){
     document.querySelectorAll("[data-i18n]").forEach(element=>{
             const key =  element.dataset.i18n;
             if (translations[key]) {
-                el.textContent = translations[key];
+                element.textContent = translations[key];
             }
     });
     // for placeholders
