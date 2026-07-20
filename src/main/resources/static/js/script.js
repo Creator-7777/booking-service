@@ -13,9 +13,9 @@ let translations = {};
 async function loadLanguage(lang){
     const response = await fetch("/api/i18n/" + lang);
     translations = await response.json();
-    document.querySelector('input[name="name"]').placeholder = translations.namePlaceholder;
-    document.getElementById("phone").placeholder = translations.phonePlaceholder;
-    document.getElementById("codeInput").placeholder = translations.codePlaceholder;
+//    document.querySelector('input[name="name"]').placeholder = translations.namePlaceholder;
+//    document.getElementById("phone").placeholder = translations.phonePlaceholder;
+//    document.getElementById("codeInput").placeholder = translations.codePlaceholder;
     applyTranslations();
 }
 
@@ -25,28 +25,31 @@ function t(key){
 
 //функция автоматически переведет ВСЮ страницу.
 function applyTranslations(){
-    document.querySelectorAll("[data-i18n]")
-        .forEach(element=>{
+    // labels, buttons, text
+    document.querySelectorAll("[data-i18n]").forEach(element=>{
             const key =  element.dataset.i18n;
-            element.textContent =  t(key);
-        });
-}
-// for placeholders
-document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
-    const key = el.dataset.i18nPlaceholder;
+            if (translations[key]) {
+                el.textContent = translations[key];
+            }
+    });
+    // for placeholders
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
 
-    if (translations[key]) {
-        el.placeholder = translations[key];
-    }
-});
+        if (translations[key]) {
+            el.placeholder = translations[key];
+        }
+    });
+}
+
 
 const button = document.getElementById("languageBtn");
 const menu = document.getElementById("languageMenu");
 
 // Language selection
-document.querySelectorAll("[data-lang]").forEach(button => {
-    button.addEventListener("click", () => {
-        const lang = button.dataset.lang;
+document.querySelectorAll("[data-lang]").forEach(langButton  => {
+    langButton.addEventListener("click", () => {
+        const lang = langButton.dataset.lang;
         loadLanguage(lang);
         menu.classList.add("hidden");
         localStorage.setItem("lang", lang);
@@ -61,7 +64,7 @@ button.addEventListener("click", () => {
 
 // Restore last language
 window.addEventListener("load", () => {
-    const lang = localStorage.getItem("language") || "ru";
+    const lang = localStorage.getItem("lang") || "ru";
     loadLanguage(lang);
 });
 
@@ -90,11 +93,9 @@ const codeInput = document.getElementById("codeInput");
 
 const status = document.getElementById("status");
 
-document.getElementById("name").placeholder =  t["placeholder.name"];
-
-document.getElementById("phone").placeholder =   t["placeholder.phone"];
-
-document.getElementById("codeInput").placeholder =  t["placeholder.code"];
+//document.getElementById("name").placeholder =  t["placeholder.name"];
+//document.getElementById("phone").placeholder =   t["placeholder.phone"];
+//document.getElementById("codeInput").placeholder =  t["placeholder.code"];
 
 // ==========================================
 // Helpers
