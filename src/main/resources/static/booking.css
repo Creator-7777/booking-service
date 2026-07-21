@@ -78,13 +78,13 @@ footer{
   }
 
 .language-btn {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: none;
     background: #87d6b1;
-    color: white;
-    font-size: 48px;
+
+    font-size: 34px;
     cursor: pointer;
 
     display: flex;
@@ -379,8 +379,8 @@ select[multiple]{
     border-radius: 50%;
     border: none;
     background: #87d6b1;
-    color: white;
-    font-size: 48px;
+
+    font-size: 34px;
     cursor: pointer;
 
     display: flex;
