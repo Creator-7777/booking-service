@@ -94,22 +94,25 @@ footer{
     box-shadow: 0 0px 0px rgba(0,0,0,.2);
 }
 
-.language-menu button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-radius: 10px;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 17px;
-    transition: .25s;
+.language-menu button{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    width:100%;
+    border:none;
+    background:#22b865;
+    color:white;
+    padding:12px;
+    border-radius:14px;
+    font-size:16px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.language-menu button:hover {
-    background: #3199cb;
+.language-menu button:hover{
+    background:#18a457;
 }
 
 .language-menu button span {
@@ -117,20 +120,25 @@ footer{
 }
 
 .language-menu {
+
     position: absolute;
     top: 65px;
     left: 0;
 
     display: flex;
     flex-direction: column;
+    gap: 8px;
 
-    background: white;
-    border-radius: 16px;
-    padding: 8px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 10px;
+    width: 180px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.18);
+    z-index: 9999;
+}
 
-    min-width: 170px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.18);
-    z-index: 1000;
+.language-menu.hidden{
+    display:none;
 }
 
   .language-option{
@@ -382,22 +390,25 @@ select[multiple]{
     box-shadow: 0 0px 0px rgba(0,0,0,.2);
 }
 
-.language-menu button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-radius: 10px;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 17px;
-    transition: .25s;
+.language-menu button{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    width:100%;
+    border:none;
+    background:#22b865;
+    color:white;
+    padding:12px;
+    border-radius:14px;
+    font-size:16px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.language-menu button:hover {
-    background: #3199cb;
+.language-menu button:hover{
+    background:#18a457;
 }
 
 .language-menu button span {
@@ -405,20 +416,25 @@ select[multiple]{
 }
 
 .language-menu {
+
     position: absolute;
     top: 65px;
     left: 0;
 
     display: flex;
     flex-direction: column;
+    gap: 8px;
 
-    background: white;
-    border-radius: 16px;
-    padding: 8px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 10px;
+    width: 180px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.18);
+    z-index: 9999;
+}
 
-    min-width: 170px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.18);
-    z-index: 1000;
+.language-menu.hidden{
+    display:none;
 }
 
   .language-option{
