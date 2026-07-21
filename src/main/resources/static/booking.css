@@ -121,7 +121,7 @@ footer{
     top: 65px;
     left: 0;
 
-    display: none;
+    display: flex;
     flex-direction: column;
 
     background: white;
@@ -409,7 +409,7 @@ select[multiple]{
     top: 65px;
     left: 0;
 
-    display: none;
+    display: flex;
     flex-direction: column;
 
     background: white;
