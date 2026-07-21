@@ -43,7 +43,8 @@ const Booking = (() => {
                 Utils.normalizePhone(form.phone.value),
             service:
                 Array.from(form.service.selectedOptions)
-                    .map(option => option.value)
+                    //.map(option => option.value)
+                    .map(option => option.textContent)
                     .join(", "),
             date:
                 form.date.value,

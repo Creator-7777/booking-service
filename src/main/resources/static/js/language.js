@@ -31,6 +31,8 @@ async function loadLanguage(lang) {
 
         applyTranslations();
 
+        await loadServices(lang);
+
         localStorage.setItem("lang", lang);
 
     } catch (e) {
@@ -38,6 +40,22 @@ async function loadLanguage(lang) {
         console.error("Language loading failed", e);
 
     }
+}
+// ------------------------------------------
+// Load Service
+// ------------------------------------------
+async function loadServices(lang){
+    const response = await fetch("/api/services/" + lang);
+    const services = await response.json();
+    const select = document.getElementById("service");
+    select.innerHTML = "";
+    services.forEach(service => {
+        const option = document.createElement("option");
+        option.value = service.id;
+        option.textContent = `${service.name} — ${service.price}₪`;
+        option.dataset.price = service.price;
+        select.appendChild(option);
+    });
 }
 
 // ------------------------------------------
