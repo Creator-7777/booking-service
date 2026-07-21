@@ -59,10 +59,10 @@ function applyTranslations() {
         }*/
 
         if (translations[key]) {
-            if ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" ) {
-                el.placeholder = translations[key];
+            if ( element.tagName === "INPUT" || element.tagName === "TEXTAREA" ) {
+                element.placeholder = translations[key];
             } else {
-                el.innerHTML = translations[key];
+                element.innerHTML = translations[key];
             }
         }
     });
@@ -80,10 +80,10 @@ function applyTranslations() {
         }*/
 
          if (translations[key]) {
-            if ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" ) {
-                el.placeholder = translations[key];
+            if ( element.tagName === "INPUT" || element.tagName === "TEXTAREA" ) {
+                element.placeholder = translations[key];
             } else {
-                el.innerHTML = translations[key];
+                element.innerHTML = translations[key];
             }
         }
 
