@@ -35,11 +35,17 @@ public class SmsController {
 
     @PostMapping("/validate")
     public Map<String, Boolean> validate(@RequestBody SmsRequest request) {
+        log.info("SMS VALIDATE endpoint called");
+        log.info("PHONE={} CODE={} NAME={}",
+                request.phone(),
+                request.code(),
+                request.name());
         return Map.of("valid", storage.validate(request.phone(), request.code(), request.name()));
     }
 
     @GetMapping("/is-verified")
     public ResponseEntity<Boolean> isVerified( @RequestParam String phone) {
+        log.info("SMS is-verified endpoint called");
         return ResponseEntity.ok(smsCodeStorage.isVerified(phone));
     }
 

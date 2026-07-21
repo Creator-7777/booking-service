@@ -22,21 +22,12 @@ const Booking = (() => {
         status = document.getElementById("status");
 
         if (!form) {
-
             console.error("Booking form not found");
-
             return;
 
         }
 
-        form.addEventListener(
-
-            "submit",
-
-            submitBooking
-
-        );
-
+        form.addEventListener("submit",submitBooking );
     }
 
     //-------------------------------------------------
@@ -46,26 +37,19 @@ const Booking = (() => {
     function buildBooking() {
 
         return {
-
             name:
                 form.name.value.trim(),
-
             phone:
                 Utils.normalizePhone(form.phone.value),
-
             service:
                 Array.from(form.service.selectedOptions)
                     .map(option => option.value)
                     .join(", "),
-
             date:
                 form.date.value,
-
             time:
                 form.time.value
-
         };
-
     }
 
     //-------------------------------------------------
@@ -79,13 +63,7 @@ const Booking = (() => {
         //------------------------------------------
 
         if (booking.name.length === 0) {
-
-            Utils.showError(
-
-                t("nameRequired") || "Enter your name"
-
-            );
-
+            Utils.showError( t("nameRequired") || "Enter your name" );
             return false;
 
         }
@@ -95,15 +73,8 @@ const Booking = (() => {
         //------------------------------------------
 
         if (!Utils.validPhone(booking.phone)) {
-
-            Utils.showError(
-
-                t("phoneInvalid")
-
-            );
-
+            Utils.showError( t("phoneInvalid"));
             return false;
-
         }
 
         //------------------------------------------
@@ -111,15 +82,8 @@ const Booking = (() => {
         //------------------------------------------
 
         if (!booking.date) {
-
-            Utils.showError(
-
-                t("chooseDate")
-
-            );
-
+            Utils.showError( t("chooseDate") );
             return false;
-
         }
 
         //------------------------------------------
@@ -127,15 +91,8 @@ const Booking = (() => {
         //------------------------------------------
 
         if (!booking.time) {
-
-            Utils.showError(
-
-                t("chooseTime")
-
-            );
-
+            Utils.showError(  t("chooseTime") );
             return false;
-
         }
 
         return true;
@@ -147,77 +104,74 @@ const Booking = (() => {
     //-------------------------------------------------
 
     async function submitBooking(event) {
-
         event.preventDefault();
-
         status.textContent = "";
-
         const booking = buildBooking();
+
+        // Check whether customer is already verified
+        const verifiedResponse = await fetch( "/api/sms/is-verified?phone=" + encodeURIComponent(booking.phone) );
+        const alreadyVerified = await verifiedResponse.json();
+
+        // New customer → validate SMS
+        if (!alreadyVerified) {
+            const code = document.getElementById("codeInput") .value.trim();
+            if (code.length === 0) {
+                alert("Введите SMS код");
+                return;
+            }
+            const validationResponse = await fetch("/api/sms/validate", {
+                    method: "POST", headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        phone: booking.phone,
+                        code: code,
+                        name: booking.name
+                    })
+            });
+
+            const validation = await validationResponse.json();
+            if (!validation.valid) {
+                alert("Неверный SMS код");
+                return;
+            }
+        }
 
         //------------------------------------------
         // Validation
         //------------------------------------------
-
         if (!validateBooking(booking)) {
-
             return;
-
         }
-
         try {
 
             //--------------------------------------
             // SMS validation
             //--------------------------------------
-
             const smsValid = await Sms.validateSMS();
-
             if (!smsValid) {
-
                 return;
-
             }
 
             //--------------------------------------
             // Save booking
             //--------------------------------------
 
-            await Utils.postJSON(
-
-                "/api/bookings",
-
-                booking
-
-            );
+            await Utils.postJSON( "/api/bookings", booking );
 
             //--------------------------------------
             // SUCCESS
             //--------------------------------------
-
-            status.textContent =
-
-                t("bookingSuccess");
-
+            status.textContent = t("bookingSuccess");
             //--------------------------------------
             // Reset Form
             //--------------------------------------
-
             reset();
-
         }
-
         catch (e) {
-
             console.error(e);
-
-            Utils.showError(
-
-                e.message
-
-            );
-
+            Utils.showError( e.message );
         }
-
     }
 
     //-------------------------------------------------
@@ -225,13 +179,9 @@ const Booking = (() => {
     //-------------------------------------------------
 
     function reset() {
-
         form.reset();
-
         Sms.reset();
-
         Calendar.resetTime();
-
     }
 
     //-------------------------------------------------
@@ -239,9 +189,6 @@ const Booking = (() => {
     //-------------------------------------------------
 
     return {
-
         init
-
     };
-
 }) ();
