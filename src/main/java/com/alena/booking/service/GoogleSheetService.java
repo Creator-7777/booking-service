@@ -66,11 +66,14 @@ public class GoogleSheetService {
                 "date", Instant.now().toString()
 
         );
+
+        log.info("Sending VERIFIED PHONE payload: {}", payload);
+
         try {
-            restTemplate.postForEntity(
-                    appsScriptUrl,
-                    payload,
-                    String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(appsScriptUrl, payload, String.class);
+
+            log.info("Status = {}", response.getStatusCode());
+            log.info("Body   = {}", response.getBody());
 
             log.info("Google Sheet - Verified Customer has been saved to Verified Phones");
 
