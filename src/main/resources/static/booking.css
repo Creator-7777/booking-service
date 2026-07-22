@@ -351,22 +351,33 @@ button:disabled{
     box-shadow:0 10px 40px rgba(0,0,0,.25);
 }
 
+
+
 .cabinet-header{
+    position:relative;
     display:flex;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
-    margin-bottom:20px;
+    margin-bottom:25px;
+
+}
+
+.cabinet-header h2{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+
 }
 
 #closeCabinet {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
     border: none;
     border-radius: 50%;
     background: #ff5b7f;
     color: white;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     cursor: pointer;
     display: flex;
@@ -374,13 +385,17 @@ button:disabled{
     justify-content: center;
     padding: 0;
     flex-shrink: 0;
+
+    right:0;
+    top:30%;
+    transform:translateY(-90%);
 }
 
 #closeCabinet {
-    width: 36px !important;
-    height: 36px !important;
-    max-width: 36px !important;
-    flex: 0 0 36px !important;
+    width: 30px !important;
+    height: 30px !important;
+    max-width: 30px !important;
+    flex: 0 0 30px !important;
 }
 
 #closeCabinet:hover {
@@ -609,21 +624,30 @@ select[multiple]{
     }
 
     .cabinet-header{
+        position:relative;
         display:flex;
-        justify-content:space-between;
+        justify-content:center;
         align-items:center;
-        margin-bottom:20px;
+        margin-bottom:25px;
+
+    }
+
+    .cabinet-header h2{
+        margin:0;
+        font-size:20px;
+        font-weight:700;
+
     }
 
     #closeCabinet {
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
         border: none;
         border-radius: 50%;
         background: #ff5b7f;
         color: white;
-        font-size: 22px;
+        font-size: 20px;
         font-weight: bold;
         cursor: pointer;
         display: flex;
@@ -631,13 +655,17 @@ select[multiple]{
         justify-content: center;
         padding: 0;
         flex-shrink: 0;
+
+        right:0;
+        top:30%;
+        transform:translateY(-90%);
     }
 
     #closeCabinet {
-        width: 36px !important;
-        height: 36px !important;
-        max-width: 36px !important;
-        flex: 0 0 36px !important;
+        width: 30px !important;
+        height: 30px !important;
+        max-width: 30px !important;
+        flex: 0 0 30px !important;
     }
 
     #closeCabinet:hover {
