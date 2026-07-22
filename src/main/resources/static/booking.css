@@ -372,16 +372,16 @@ button:disabled{
   #closeCabinet {
         position: absolute;
         right: 0;
-        top: 30%;
+        top: 0%;
         transform: translateY(-50%) !important;
-        width: 30px;
-        height: 30px;
-        min-width: 30px;
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
         border: none;
         border-radius: 50%;
         background: #ff5b7f;
         color: white;
-        font-size: 20px;
+        font-size: 15px;
         font-weight: bold;
         cursor: pointer;
         display: flex;
@@ -394,13 +394,13 @@ button:disabled{
 
     #closeCabinet {
         position: absolute !important;
-        width: 30px !important;
-        height: 30px !important;
-        max-width: 30px !important;
-        flex: 0 0 30px !important;
+        width: 20px !important;
+        height: 20px !important;
+        max-width: 20px !important;
+        flex: 0 0 20px !important;
 
         right:0 !important;
-        top:30% !important;
+        top:0% !important;
         transform:translateY(-50%) !important;
     }
 
@@ -649,16 +649,16 @@ select[multiple]{
     #closeCabinet {
         position: absolute;
         right: 0;
-        top: 30%;
+        top: 0%;
         transform: translateY(-50%) !important;
-        width: 30px;
-        height: 30px;
-        min-width: 30px;
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
         border: none;
         border-radius: 50%;
         background: #ff5b7f;
         color: white;
-        font-size: 20px;
+        font-size: 15px;
         font-weight: bold;
         cursor: pointer;
         display: flex;
@@ -671,13 +671,13 @@ select[multiple]{
 
     #closeCabinet {
         position: absolute !important;
-        width: 30px !important;
-        height: 30px !important;
-        max-width: 30px !important;
-        flex: 0 0 30px !important;
+        width: 20px !important;
+        height: 20px !important;
+        max-width: 20px !important;
+        flex: 0 0 20px !important;
 
         right:0 !important;
-        top:30% !important;
+        top:0% !important;
         transform:translateY(-50%) !important;
     }
 
