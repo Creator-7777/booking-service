@@ -547,7 +547,7 @@ select[multiple]{
 
     .cabinet-btn {
         margin-top:70px;
-        margin-left:270px;
+        margin-left:230px;
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -569,7 +569,7 @@ select[multiple]{
         top:50%;
         left:50%;
         transform:translate(-50%,-50%);
-        width:330px;
+        width:280px;
         max-height:600px;
         overflow:auto;
         background:white;
