@@ -56,6 +56,22 @@ const Booking = (() => {
         cabinetWindow.classList.remove("hidden");
     }
 
+    function statusText(status){
+        switch(status){
+            case "UPCOMING":
+                return "🟢 Предстоящая";
+
+            case "COMPLETED":
+                return "🔵 Завершена";
+
+            case "CANCELLED":
+                return "🔴 Отменена";
+
+            default:
+                return status;
+        }
+    }
+
     function renderHistory(bookings){
         cabinetContent.innerHTML="";
         if(bookings.length===0){
@@ -69,7 +85,8 @@ const Booking = (() => {
                 <h3>${booking.service}</h3>
                 <p>📅 ${booking.date}</p>
                 <p>🕒 ${booking.time}</p>
-                <p>✔ ${booking.status}</p>
+//                <p>✔ ${booking.status}</p>
+                <div class="status-badge ${booking.status.toLowerCase()}"> ${statusText(booking.status)}</div>
             </div> `;
         });
     }
