@@ -358,6 +358,35 @@ button:disabled{
     margin-bottom:20px;
 }
 
+#closeCabinet {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #ff5b7f;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+#closeCabinet {
+    width: 36px !important;
+    height: 36px !important;
+    max-width: 36px !important;
+    flex: 0 0 36px !important;
+}
+
+#closeCabinet:hover {
+    background: #e6466d;
+}
+
 .cabinet-card{
     border:1px solid #ddd;
     border-radius:14px;
@@ -546,8 +575,8 @@ select[multiple]{
     }
 
     .cabinet-btn {
-        margin-top:70px;
-        margin-left:230px;
+        margin-top:65px;
+        margin-left:240px;
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -584,6 +613,35 @@ select[multiple]{
         justify-content:space-between;
         align-items:center;
         margin-bottom:20px;
+    }
+
+    #closeCabinet {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        border: none;
+        border-radius: 50%;
+        background: #ff5b7f;
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        flex-shrink: 0;
+    }
+
+    #closeCabinet {
+        width: 36px !important;
+        height: 36px !important;
+        max-width: 36px !important;
+        flex: 0 0 36px !important;
+    }
+
+    #closeCabinet:hover {
+        background: #e6466d;
     }
 
     .cabinet-card{
