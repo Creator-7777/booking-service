@@ -369,40 +369,41 @@ button:disabled{
 
 }
 
-#closeCabinet {
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-    border: none;
-    border-radius: 50%;
-    background: #ff5b7f;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    flex-shrink: 0;
+  #closeCabinet {
+        position: absolute;
+        right: 0;
+        top: 30%;
+        transform: translateY(-50%) !important;
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        border: none;
+        border-radius: 50%;
+        background: #ff5b7f;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        flex-shrink: 0;
 
-    position: right;
-    right:0;
-    top:30%;
-    transform:translateY(-90%);
-}
+    }
 
-#closeCabinet {
-    position: right !important;
-    width: 30px !important;
-    height: 30px !important;
-    max-width: 30px !important;
-    flex: 0 0 30px !important;
+    #closeCabinet {
+        position: absolute !important;
+        width: 30px !important;
+        height: 30px !important;
+        max-width: 30px !important;
+        flex: 0 0 30px !important;
 
-    right:0 !important;
-    top:30% !important;
-    transform:translateY(-90%) !important;
-}
+        right:0 !important;
+        top:30% !important;
+        transform:translateY(-50%) !important;
+    }
+
 
 #closeCabinet:hover {
     background: #e6466d;
@@ -646,6 +647,10 @@ select[multiple]{
     }
 
     #closeCabinet {
+        position: absolute;
+        right: 0;
+        top: 30%;
+        transform: translateY(-50%) !important;
         width: 30px;
         height: 30px;
         min-width: 30px;
@@ -662,14 +667,10 @@ select[multiple]{
         padding: 0;
         flex-shrink: 0;
 
-        position: right;
-        right:0;
-        top:30%;
-        transform:translateY(-90%);
     }
 
     #closeCabinet {
-        position: right !important;
+        position: absolute !important;
         width: 30px !important;
         height: 30px !important;
         max-width: 30px !important;
@@ -677,7 +678,7 @@ select[multiple]{
 
         right:0 !important;
         top:30% !important;
-        transform:translateY(-90%) !important;
+        transform:translateY(-50%) !important;
     }
 
     #closeCabinet:hover {
