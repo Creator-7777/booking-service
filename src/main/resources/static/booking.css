@@ -386,16 +386,22 @@ button:disabled{
     padding: 0;
     flex-shrink: 0;
 
+    position: right;
     right:0;
     top:30%;
     transform:translateY(-90%);
 }
 
 #closeCabinet {
+    position: right !important;
     width: 30px !important;
     height: 30px !important;
     max-width: 30px !important;
     flex: 0 0 30px !important;
+
+    right:0 !important;
+    top:30% !important;
+    transform:translateY(-90%) !important;
 }
 
 #closeCabinet:hover {
@@ -656,16 +662,22 @@ select[multiple]{
         padding: 0;
         flex-shrink: 0;
 
+        position: right;
         right:0;
         top:30%;
         transform:translateY(-90%);
     }
 
     #closeCabinet {
+        position: right !important;
         width: 30px !important;
         height: 30px !important;
         max-width: 30px !important;
         flex: 0 0 30px !important;
+
+        right:0 !important;
+        top:30% !important;
+        transform:translateY(-90%) !important;
     }
 
     #closeCabinet:hover {
