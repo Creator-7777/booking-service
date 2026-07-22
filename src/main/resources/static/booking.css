@@ -317,6 +317,25 @@ button:disabled{
   display:none;
 }
 
+.cabinet-btn {
+    margin-top:70px;
+    margin-left:470px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #d7e4de;
+
+    font-size: 34px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 0px 0px rgba(0,0,0,.2);
+}
+
 .cabinet{
     position:fixed;
     top:50%;
@@ -524,6 +543,25 @@ select[multiple]{
 
     select[multiple]{
         min-height:150px;
+    }
+
+    .cabinet-btn {
+        margin-top:70px;
+        margin-left:470px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: #d7e4de;
+
+        font-size: 34px;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        box-shadow: 0 0px 0px rgba(0,0,0,.2);
     }
 
     .cabinet{
