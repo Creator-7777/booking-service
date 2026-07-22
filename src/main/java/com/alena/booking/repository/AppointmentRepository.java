@@ -13,4 +13,6 @@ public interface AppointmentRepository
 
     List<Appointment> findByAppointmentDate(LocalDate appointmentDate);
 
+    List<Appointment> findByPhoneOrderByAppointmentDateDescAppointmentTimeDesc(String phone);
+
 }

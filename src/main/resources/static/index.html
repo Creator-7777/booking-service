@@ -42,6 +42,12 @@
             </div>
         </div>
 
+        <button
+                id="cabinetBtn"
+                class="cabinet-btn">
+            👤
+        </button>
+
         <!-- ========================= -->
         <!-- Logo                      -->
         <!-- ========================= -->
@@ -221,10 +227,25 @@
         <!-- Status                    -->
         <!-- ========================= -->
 
-        <div
-                id="status"
-                class="status">
+        <div id="status" class="status"> </div>
 
+        <!-- ========================= -->
+        <!-- Cabinet                   -->
+        <!-- ========================= -->
+
+        <div id="cabinetWindow" class="cabinet hidden">
+            <div class="cabinet-header">
+                <h2 data-i18n="myCabinet">
+                    Мои записи
+                </h2>
+                <button
+                        id="closeCabinet"
+                        type="button">
+                    ✕
+                </button>
+            </div>
+            <div id="cabinetContent">
+            </div>
         </div>
 
         <!-- ========================= -->
@@ -237,6 +258,7 @@
                 data-i18n="noSlots">
             No available time slots
         </div>
+
     </div>
 
     <footer>

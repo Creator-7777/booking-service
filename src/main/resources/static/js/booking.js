@@ -21,6 +21,11 @@ const Booking = (() => {
         form = document.getElementById("form");
         status = document.getElementById("status");
 
+        const cabinetBtn = document.getElementById("cabinetBtn");
+        const cabinetWindow = document.getElementById("cabinetWindow");
+        const cabinetContent = document.getElementById("cabinetContent");
+        const closeCabinet = document.getElementById("closeCabinet");
+
         if (!form) {
             console.error("Booking form not found");
             return;
@@ -28,6 +33,45 @@ const Booking = (() => {
         }
 
         form.addEventListener("submit",submitBooking );
+    }
+
+    //-------------------------------------------------
+    // Cabinet
+    //-------------------------------------------------
+
+    cabinetBtn.addEventListener("click", openCabinet);
+    closeCabinet.addEventListener("click", () => {
+        cabinetWindow.classList.add("hidden");
+    });
+
+    async function openCabinet(){
+        const phone =  Utils.normalizePhone( document.getElementById("phone").value);
+        if(phone===""){
+            alert("Введите телефон.");
+            return;
+        }
+        const response =  await fetch( "/api/cabinet/history?phone="  + encodeURIComponent(phone));
+        const bookings =  await response.json();
+        renderHistory(bookings);
+        cabinetWindow.classList.remove("hidden");
+    }
+
+    function renderHistory(bookings){
+        cabinetContent.innerHTML="";
+        if(bookings.length===0){
+            cabinetContent.innerHTML=  "<p>История отсутствует.</p>";
+            return;
+        }
+
+        bookings.forEach(booking=>{
+            cabinetContent.innerHTML+=`
+            <div class="cabinet-card">
+                <h3>${booking.service}</h3>
+                <p>📅 ${booking.date}</p>
+                <p>🕒 ${booking.time}</p>
+                <p>✔ ${booking.status}</p>
+            </div> `;
+        });
     }
 
     //-------------------------------------------------
