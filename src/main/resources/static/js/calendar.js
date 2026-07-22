@@ -31,9 +31,7 @@ const Calendar = (() => {
         noSlots = document.getElementById("no-slots");
 
         if (!dateInput || !timeSelect) {
-
             console.error("Calendar controls not found.");
-
             return;
 
         }
@@ -74,11 +72,8 @@ const Calendar = (() => {
                 t("weekendNotAllowed") ||
                 "Booking is unavailable on Friday and Saturday."
             );
-
             dateInput.value = "";
-
             resetTime();
-
             return;
 
         }
@@ -88,40 +83,23 @@ const Calendar = (() => {
         //-------------------------------------------------
 
         timeSelect.innerHTML = "";
-
         timeSelect.appendChild(
             Utils.createOption(
                 "",
                 t("loading")
             )
         );
-
         noSlots.classList.add("hidden");
-
         try {
-
-            const booked =
-                await Utils.getJSON(
-                    "/api/bookings/booked-times?date=" +
-                    encodeURIComponent(selectedDate)
-                );
-
+            const booked = await Utils.getJSON( "/api/bookings/booked-times?date=" + encodeURIComponent(selectedDate) );
             fillAvailableSlots(booked);
-
         }
 
         catch (e) {
-
             console.error(e);
-
-            Utils.showError(
-                t("errorLoadingTimeSlots")
-            );
-
+            Utils.showError( t("errorLoadingTimeSlots") );
             resetTime();
-
         }
-
     }
 
     //-------------------------------------------------
@@ -129,55 +107,33 @@ const Calendar = (() => {
     //-------------------------------------------------
 
     function fillAvailableSlots(bookedSlots) {
-
         timeSelect.innerHTML = "";
-
         timeSelect.appendChild(
-
             Utils.createOption(
-
                 "",
-
                 t("chooseTime")
-
             )
-
         );
 
         let available = false;
-
         timeSlots.forEach(slot => {
-
             if (!bookedSlots.includes(slot)) {
-
                 timeSelect.appendChild(
-
                     Utils.createOption(
-
                         slot,
-
                         slot
-
                     )
-
                 );
-
                 available = true;
-
             }
-
         });
 
         if (!available) {
-
             noSlots.classList.remove("hidden");
-
         }
 
         else {
-
             noSlots.classList.add("hidden");
-
         }
 
     }
@@ -187,23 +143,14 @@ const Calendar = (() => {
     //-------------------------------------------------
 
     function resetTime() {
-
         timeSelect.innerHTML = "";
-
         timeSelect.appendChild(
-
             Utils.createOption(
-
                 "",
-
                 t("chooseTime")
-
             )
-
         );
-
         noSlots.classList.add("hidden");
-
     }
 
     //-------------------------------------------------
@@ -211,13 +158,8 @@ const Calendar = (() => {
     //-------------------------------------------------
 
     return {
-
         init,
-
         resetTime,
-
         loadAvailableSlots
-
     };
-
 }) ();

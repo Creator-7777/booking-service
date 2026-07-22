@@ -20,25 +20,16 @@ function t(key) {
 async function loadLanguage(lang) {
 
     try {
-
         const response = await fetch("/api/i18n/" + lang);
-
         if (!response.ok) {
             throw new Error("Cannot load language " + lang);
         }
-
         translations = await response.json();
-
         applyTranslations();
-
         await loadServices(lang);
-
         localStorage.setItem("lang", lang);
-
     } catch (e) {
-
         console.error("Language loading failed", e);
-
     }
 }
 // ------------------------------------------
@@ -63,15 +54,11 @@ async function loadServices(lang){
 // ------------------------------------------
 
 function applyTranslations() {
-
     //---------------------------------------------------
     // Text
     //---------------------------------------------------
-
     document.querySelectorAll("[data-i18n]").forEach(element => {
-
         const key = element.dataset.i18n;
-
         /*if (translations[key]) {
             element.textContent = translations[key];
         }*/
@@ -90,7 +77,6 @@ function applyTranslations() {
     //---------------------------------------------------
 
     document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
-
         const key = element.dataset.i18nPlaceholder;
 
 /*        if (translations[key]) {
@@ -112,16 +98,11 @@ function applyTranslations() {
 // ------------------------------------------
 // Language menu
 // ------------------------------------------
-
 function initializeLanguageSelector() {
-
     const languageBtn = document.getElementById("languageBtn");
     const languageMenu = document.getElementById("languageMenu");
-
     if (!languageBtn || !languageMenu) {
-
         console.error("Language selector not found.");
-
         return;
     }
 
@@ -130,9 +111,7 @@ function initializeLanguageSelector() {
     //---------------------------------------------------
 
     languageBtn.addEventListener("click", function (event) {
-
         event.stopPropagation();
-
         languageMenu.classList.toggle("hidden");
 
     });
@@ -142,13 +121,9 @@ function initializeLanguageSelector() {
     //---------------------------------------------------
 
     document.querySelectorAll("[data-lang]").forEach(button => {
-
         button.addEventListener("click", function () {
-
             const lang = this.dataset.lang;
-
             loadLanguage(lang);
-
             languageMenu.classList.add("hidden");
 
         });
@@ -160,10 +135,8 @@ function initializeLanguageSelector() {
     //---------------------------------------------------
 
     document.addEventListener("click", function (event) {
-
         if (!languageMenu.contains(event.target)
             && !languageBtn.contains(event.target)) {
-
             languageMenu.classList.add("hidden");
 
         }
@@ -175,13 +148,9 @@ function initializeLanguageSelector() {
 // ------------------------------------------
 // Initialization
 // ------------------------------------------
-
 function initializeLanguage() {
-
     initializeLanguageSelector();
-
     const lang = localStorage.getItem("lang") || "ru";
-
     loadLanguage(lang);
 
 }

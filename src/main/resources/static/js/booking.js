@@ -47,7 +47,7 @@ const Booking = (() => {
     async function openCabinet(){
         const phone =  Utils.normalizePhone( document.getElementById("phone").value);
         if(phone===""){
-            alert("Введите телефон.");
+            alert("Введите телефон - Insert your phone number");
             return;
         }
         const response =  await fetch( "/api/cabinet/history?phone="  + encodeURIComponent(phone));
@@ -59,7 +59,7 @@ const Booking = (() => {
     function renderHistory(bookings){
         cabinetContent.innerHTML="";
         if(bookings.length===0){
-            cabinetContent.innerHTML=  "<p>История отсутствует.</p>";
+            cabinetContent.innerHTML=  "<p>История отсутствует - No History </p>";
             return;
         }
 
@@ -177,7 +177,7 @@ const Booking = (() => {
 
             const validation = await validationResponse.json();
             if (!validation.valid) {
-                alert("Неверный SMS код");
+                alert("Неверный SMS код - Invalid code");
                 return;
             }
         }
