@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface VerifiedCustomerRepository
-        extends JpaRepository<VerifiedCustomer, Long> {
+public interface VerifiedCustomerRepository extends JpaRepository<VerifiedCustomer, Long> {
 
     Optional<VerifiedCustomer> findByPhone(String phone);
 

@@ -95,7 +95,7 @@ public class GoogleSheetService {
 
     public List<VerifiedCustomerSyncDto> loadVerifiedPhones() {
 
-        String url = appsScriptUrl + "?action=allBookings";
+        String url = appsScriptUrl + "?action=allVerifiedPhones";
         ResponseEntity<VerifiedCustomerSyncDto[]> response = restTemplate.getForEntity(url, VerifiedCustomerSyncDto[].class);
         return Arrays.asList(response.getBody());
     }
