@@ -38,11 +38,13 @@ public class GoogleSheetService {
                 "time", appointment.getAppointmentTime()
         );
         try {
-            restTemplate.postForEntity(
+            ResponseEntity<String> response = restTemplate.postForEntity(
                     appsScriptUrl,
                     payload,
                     String.class);
 
+            log.info("STATUS={}", response.getStatusCode());
+            log.info("BODY={}", response.getBody());
             log.info("Google Sheet SUCCESS");
 
         } catch (Exception e) {
