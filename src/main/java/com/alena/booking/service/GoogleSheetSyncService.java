@@ -33,13 +33,13 @@ public class GoogleSheetSyncService {
         int inserted = 0;
         for (BookingSyncDto dto : bookings) {
 
-/*            boolean exists = appointmentRepository.existsByAppointmentDateAndAppointmentTime(
+            boolean exists = appointmentRepository.existsByAppointmentDateAndAppointmentTime(
                             LocalDate.parse(dto.getDate()),
                             dto.getTime());
 
             if (exists) {
                 continue;
-            }*/
+            }
 
             Appointment appointment = Appointment.builder()
                             .customerName(dto.getName())
