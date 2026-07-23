@@ -15,4 +15,6 @@ public interface AppointmentRepository
 
     List<Appointment> findByPhoneOrderByAppointmentDateDescAppointmentTimeDesc(String phone);
 
+    boolean existsByPhoneAndAppointmentDateAndAppointmentTime(String phone, LocalDate appointmentDate, String appointmentTime);
+
 }

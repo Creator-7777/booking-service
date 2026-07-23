@@ -1,5 +1,7 @@
 package com.alena.booking.service;
 
+import com.alena.booking.dto.BookingSyncDto;
+import com.alena.booking.dto.VerifiedCustomerSyncDto;
 import com.alena.booking.entity.Appointment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,4 +83,19 @@ public class GoogleSheetService {
             log.error("Google Sheet - Verified Phones insert FAILED", e);
         }
     }
+
+    public List<BookingSyncDto> loadBookings() {
+
+        String url = appsScriptUrl + "?action=allBookings";
+        ResponseEntity<BookingSyncDto[]> response = restTemplate.getForEntity(url, BookingSyncDto[].class);
+        return Arrays.asList(response.getBody());
+    }
+
+    public List<VerifiedCustomerSyncDto> loadVerifiedPhones() {
+
+        String url = appsScriptUrl + "?action=allBookings";
+        ResponseEntity<VerifiedCustomerSyncDto[]> response = restTemplate.getForEntity(url, VerifiedCustomerSyncDto[].class);
+        return Arrays.asList(response.getBody());
+    }
+
 }
