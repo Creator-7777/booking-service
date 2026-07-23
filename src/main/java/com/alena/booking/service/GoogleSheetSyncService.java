@@ -43,7 +43,7 @@ public class GoogleSheetSyncService {
 
             Appointment appointment = Appointment.builder()
                             .customerName(dto.getName())
-                            .phone(dto.getPhone())
+                            .phone(0+dto.getPhone())
                             .services(dto.getService())
                             .appointmentDate(LocalDate.parse(dto.getDate()))
                             .appointmentTime(dto.getTime())
@@ -64,12 +64,12 @@ public class GoogleSheetSyncService {
         List<VerifiedCustomerSyncDto> customers = googleSheetService.loadVerifiedPhones();
         int inserted = 0;
         for (VerifiedCustomerSyncDto dto : customers) {
-            if (verifiedCustomerRepository.existsByPhone(dto.getPhone())) {
+            if (verifiedCustomerRepository.existsByPhone(0+dto.getPhone())) {
                 continue;
             }
 
             VerifiedCustomer customer = new VerifiedCustomer();
-            customer.setPhone(dto.getPhone());
+            customer.setPhone(0+dto.getPhone());
             customer.setName(dto.getName());
             verifiedCustomerRepository.save(customer);
             inserted++;
