@@ -33,13 +33,13 @@ public class GoogleSheetSyncService {
         int inserted = 0;
         for (BookingSyncDto dto : bookings) {
 
-            boolean exists = appointmentRepository.existsByAppointmentDateAndAppointmentTime(
+/*            boolean exists = appointmentRepository.existsByAppointmentDateAndAppointmentTime(
                             LocalDate.parse(dto.getDate()),
                             dto.getTime());
 
             if (exists) {
                 continue;
-            }
+            }*/
 
             Appointment appointment = Appointment.builder()
                             .customerName(dto.getName())
@@ -84,4 +84,31 @@ public class GoogleSheetSyncService {
         syncBookings();
     }
 
+    @Transactional
+    public void rebuildDatabase() {
+        log.info("========== DATABASE REBUILD STARTED ==========");
+        //---------------------------------------------------
+        // Delete existing data
+        //---------------------------------------------------
+        log.info("Removing appointments...");
+        appointmentRepository.deleteAllInBatch();
+
+        log.info("Removing verified customers...");
+        verifiedCustomerRepository.deleteAllInBatch();
+
+        appointmentRepository.flush();
+        verifiedCustomerRepository.flush();
+        log.info("Database cleaned.");
+        //---------------------------------------------------
+        // Restore verified customers
+        //---------------------------------------------------
+        log.info("Synchronizing verified customers...");
+        syncVerifiedCustomers();
+        //---------------------------------------------------
+        // Restore bookings
+        //---------------------------------------------------
+        log.info("Synchronizing appointments...");
+        syncBookings();
+        log.info("========== DATABASE REBUILD FINISHED ==========");
+    }
 }
