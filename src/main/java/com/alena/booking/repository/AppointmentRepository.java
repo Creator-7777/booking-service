@@ -17,4 +17,6 @@ public interface AppointmentRepository
 
     boolean existsByPhoneAndAppointmentDateAndAppointmentTime(String phone, LocalDate appointmentDate, String appointmentTime);
 
+    boolean existsByAppointmentDateAndAppointmentTime(LocalDate appointmentDate, String appointmentTime);
+
 }

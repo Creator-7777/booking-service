@@ -33,8 +33,7 @@ public class GoogleSheetSyncService {
         int inserted = 0;
         for (BookingSyncDto dto : bookings) {
 
-            boolean exists = appointmentRepository.existsByPhoneAndAppointmentDateAndAppointmentTime(
-                            dto.getPhone(),
+            boolean exists = appointmentRepository.existsByAppointmentDateAndAppointmentTime(
                             LocalDate.parse(dto.getDate()),
                             dto.getTime());
 
@@ -62,25 +61,17 @@ public class GoogleSheetSyncService {
     @Transactional
     public void syncVerifiedCustomers() {
 
-        List<VerifiedCustomerSyncDto> customers =
-                googleSheetService.loadVerifiedPhones();
-
+        List<VerifiedCustomerSyncDto> customers = googleSheetService.loadVerifiedPhones();
         int inserted = 0;
-
         for (VerifiedCustomerSyncDto dto : customers) {
-
             if (verifiedCustomerRepository.existsByPhone(dto.getPhone())) {
                 continue;
             }
 
-            VerifiedCustomer customer =
-                    new VerifiedCustomer();
-
+            VerifiedCustomer customer = new VerifiedCustomer();
             customer.setPhone(dto.getPhone());
             customer.setName(dto.getName());
-
             verifiedCustomerRepository.save(customer);
-
             inserted++;
         }
 
