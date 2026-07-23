@@ -85,7 +85,6 @@ const Booking = (() => {
                 <h3>${booking.service}</h3>
                 <p>📅 ${booking.date}</p>
                 <p>🕒 ${booking.time}</p>
-//                <p>✔ ${booking.status}</p>
                 <div class="status-badge ${booking.status.toLowerCase()}"> ${statusText(booking.status)}</div>
             </div> `;
         });
