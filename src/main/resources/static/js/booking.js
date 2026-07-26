@@ -115,16 +115,22 @@ const Booking = (() => {
             return;
         }
         try{
-            const response = await fetch("/api/bookings/" + id,{
-                    method:"DELETE"
-                });
+             const response = await fetch("/api/bookings/cancel",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    id:id
+                })
+            });
 
             if(!response.ok){
                 throw new Error( await response.text());
             }
 
             alert( t("bookingCancelled")  || "Booking cancelled");
-            openCabinet();
+            await openCabinet();
         }
         catch(e){
             console.error(e);
