@@ -172,7 +172,7 @@ public class CalendarService {
 
         for (Event event : events.getItems()) {
 
-            if (event.getSummary().contains(appointment.getCustomerName())) {
+            if (event.getSummary().contains(appointment.getPhone())) {
 
                 calendar.events()
                         .delete(calendarId, event.getId())

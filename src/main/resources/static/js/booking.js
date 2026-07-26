@@ -45,6 +45,9 @@ const Booking = (() => {
     });
 
     async function openCabinet(){
+
+    console.log("OPEN CABINET");
+
         const phone =  Utils.normalizePhone( document.getElementById("phone").value);
         if(phone===""){
             alert("Введите телефон - Insert your phone number");
@@ -84,14 +87,13 @@ const Booking = (() => {
 
         let cancelButton="";
 
-            if(booking.status==="Предстоящая"){
+            if(booking.status==="UPCOMING"){
                 cancelButton=`
                     <button
                         class="cancel-booking-btn"
                         onclick="Booking.cancelBooking(${booking.id})">
                         ❌ ${t("cancelBooking") || "Cancel"}
-                    </button>
-                `;
+                    </button>`;
             }
 
             cabinetContent.innerHTML+=`
@@ -101,7 +103,7 @@ const Booking = (() => {
                 <p>🕒 ${booking.time}</p>
                 <div class="status-badge ${booking.status.toLowerCase()}"> ${statusText(booking.status)}</div>
                 ${cancelButton}
-            </div>;
+            </div>`;
         });
     }
 

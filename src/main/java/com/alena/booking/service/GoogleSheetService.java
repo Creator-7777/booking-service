@@ -152,7 +152,7 @@ public class GoogleSheetService {
 
         try {
 
-            restTemplate.postForEntity(
+            restTemplate.delete(
                     appsScriptUrl,
                     payload,
                     String.class);
