@@ -179,7 +179,6 @@ public class CalendarService {
                         .execute();
 
                 log.info("Calendar event deleted");
-
                 return;
             }
         }
