@@ -20,10 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -151,16 +148,18 @@ public class GoogleSheetService {
         );
 
         try {
+            // Instead of restTemplate.delete(url);
+            payload.put("action", "deleteBooking");
+            payload.put("date", appointment.getAppointmentDate().toString());
+            payload.put("time", appointment.getAppointmentTime());
+            payload.put("phone",appointment.getPhone());
 
-            restTemplate.delete(
-                    appsScriptUrl,
-                    payload,
-                    String.class);
+            //ResponseEntity<String> response = restTemplate.postForEntity(appsScriptUrl, payload, String.class);
+            //restTemplate.delete(appsScriptUrl, payload, String.class);
 
             log.info("Booking removed from Google Sheet");
 
         } catch(Exception e){
-
             log.error("Google Sheet delete failed",e);
 
         }
