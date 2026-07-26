@@ -139,7 +139,6 @@ public class GoogleSheetService {
     public void deleteBooking(Appointment appointment) {
 
         Map<String,Object> payload = Map.of(
-
                 "action","deleteBooking",
                 "phone",appointment.getPhone(),
                 "date",appointment.getAppointmentDate().toString(),
@@ -148,7 +147,11 @@ public class GoogleSheetService {
         );
 
         try {
-            restTemplate.delete(appsScriptUrl, payload, String.class);
+            restTemplate.postForEntity(
+                    appsScriptUrl,
+                    payload,
+                    String.class
+            );
             log.info("Booking removed from Google Sheet");
 
         } catch(Exception e){

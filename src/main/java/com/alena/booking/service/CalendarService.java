@@ -141,6 +141,8 @@ public class CalendarService {
 
     public void deleteEvent(Appointment appointment) throws IOException {
 
+        ZoneId zone = ZoneId.of("Asia/Jerusalem");
+
         LocalTime start =
                 LocalTime.parse(
                         appointment.getAppointmentTime()
@@ -164,25 +166,20 @@ public class CalendarService {
                         end);
 
         Events events = calendar.events().list(calendarId)
-                .setTimeMin(new DateTime(
-                        startDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()))
-                .setTimeMax(new DateTime(
-                        endDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()))
+//                .setTimeMin(new DateTime(startDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()))
+//                .setTimeMax(new DateTime(endDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()))
+                .setTimeMin(new DateTime(Date.from(startDateTime.atZone(zone).toInstant())))
+                .setTimeMax(new DateTime(Date.from(endDateTime.atZone(zone).toInstant())))
                 .execute();
 
         for (Event event : events.getItems()) {
-
-            if (event.getSummary().contains(appointment.getAppointmentDate().toString()) && event.getSummary().contains(appointment.getAppointmentTime())) {
-
-                calendar.events()
-                        .delete(calendarId, event.getId())
-                        .execute();
-
-                log.info("Calendar event deleted");
+            if (event.getDescription() != null && event.getDescription().contains(appointment.getPhone())) {
+                calendar.events().delete(calendarId,event.getId()).execute();
+                log.info("Calendar deleted");
                 return;
             }
         }
-
         log.warn("Calendar event not found");
+
     }
 }
