@@ -52,6 +52,7 @@ const Booking = (() => {
         }
         const response =  await fetch( "/api/cabinet/history?phone="  + encodeURIComponent(phone));
         const bookings =  await response.json();
+        console.log(bookings);
         renderHistory(bookings);
         cabinetWindow.classList.remove("hidden");
     }
