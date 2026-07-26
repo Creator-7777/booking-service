@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AppointmentRepository
@@ -18,5 +19,9 @@ public interface AppointmentRepository
     boolean existsByPhoneAndAppointmentDateAndAppointmentTime(String phone, LocalDate appointmentDate, String appointmentTime);
 
     boolean existsByAppointmentDateAndAppointmentTime(LocalDate appointmentDate, String appointmentTime);
+
+    Optional<Appointment> findByPhoneAndAppointmentDateAndAppointmentTime(String phone, LocalDate appointmentDate, String appointmentTime
+
+    );
 
 }

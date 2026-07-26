@@ -1,6 +1,7 @@
 package com.alena.booking.service;
 
 import com.alena.booking.dto.BookingRequest;
+import com.alena.booking.dto.CancelBookingRequest;
 import com.alena.booking.entity.Appointment;
 import com.alena.booking.entity.VerifiedCustomer;
 import com.alena.booking.exception.BookingAlreadyExistsException;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -98,13 +100,19 @@ public class BookingService {
 
     }
 
-    public List<String> getBookedTimes(
-            LocalDate date) {
+    @Transactional
+    public void cancel(CancelBookingRequest request) throws IOException {
 
-        return repository
-                .findByAppointmentDate(date)
-                .stream()
-                .map(Appointment::getAppointmentTime)
-                .toList();
+        Appointment appointment = repository.findByPhoneAndAppointmentDateAndAppointmentTime(request.phone(), LocalDate.parse(request.date()), request.time()).orElseThrow();
+
+        if(appointment.getAppointmentDate().isBefore(LocalDate.now())){
+            throw new RuntimeException("Past bookings cannot be cancelled");
+        }
+        else{
+            repository.delete(appointment);
+            calendarService.deleteEvent(appointment);
+            googleSheetService.deleteBooking(appointment);
+            telegramService.sendCancelNotification(appointment);
+        }
     }
 }

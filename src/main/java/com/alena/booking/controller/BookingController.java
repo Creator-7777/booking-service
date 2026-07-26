@@ -1,12 +1,14 @@
 package com.alena.booking.controller;
 
 import com.alena.booking.dto.BookingRequest;
+import com.alena.booking.dto.CancelBookingRequest;
 import com.alena.booking.service.BookingService;
 import com.alena.booking.service.GoogleSheetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,5 +35,11 @@ public class BookingController {
         service.createBooking(request);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/cancel")
+    public void cancel(@RequestBody CancelBookingRequest request) throws IOException {
+        service.cancel(request);
+
     }
 }

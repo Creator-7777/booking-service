@@ -404,6 +404,23 @@ button:disabled{
         transform:translateY(-50%) !important;
     }
 
+    .cancel-booking-btn{
+        margin-top:12px;
+        width:100%;
+        border:none;
+        border-radius:10px;
+        padding:10px;
+        cursor:pointer;
+        background:#d9534f;
+        color:white;
+        font-size:14px;
+        transition:.2s;
+    }
+
+    .cancel-booking-btn:hover{
+        background:#b52b27;
+    }
+
 
 #closeCabinet:hover {
     background: #e6466d;

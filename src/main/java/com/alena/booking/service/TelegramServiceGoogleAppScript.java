@@ -23,8 +23,7 @@ public class TelegramServiceGoogleAppScript {
 
     private static final Logger log = LoggerFactory.getLogger(TelegramServiceGoogleAppScript.class);
 
-    public void sendBooking(
-            Appointment appointment) {
+    public void sendBooking(Appointment appointment) {
 
         Map<String, Object> payload = Map.of(
                 "name", appointment.getCustomerName(),
@@ -43,5 +42,26 @@ public class TelegramServiceGoogleAppScript {
                         .block();
 
         log.info(response);
+    }
+
+    public void sendCancelNotification(Appointment appointment) {
+
+        String text = """
+                    ❌ Отмена записи
+                    
+                    👤 %s
+                    📞 %s
+                    💅 %s
+                    📅 %s
+                    ⏰ %s
+                    """
+                .formatted(
+                        appointment.getCustomerName(),
+                        appointment.getPhone(),
+                        appointment.getServices(),
+                        appointment.getAppointmentDate(),
+                        appointment.getAppointmentTime());
+
+        sendBooking(appointment);
     }
 }

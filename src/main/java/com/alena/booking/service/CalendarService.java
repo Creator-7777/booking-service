@@ -19,6 +19,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import java.io.InputStream;
@@ -136,5 +137,53 @@ public class CalendarService {
             // Better to reject booking than double-book
             return false;
         }
+    }
+
+    public void deleteEvent(Appointment appointment) throws IOException {
+
+        LocalTime start =
+                LocalTime.parse(
+                        appointment.getAppointmentTime()
+                                .split("[\\-–]")[0]
+                                .trim());
+
+        LocalTime end =
+                LocalTime.parse(
+                        appointment.getAppointmentTime()
+                                .split("[\\-–]")[1]
+                                .trim());
+
+        LocalDateTime startDateTime =
+                LocalDateTime.of(
+                        appointment.getAppointmentDate(),
+                        start);
+
+        LocalDateTime endDateTime =
+                LocalDateTime.of(
+                        appointment.getAppointmentDate(),
+                        end);
+
+        Events events = calendar.events().list(calendarId)
+                .setTimeMin(new DateTime(
+                        startDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()))
+                .setTimeMax(new DateTime(
+                        endDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()))
+                .execute();
+
+        for (Event event : events.getItems()) {
+
+            if (event.getSummary().contains(appointment.getCustomerName())) {
+
+                calendar.events()
+                        .delete(calendarId, event.getId())
+                        .execute();
+
+                log.info("Calendar event deleted");
+
+                return;
+            }
+        }
+
+        log.warn("Calendar event not found");
     }
 }

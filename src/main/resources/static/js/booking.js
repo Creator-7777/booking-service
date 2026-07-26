@@ -80,14 +80,53 @@ const Booking = (() => {
         }
 
         bookings.forEach(booking=>{
+
+        let cancelButton="";
+
+            if(booking.status==="UPCOMING"){
+                cancelButton=`
+                    <button
+                        class="cancel-booking-btn"
+                        onclick="Booking.cancelBooking(${booking.id})">
+                        ❌ ${t("cancelBooking") || "Cancel"}
+                    </button>
+                `;
+            }
+
             cabinetContent.innerHTML+=`
             <div class="cabinet-card">
                 <h3>${booking.service}</h3>
                 <p>📅 ${booking.date}</p>
                 <p>🕒 ${booking.time}</p>
                 <div class="status-badge ${booking.status.toLowerCase()}"> ${statusText(booking.status)}</div>
-            </div> `;
+                ${cancelButton}
+            </div>;
         });
+    }
+
+    //-------------------------------------------------
+    // Cancel Booking
+    //-------------------------------------------------
+    async function cancelBooking(id){
+        if(!confirm( t("confirmCancelBooking")  || "Cancel this booking?")){
+            return;
+        }
+        try{
+            const response = await fetch("/api/bookings/" + id,{
+                    method:"DELETE"
+                });
+
+            if(!response.ok){
+                throw new Error( await response.text());
+            }
+
+            alert( t("bookingCancelled")  || "Booking cancelled");
+            openCabinet();
+        }
+        catch(e){
+            console.error(e);
+            alert(e.message);
+        }
     }
 
     //-------------------------------------------------
@@ -250,6 +289,7 @@ const Booking = (() => {
     //-------------------------------------------------
 
     return {
-        init
+        init,
+        cancelBooking
     };
 }) ();

@@ -139,4 +139,31 @@ public class GoogleSheetService {
         }
     }
 
+    public void deleteBooking(Appointment appointment) {
+
+        Map<String,Object> payload = Map.of(
+
+                "action","deleteBooking",
+                "phone",appointment.getPhone(),
+                "date",appointment.getAppointmentDate().toString(),
+                "time",appointment.getAppointmentTime()
+
+        );
+
+        try {
+
+            restTemplate.postForEntity(
+                    appsScriptUrl,
+                    payload,
+                    String.class);
+
+            log.info("Booking removed from Google Sheet");
+
+        } catch(Exception e){
+
+            log.error("Google Sheet delete failed",e);
+
+        }
+    }
+
 }
