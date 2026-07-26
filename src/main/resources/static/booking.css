@@ -404,22 +404,22 @@ button:disabled{
         transform:translateY(-50%) !important;
     }
 
-    .cancel-booking-btn{
-        margin-top:12px;
-        width:100%;
-        border:none;
-        border-radius:10px;
-        padding:10px;
-        cursor:pointer;
-        background:#d9534f;
-        color:white;
-        font-size:14px;
-        transition:.2s;
-    }
+     .cancel-booking-btn{
+            margin-top:15px;
+            width:70%;
+            border:none;
+            border-radius:30px;
+            padding:10px;
+            cursor:pointer;
+            background:#514d3a;
+            color:white;
+            font-size:15px;
+            transition:.2s;
+        }
 
-    .cancel-booking-btn:hover{
-        background:#b52b27;
-    }
+        .cancel-booking-btn:hover{
+            background:#e2120c;
+        }
 
 
 #closeCabinet:hover {
@@ -721,6 +721,23 @@ select[multiple]{
         top:0% !important;
         transform:translateY(-50%) !important;
     }
+
+     .cancel-booking-btn{
+            margin-top:15px;
+            width:70%;
+            border:none;
+            border-radius:30px;
+            padding:10px;
+            cursor:pointer;
+            background:#514d3a;
+            color:white;
+            font-size:15px;
+            transition:.2s;
+        }
+
+        .cancel-booking-btn:hover{
+            background:#e2120c;
+        }
 
     #closeCabinet:hover {
         background: #e6466d;
