@@ -148,15 +148,7 @@ public class GoogleSheetService {
         );
 
         try {
-            // Instead of restTemplate.delete(url);
-            payload.put("action", "deleteBooking");
-            payload.put("date", appointment.getAppointmentDate().toString());
-            payload.put("time", appointment.getAppointmentTime());
-            payload.put("phone",appointment.getPhone());
-
-            //ResponseEntity<String> response = restTemplate.postForEntity(appsScriptUrl, payload, String.class);
-            //restTemplate.delete(appsScriptUrl, payload, String.class);
-
+            restTemplate.delete(appsScriptUrl, payload, String.class);
             log.info("Booking removed from Google Sheet");
 
         } catch(Exception e){

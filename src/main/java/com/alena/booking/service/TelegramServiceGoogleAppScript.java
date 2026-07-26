@@ -72,11 +72,11 @@ public class TelegramServiceGoogleAppScript {
                 "time",appointment.getAppointmentTime()
         );
 
-/*        webClient.post()
+        webClient.post()
                 .uri(appsScriptUrl)
                 .bodyValue(payload)
                 .retrieve()
                 .bodyToMono(String.class)
-                .block();*/
+                .block();
     }
 }
