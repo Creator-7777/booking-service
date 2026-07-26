@@ -83,7 +83,7 @@ const Booking = (() => {
 
         let cancelButton="";
 
-            if(booking.status==="UPCOMING"){
+            if(booking.status==="Предстоящая"){
                 cancelButton=`
                     <button
                         class="cancel-booking-btn"

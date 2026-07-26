@@ -62,6 +62,21 @@ public class TelegramServiceGoogleAppScript {
                         appointment.getAppointmentDate(),
                         appointment.getAppointmentTime());
 
-        sendBooking(appointment);
+        Map<String,Object> payload = Map.of(
+
+                "action","cancel",
+                "name",appointment.getCustomerName(),
+                "phone",appointment.getPhone(),
+                "service",appointment.getServices(),
+                "date",appointment.getAppointmentDate().toString(),
+                "time",appointment.getAppointmentTime()
+        );
+
+        webClient.post()
+                .uri(appsScriptUrl)
+                .bodyValue(payload)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
     }
 }
