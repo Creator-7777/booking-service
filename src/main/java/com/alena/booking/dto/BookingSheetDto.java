@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -25,7 +26,7 @@ public class BookingSheetDto {
 
     private String time;
 
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     private String status;
 
