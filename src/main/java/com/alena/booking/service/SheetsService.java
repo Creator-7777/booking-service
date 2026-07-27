@@ -72,7 +72,7 @@ public class SheetsService {
                     appointment.getServices(),
                     appointment.getAppointmentDate().toString(),
                     appointment.getAppointmentTime(),
-                    appointment.getCreatedAt(),
+                    appointment.getCreatedAt().toString(),
                     //Instant.now().toString(),
                     "ACTIVE"
             );

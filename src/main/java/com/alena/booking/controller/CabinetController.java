@@ -18,17 +18,11 @@ import java.util.List;
 public class CabinetController {
 
     private final CabinetService cabinetService;
-    private final SheetsService sheetsService;
 
     @GetMapping("/history")
     public List<BookingHistoryDto> history(@RequestParam String phone){
         return cabinetService.getHistory(phone);
     }
 
-    @GetMapping("/test/sheets")
-    public List<BookingSheetDto> test() throws Exception {
-        return sheetsService.loadBookings();
-
-    }
 
 }
