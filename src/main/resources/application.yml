@@ -36,6 +36,7 @@ google:
   calendar-id: ${GOOGLE_CALENDAR_ID}
   #credentials-json: "${app.config.google-service-account-json}"
   credentials-json: ${GOOGLE_SERVICE_ACCOUNT_JSON}
+  sheet.id: 1y9HCCc5NKEqhdco682H9FijpTDxShutsGTVkV5bcX_A
 
 
 sms:

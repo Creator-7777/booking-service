@@ -406,7 +406,7 @@ button:disabled{
 
      .cancel-booking-btn{
             margin-top:15px;
-            width:70%;
+            width:100%;
             border:none;
             border-radius:30px;
             padding:10px;
@@ -724,7 +724,7 @@ select[multiple]{
 
      .cancel-booking-btn{
             margin-top:15px;
-            width:70%;
+            width:100%;
             border:none;
             border-radius:30px;
             padding:10px;
