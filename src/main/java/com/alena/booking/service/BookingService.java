@@ -29,6 +29,7 @@ public class BookingService {
     //private final TelegramService telegramService;
     private final TelegramServiceGoogleAppScript telegramService;
     private final GoogleSheetService googleSheetService;
+    private final SheetsService sheetsService;
     private final CalendarService calendarService;
     private static final Logger log = LoggerFactory.getLogger(BookingService.class);
 
@@ -96,7 +97,12 @@ public class BookingService {
             log.error("Google Sheet save failed", e);
         }
 
-
+        try {
+            log.info("Sending to New Google Sheet...");
+            sheetsService.appendBooking(appointment);
+        } catch (Exception e) {
+            log.error("New Sheet save failed", e);
+        }
 
     }
 
