@@ -47,7 +47,6 @@ public class BookingController {
 
     }
 
-
     @GetMapping("/test/sheets")
     public List<BookingSheetDto> test() throws Exception {
         return sheetsService.loadBookings();

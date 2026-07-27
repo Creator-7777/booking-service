@@ -109,6 +109,21 @@ public class BookingService {
     @Transactional
     public void cancel(CancelBookingRequest request) throws IOException {
 
+        Appointment appointment = repository.findById(request.id()).orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        if (appointment.getAppointmentDate().isBefore(LocalDate.now())) {
+            throw new RuntimeException("Past bookings cannot be cancelled");
+        }
+
+        calendarService.deleteEvent(appointment);
+        sheetsService.deleteBooking(appointment);
+        telegramService.sendCancelNotification(appointment);
+        repository.delete(appointment);
+    }
+
+   /* @Transactional
+    public void cancel(CancelBookingRequest request) throws IOException {
+
         Appointment appointment = repository.findByPhoneAndAppointmentDateAndAppointmentTime(request.phone(), LocalDate.parse(request.date()), request.time()).orElseThrow();
 
         if(appointment.getAppointmentDate().isBefore(LocalDate.now())){
@@ -121,5 +136,5 @@ public class BookingService {
             sheetsService.deleteBooking(appointment);
             telegramService.sendCancelNotification(appointment);
         }
-    }
+    }*/
 }
