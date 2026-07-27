@@ -2,6 +2,7 @@ package com.alena.booking.service;
 
 import com.alena.booking.dto.BookingRequest;
 import com.alena.booking.dto.CancelBookingRequest;
+import com.alena.booking.dto.CancelOldBookingRequest;
 import com.alena.booking.entity.Appointment;
 import com.alena.booking.entity.VerifiedCustomer;
 import com.alena.booking.exception.BookingAlreadyExistsException;
@@ -90,12 +91,12 @@ public class BookingService {
             log.error("Calendar event failed", e);
         }
 
-        try {
+       /* try {
             log.info("Sending to Google Sheet...");
             googleSheetService.saveBooking(appointment);
         } catch (Exception e) {
             log.error("Google Sheet save failed", e);
-        }
+        }*/
 
         try {
             log.info("Sending to New Google Sheet...");
@@ -117,12 +118,15 @@ public class BookingService {
 
         calendarService.deleteEvent(appointment);
         sheetsService.deleteBooking(appointment);
+
         telegramService.sendCancelNotification(appointment);
         repository.delete(appointment);
     }
 
-   /* @Transactional
-    public void cancel(CancelBookingRequest request) throws IOException {
+
+
+    @Transactional
+    public void cancelOld(CancelOldBookingRequest request) throws IOException {
 
         Appointment appointment = repository.findByPhoneAndAppointmentDateAndAppointmentTime(request.phone(), LocalDate.parse(request.date()), request.time()).orElseThrow();
 
@@ -130,11 +134,7 @@ public class BookingService {
             throw new RuntimeException("Past bookings cannot be cancelled");
         }
         else{
-            repository.delete(appointment);
-            calendarService.deleteEvent(appointment);
-            //googleSheetService.deleteBooking(appointment);
-            sheetsService.deleteBooking(appointment);
-            telegramService.sendCancelNotification(appointment);
+            sheetsService.deleteOldTabBooking(appointment);
         }
-    }*/
+    }
 }

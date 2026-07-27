@@ -3,6 +3,7 @@ package com.alena.booking.controller;
 import com.alena.booking.dto.BookingRequest;
 import com.alena.booking.dto.BookingSheetDto;
 import com.alena.booking.dto.CancelBookingRequest;
+import com.alena.booking.dto.CancelOldBookingRequest;
 import com.alena.booking.service.BookingService;
 import com.alena.booking.service.GoogleSheetService;
 import com.alena.booking.service.SheetsService;
@@ -26,10 +27,9 @@ public class BookingController {
     private final SheetsService sheetsService;
 
     @GetMapping("/booked-times")
-    public List<String> bookedTimes(@RequestParam LocalDate date) {
-
-        return googleSheetService.getBookedTimes(date);
-        //return service.getBookedTimes(date);
+    public List<String> bookedTimes(@RequestParam LocalDate date) throws IOException {
+        return sheetsService.getBookedTimes(date);
+        //return googleSheetService.getBookedTimes(date);
     }
 
     @PostMapping
@@ -44,6 +44,12 @@ public class BookingController {
     @PostMapping("/cancel")
     public void cancel(@RequestBody CancelBookingRequest request) throws IOException {
         service.cancel(request);
+
+    }
+
+    @PostMapping("/cancel/old")
+    public void cancelOld(@RequestBody CancelOldBookingRequest request) throws IOException {
+        service.cancelOld(request);
 
     }
 
