@@ -1,12 +1,16 @@
 package com.alena.booking.service;
 
+import com.alena.booking.dto.BookingSheetDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.alena.booking.entity.Appointment;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
+import java.io.IOException;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -41,6 +45,8 @@ public class SheetsService {
 
     private Sheets sheets;
 
+    private String bookingsRange = "Bookings_New!A:H";
+
     @PostConstruct
     public void init() throws Exception {
 
@@ -53,7 +59,7 @@ public class SheetsService {
 
         log.info("Google Sheets initialized.");
 
-        testConnection();
+        //testConnection();
     }
 
     public void appendBooking(Appointment appointment) {
@@ -66,13 +72,14 @@ public class SheetsService {
                     appointment.getServices(),
                     appointment.getAppointmentDate().toString(),
                     appointment.getAppointmentTime(),
-                    Instant.now().toString(),
+                    appointment.getCreatedAt(),
+                    //Instant.now().toString(),
                     "ACTIVE"
             );
 
             ValueRange body = new ValueRange().setValues(List.of(row));
 
-            sheets.spreadsheets().values().append(spreadsheetId, "Bookings_New!A:H", body)
+            sheets.spreadsheets().values().append(spreadsheetId, bookingsRange, body)
                     .setValueInputOption("USER_ENTERED")
                     .execute();
 
@@ -81,6 +88,32 @@ public class SheetsService {
         } catch (Exception ex) {
             log.error("Cannot append booking", ex);
         }
+    }
+
+    public List<BookingSheetDto> loadBookings() throws IOException {
+
+        ValueRange response = sheets.spreadsheets().values().get(spreadsheetId, bookingsRange).execute();
+        List<List<Object>> rows = response.getValues();
+        List<BookingSheetDto> result = new ArrayList<>();
+        if (rows == null || rows.size() <= 1) {
+            return result;
+        }
+        for (int i = 1; i < rows.size(); i++) {
+            List<Object> row = rows.get(i);
+            BookingSheetDto dto =
+                    BookingSheetDto.builder()
+                            .id(Long.parseLong(row.get(0).toString()))
+                            .name(row.get(1).toString())
+                            .phone(row.get(2).toString())
+                            .service(row.get(3).toString())
+                            .date(LocalDate.parse(row.get(4).toString()))
+                            .time(row.get(5).toString())
+                            .createdAt(LocalDate.parse(row.get(6).toString()))
+                            .status(row.get(7).toString())
+                            .build();
+            result.add(dto);
+        }
+        return result;
     }
 
     public void testConnection() {
