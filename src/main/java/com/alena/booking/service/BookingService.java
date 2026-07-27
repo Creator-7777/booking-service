@@ -117,7 +117,8 @@ public class BookingService {
         else{
             repository.delete(appointment);
             calendarService.deleteEvent(appointment);
-            googleSheetService.deleteBooking(appointment);
+            //googleSheetService.deleteBooking(appointment);
+            sheetsService.deleteBooking(appointment);
             telegramService.sendCancelNotification(appointment);
         }
     }

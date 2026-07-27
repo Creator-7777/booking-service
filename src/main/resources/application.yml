@@ -37,9 +37,7 @@ google:
   #credentials-json: "${app.config.google-service-account-json}"
   credentials-json: ${GOOGLE_SERVICE_ACCOUNT_JSON}
   sheet.id: ${GOOGLE_SHEET_ID}
-  sheet:
-    bookings:
-      tab: Bookings_New
+  bookings-sheet-id: 1595344523
 
 
 sms:

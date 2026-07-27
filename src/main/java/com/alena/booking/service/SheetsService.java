@@ -1,16 +1,17 @@
 package com.alena.booking.service;
 
 import com.alena.booking.dto.BookingSheetDto;
+import com.google.api.services.sheets.v4.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.alena.booking.entity.Appointment;
-import com.google.api.services.sheets.v4.model.ValueRange;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +43,12 @@ public class SheetsService {
     @Value("${google.credentials-json}")
     private String credentialsJson;
 
-//    @Value("${google.sheet.bookings.tab}")
-//    private String tab;
+    @Value("${google.bookings-sheet-id}")
+    private Integer bookingsSheetId;
 
     private Sheets sheets;
 
-    private String bookingsRange = "Bookings_New!A:H";
+    private final String bookingsRange = "Bookings_New!A:H";
 
     @PostConstruct
     public void init() throws Exception {
@@ -61,7 +62,6 @@ public class SheetsService {
 
         log.info("Google Sheets initialized.");
 
-        //testConnection();
     }
 
     public void appendBooking(Appointment appointment) {
@@ -74,7 +74,7 @@ public class SheetsService {
                     appointment.getServices(),
                     appointment.getAppointmentDate().toString(),
                     appointment.getAppointmentTime(),
-                    appointment.getCreatedAt().toString(),
+                    appointment.getCreatedAt().atZone(ZoneId.of("Asia/Jerusalem")).toString(),
                     //Instant.now().toString(),
                     "ACTIVE"
             );
@@ -118,17 +118,47 @@ public class SheetsService {
         return result;
     }
 
-    public void testConnection() {
+    public void deleteBooking(Appointment appointment) throws IOException {
 
-        try {
-            var response = sheets.spreadsheets()
-                            .values()
-                            .get(spreadsheetId, "Bookings!A1")
-                            .execute();
+        ValueRange response = sheets.spreadsheets().values().get(spreadsheetId, bookingsRange).execute();
 
-            log.info("Cell A1 = {}", response.getValues());
-        } catch (Exception ex) {
-            log.error("Cannot read Google Sheet", ex);
+        List<List<Object>> rows = response.getValues();
+
+        if (rows == null || rows.size() <= 1) {
+            return;
         }
+
+        for (int i = 1; i < rows.size(); i++) {
+
+            List<Object> row = rows.get(i);
+
+            String id = row.get(0).toString();
+            String phone = row.get(3).toString();
+            String date  = row.get(5).toString();
+            String time  = row.get(6).toString();
+
+ /*           if (phone.equals(appointment.getPhone())
+                    && date.equals(appointment.getAppointmentDate().toString())
+                    && time.equals(appointment.getAppointmentTime())) {*/
+
+            if (id.equals(appointment.getId().toString())){
+
+                DeleteDimensionRequest deleteRequest = new DeleteDimensionRequest().setRange(
+                                        new DimensionRange()
+                                                .setSheetId(bookingsSheetId)
+                                                .setDimension("ROWS")
+                                                .setStartIndex(i)
+                                                .setEndIndex(i + 1));
+
+                BatchUpdateSpreadsheetRequest request = new BatchUpdateSpreadsheetRequest()
+                        .setRequests(List.of(new Request().setDeleteDimension(deleteRequest)));
+
+                sheets.spreadsheets().batchUpdate(spreadsheetId, request).execute();
+                log.info("Booking removed from Google Sheets");
+                return;
+            }
+        }
+
+        log.warn("Booking not found in Google Sheets");
     }
 }
