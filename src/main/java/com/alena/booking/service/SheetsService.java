@@ -44,7 +44,7 @@ public class SheetsService {
     @Value("${google.bookings-sheet-id}")
     private Integer bookingsSheetId;
 
-    @Value("$google.booking-sheet-old-id")
+    @Value("${google.booking-sheet-old-id}")
     private Integer bookingOldSheetId;
 
     private Sheets sheets;
