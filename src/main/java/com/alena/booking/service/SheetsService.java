@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,7 +110,7 @@ public class SheetsService {
                             .service(row.get(3).toString())
                             .date(LocalDate.parse(row.get(4).toString()))
                             .time(row.get(5).toString())
-                            .createdAt(LocalDateTime.parse(row.get(6).toString()))
+                            .createdAt(LocalDateTime.parse(row.get(6).toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                             .status(row.get(7).toString())
                             .build();
             result.add(dto);
