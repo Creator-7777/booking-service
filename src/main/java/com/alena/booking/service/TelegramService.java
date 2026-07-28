@@ -81,7 +81,7 @@ public class TelegramService {
     public void sendCancelNotification(Appointment appointment) {
 
         String message = """
-            ❌ Booking Cancelled
+            ❌ отмена записи
             
             👤 %s
             📞 %s
