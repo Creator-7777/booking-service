@@ -53,7 +53,7 @@ public class TelegramService {
 
         String message =
                 """
-                📅 Новая запись
+                📥 *Новая запись на приём*:
 
                 👤 %s
                 📞 %s
@@ -81,7 +81,7 @@ public class TelegramService {
     public void sendCancelNotification(Appointment appointment) {
 
         String message = """
-            ❌ отмена записи
+            ❌ *отмена записи*:
             
             👤 %s
             📞 %s

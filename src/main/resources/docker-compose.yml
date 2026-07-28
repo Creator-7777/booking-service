@@ -1,16 +1,19 @@
 version: '3.9'
 
 services:
-
-  postgres:
-    image: postgres:17
-    container_name: booking-postgres
-
+  booking-service:
     environment:
       POSTGRES_DB: booking
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgre
       TZ: Asia/Jerusalem
+
+  postgres:
+    image: postgres:17
+    container_name: booking-postgres
+
+
+
 
     ports:
       - "5432:5432"
