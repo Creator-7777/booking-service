@@ -106,6 +106,13 @@ public class BookingService {
             log.error("New Sheet save failed", e);
         }
 
+        try {
+            log.info("Sending Notification to Telegram...");
+            telegramService.sendBooking(appointment);
+        } catch (Exception e) {
+            log.error("Notification to Telegram failed", e);
+        }
+
     }
 
     @Transactional
