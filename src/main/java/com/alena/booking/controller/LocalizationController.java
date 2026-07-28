@@ -49,7 +49,11 @@ public class LocalizationController {
                 "bookingImposible",
                 "namePlaceholder",
                 "phonePlaceholder",
-                "verifyCodePlaceholder"
+                "verifyCodePlaceholder",
+                "myCabinet",
+                "weekendNotAllowed",
+                "cancelBooking"
+
         };
 
         Map<String, String> result = new LinkedHashMap<>();

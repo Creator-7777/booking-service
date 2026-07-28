@@ -205,7 +205,7 @@ public class SheetsService {
     // Tab Bookings_New
     private List<String> getBookedTimesNew(LocalDate date) throws IOException {
 
-        ValueRange response = sheets.spreadsheets().values().get(spreadsheetId, "Bookings!A2:H").execute();
+        ValueRange response = sheets.spreadsheets().values().get(spreadsheetId, "Bookings_New!A2:H").execute();
 
         List<List<Object>> rows = response.getValues();
 
