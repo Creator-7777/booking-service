@@ -27,6 +27,24 @@ public class TelegramService {
 
     private final WebClient webClient = WebClient.create();
 
+    private void send(String text) {
+
+        Map<String, Object> body = Map.of(
+                "chat_id", chatId,
+                "text", text
+        );
+
+        String response = webClient.post()
+                .uri("https://api.telegram.org/bot" + token + "/sendMessage")
+                .bodyValue(body)
+                //.bodyValue(Map.of("chat_id", chatId, "text", message))
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        log.info("Telegram response={}", response);
+    }
+
     public void sendBooking(Appointment appointment) {
 
         log.info("TOKEN = {}", token);
@@ -35,7 +53,7 @@ public class TelegramService {
 
         String message =
                 """
-                📥 Новая запись
+                📅 Новая запись
 
                 👤 %s
                 📞 %s
@@ -50,20 +68,42 @@ public class TelegramService {
                     appointment.getAppointmentTime());
 
         try {
-            String response = webClient.post().uri("https://api.telegram.org/bot" + token + "/sendMessage")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .bodyValue(Map.of("chat_id", chatId, "text", message))
-                            .retrieve()
-                            .bodyToMono(String.class)
-                            .block();
-            log.info("Telegram response={}", response);
-
+            send(message);
         } catch (Exception ex) {
-            log.error("Telegram failed", ex);
+            log.error("Telegram failed to send booking notification", ex);
             if (ex instanceof WebClientResponseException e) {
                 log.error("Telegram body={}", e.getResponseBodyAsString());
             }
         }
 
     }
+
+    public void sendCancelNotification(Appointment appointment) {
+
+        String message = """
+            ❌ Booking Cancelled
+            
+            👤 %s
+            📞 %s
+            💅 %s
+            📅 %s
+            ⏰ %s
+            """.formatted(
+                appointment.getCustomerName(),
+                appointment.getPhone(),
+                appointment.getServices(),
+                appointment.getAppointmentDate(),
+                appointment.getAppointmentTime());
+
+        try {
+            send(message);
+        } catch (Exception ex) {
+            log.error("Telegram failed to send cancel motification", ex);
+            if (ex instanceof WebClientResponseException e) {
+                log.error("Telegram body={}", e.getResponseBodyAsString());
+            }
+        }
+    }
+
+
 }

@@ -27,9 +27,9 @@ public class BookingService {
 
     private final AppointmentRepository repository;
     private final VerifiedCustomerRepository verifiedCustomerRepository;
-    //private final TelegramService telegramService;
-    private final TelegramServiceGoogleAppScript telegramService;
-    private final GoogleSheetService googleSheetService;
+    private final TelegramService telegramService;
+    //private final TelegramServiceGoogleAppScript telegramService;
+    //private final GoogleSheetService googleSheetService;
     private final SheetsService sheetsService;
     private final CalendarService calendarService;
     private static final Logger log = LoggerFactory.getLogger(BookingService.class);
@@ -126,7 +126,6 @@ public class BookingService {
 
         calendarService.deleteEvent(appointment);
         sheetsService.deleteBooking(appointment);
-
         telegramService.sendCancelNotification(appointment);
         repository.delete(appointment);
     }
