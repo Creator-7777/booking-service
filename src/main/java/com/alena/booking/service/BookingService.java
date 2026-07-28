@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
 
 
@@ -44,8 +45,8 @@ public class BookingService {
                         .services(request.getService())
                         .appointmentDate(LocalDate.parse(request.getDate()))
                         .appointmentTime(request.getTime())
-                        .createdAt(LocalDateTime.now(TimeConfig.ZONE))
-                        //.createdAt(LocalDateTime.now())
+                        //.createdAt(LocalDateTime.now(TimeConfig.ZONE))
+                        .createdAt(LocalDateTime.now())
                         .build();
 
         LocalTime start =
@@ -75,7 +76,12 @@ public class BookingService {
 
         try {
             log.info("Sending to DB...");
+            log.info("Before save: {}", appointment.getCreatedAt());
+            log.info("System zone = {}", ZoneId.systemDefault());
+            log.info("Now = {}", LocalDateTime.now());
+            log.info("Jerusalem = {}", LocalDateTime.now(ZoneId.of("Asia/Jerusalem")));
             repository.save(appointment);
+
             VerifiedCustomer customer = verifiedCustomerRepository.findByPhone(appointment.getPhone()).orElse(null);
             if (customer != null && (customer.getName() == null || customer.getName().isBlank())) {
                 customer.setName(appointment.getCustomerName());
