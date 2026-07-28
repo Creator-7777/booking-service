@@ -225,7 +225,7 @@ const Booking = (() => {
         if (!alreadyVerified) {
             const code = document.getElementById("codeInput") .value.trim();
             if (code.length === 0) {
-                alert("Введите SMS код");
+                alert("Введите SMS код - Insert the code");
                 return;
             }
             const validationResponse = await fetch("/api/sms/validate", {

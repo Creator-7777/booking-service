@@ -52,7 +52,10 @@ public class LocalizationController {
                 "verifyCodePlaceholder",
                 "myCabinet",
                 "weekendNotAllowed",
-                "cancelBooking"
+                "cancelBooking",
+                "confirmCancelBooking",
+                "bookingCancelled",
+                "nameRequired"
 
         };
 
