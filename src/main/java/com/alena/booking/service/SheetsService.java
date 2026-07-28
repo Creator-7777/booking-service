@@ -53,6 +53,8 @@ public class SheetsService {
 
     private final String bookingsOldTabRange = "Bookings!A:F";
 
+    private static final DateTimeFormatter SHEET_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @PostConstruct
     public void init() throws Exception {
 
@@ -77,15 +79,16 @@ public class SheetsService {
                     appointment.getServices(),
                     appointment.getAppointmentDate().toString(),
                     appointment.getAppointmentTime(),
-                    appointment.getCreatedAt().toString(),
-                    //Instant.now().toString(),
+                    appointment.getCreatedAt().format(SHEET_DATE_TIME),
+                    //appointment.getCreatedAt().toString(),
                     "ACTIVE"
             );
 
             ValueRange body = new ValueRange().setValues(List.of(row));
 
             sheets.spreadsheets().values().append(spreadsheetId, bookingsRange, body)
-                    .setValueInputOption("USER_ENTERED")
+                    .setValueInputOption("RAW")
+                    //.setValueInputOption("USER_ENTERED")
                     .execute();
 
             log.info("Booking appended to Google Sheet");

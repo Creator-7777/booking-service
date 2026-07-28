@@ -1,5 +1,6 @@
 package com.alena.booking.service;
 
+import com.alena.booking.config.TimeConfig;
 import com.alena.booking.dto.BookingRequest;
 import com.alena.booking.dto.CancelBookingRequest;
 import com.alena.booking.dto.CancelOldBookingRequest;
@@ -43,7 +44,8 @@ public class BookingService {
                         .services(request.getService())
                         .appointmentDate(LocalDate.parse(request.getDate()))
                         .appointmentTime(request.getTime())
-                        .createdAt(LocalDateTime.now())
+                        .createdAt(LocalDateTime.now(TimeConfig.ZONE))
+                        //.createdAt(LocalDateTime.now())
                         .build();
 
         LocalTime start =
