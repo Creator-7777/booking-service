@@ -35,7 +35,7 @@ public class BookingService {
     private static final Logger log = LoggerFactory.getLogger(BookingService.class);
 
     @Transactional
-    public void createBooking(BookingRequest request) {
+    public void createBooking(BookingRequest request) throws IOException {
 
         Appointment appointment = Appointment.builder()
                         .customerName(request.getName())
@@ -62,7 +62,8 @@ public class BookingService {
                         end);
 
         // Verify free time slots in Google Sheet
-        List<String> booked = googleSheetService.getBookedTimes(appointment.getAppointmentDate());
+        //List<String> booked = googleSheetService.getBookedTimes(appointment.getAppointmentDate());
+        List<String> booked = sheetsService.getBookedTimes(appointment.getAppointmentDate());
 
         if (!available || booked.contains(appointment.getAppointmentTime())) {
             throw new BookingAlreadyExistsException(

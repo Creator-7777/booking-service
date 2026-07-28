@@ -34,10 +34,9 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<Void> create(
-            @RequestBody BookingRequest request) {
+            @RequestBody BookingRequest request) throws IOException {
 
         service.createBooking(request);
-
         return ResponseEntity.ok().build();
     }
 
