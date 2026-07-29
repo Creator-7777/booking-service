@@ -138,9 +138,11 @@ public class BookingService {
 
         calendarService.deleteEvent(appointment);
         sheetsService.deleteBooking(appointment);
-        telegramService.sendCancelNotification(appointment);
+
         repository.delete(appointment);
         log.info("Canceled record was removed from DB");
+
+        telegramService.sendCancelNotification(appointment);
 
     }
 

@@ -55,12 +55,12 @@ public class TelegramService {
 
     public void sendBooking(Appointment appointment) {
 
-        log.info("TOKEN = {}", token);
-        log.info("CHAT_ID = {}", chatId);
-        log.info("URL = https://api.telegram.org/bot{}/sendMessage", token);
+        //log.info("TOKEN = {}", token);
+        //log.info("CHAT_ID = {}", chatId);
+        //log.info("URL = https://api.telegram.org/bot{}/sendMessage", token);
 
         String message = """
-                📥 <b>Новая запись на приём:</b>
+                📥 <b> Новая запись: </b>
                 👤 %s
                 📞 %s
                 💅 %s
@@ -88,7 +88,7 @@ public class TelegramService {
     public void sendCancelNotification(Appointment appointment) {
 
         String message = """
-            ❌ <b>отмена записи:</b>
+            ❌ <b> отмена записи: </b>
             👤 %s
             📞 %s
             💅 %s
