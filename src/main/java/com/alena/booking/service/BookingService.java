@@ -76,13 +76,13 @@ public class BookingService {
 
         try {
             log.info("Sending to DB...");
-            log.info("Before save: {}", appointment.getCreatedAt());
-            log.info("System zone = {}", ZoneId.systemDefault());
-            log.info("System property user.timezone = {}", System.getProperty("user.timezone"));
-            log.info("Default TimeZone = {}", java.util.TimeZone.getDefault().getID());
-            log.info("JVM version = {}", System.getProperty("java.version"));
+            //log.info("Before save: {}", appointment.getCreatedAt());
+            //log.info("System zone = {}", ZoneId.systemDefault());
+            //log.info("System property user.timezone = {}", System.getProperty("user.timezone"));
+            //log.info("Default TimeZone = {}", java.util.TimeZone.getDefault().getID());
+            //log.info("JVM version = {}", System.getProperty("java.version"));
             log.info("Now = {}", LocalDateTime.now());
-            log.info("Jerusalem = {}", LocalDateTime.now(ZoneId.of("Asia/Jerusalem")));
+            //log.info("Jerusalem = {}", LocalDateTime.now(ZoneId.of("Asia/Jerusalem")));
 
             repository.save(appointment);
 

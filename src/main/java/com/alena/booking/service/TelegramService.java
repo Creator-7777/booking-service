@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -29,11 +30,17 @@ public class TelegramService {
 
     private void send(String text) {
 
-        Map<String, Object> body = Map.of(
+       /* Map<String, Object> body = Map.of(
                 "chat_id", chatId,
-                "text", text,
-                "parse_mode", "HTML"
-        );
+                "text", text
+
+        );*/
+
+        Map<String, Object> body = new HashMap<>();
+               body.put("chat_id", chatId);
+               body.put( "text", text );
+               body.put("parse_mode", "HTML");
+
 
         String response = webClient.post()
                 .uri("https://api.telegram.org/bot" + token + "/sendMessage")
@@ -52,10 +59,8 @@ public class TelegramService {
         log.info("CHAT_ID = {}", chatId);
         log.info("URL = https://api.telegram.org/bot{}/sendMessage", token);
 
-        String message =
-                """
+        String message = """
                 📥 <b>Новая запись на приём:<b>
-
                 👤 %s
                 📞 %s
                 💅 %s
@@ -84,7 +89,6 @@ public class TelegramService {
 
         String message = """
             ❌ <b>отмена записи:<b>
-            
             👤 %s
             📞 %s
             💅 %s
