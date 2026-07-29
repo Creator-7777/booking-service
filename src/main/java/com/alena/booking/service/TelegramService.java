@@ -31,7 +31,8 @@ public class TelegramService {
 
         Map<String, Object> body = Map.of(
                 "chat_id", chatId,
-                "text", text
+                "text", text,
+                "parse_mode", "HTML"
         );
 
         String response = webClient.post()
@@ -53,7 +54,7 @@ public class TelegramService {
 
         String message =
                 """
-                📥 *Новая запись на приём*:
+                📥 <b>Новая запись на приём:<b>
 
                 👤 %s
                 📞 %s
@@ -69,6 +70,7 @@ public class TelegramService {
 
         try {
             send(message);
+            log.info(" Notification to Telegram has been sent");
         } catch (Exception ex) {
             log.error("Telegram failed to send booking notification", ex);
             if (ex instanceof WebClientResponseException e) {
@@ -81,7 +83,7 @@ public class TelegramService {
     public void sendCancelNotification(Appointment appointment) {
 
         String message = """
-            ❌ *отмена записи*:
+            ❌ <b>отмена записи:<b>
             
             👤 %s
             📞 %s
@@ -97,8 +99,9 @@ public class TelegramService {
 
         try {
             send(message);
+            log.info("Cancel Notification to Telegram has been sent");
         } catch (Exception ex) {
-            log.error("Telegram failed to send cancel motification", ex);
+            log.error("Telegram failed to send cancel notification", ex);
             if (ex instanceof WebClientResponseException e) {
                 log.error("Telegram body={}", e.getResponseBodyAsString());
             }
