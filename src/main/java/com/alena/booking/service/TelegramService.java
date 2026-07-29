@@ -60,7 +60,7 @@ public class TelegramService {
         log.info("URL = https://api.telegram.org/bot{}/sendMessage", token);
 
         String message = """
-                📥 <b>Новая запись на приём:<b>
+                📥 <b>Новая запись на приём:</b>
                 👤 %s
                 📞 %s
                 💅 %s
@@ -88,7 +88,7 @@ public class TelegramService {
     public void sendCancelNotification(Appointment appointment) {
 
         String message = """
-            ❌ <b>отмена записи:<b>
+            ❌ <b>отмена записи:</b>
             👤 %s
             📞 %s
             💅 %s
