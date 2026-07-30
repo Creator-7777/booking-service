@@ -41,7 +41,7 @@ public class SmsCodeStorage {
             return false;
         }
 
-        if (smsCode.expireAt().isBefore(LocalDateTime.now())) {
+        else if (smsCode.expireAt().isBefore(LocalDateTime.now())) {
             codes.remove(phone);
             return false;
         }
