@@ -552,6 +552,30 @@ select[multiple]{
 
 @media (max-width:600px){
 
+    button {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    ::-webkit-scrollbar{
+        width:10px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+        background:#bbb;
+        border-radius:20px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover{
+        background:#888;
+    }
+
+    select[multiple]{
+        min-height:170px;
+        padding:12px;
+    }
+
     body{
         padding:14px 8px;
     }
