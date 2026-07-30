@@ -3,6 +3,8 @@ package com.alena.booking.service;
 import com.alena.booking.dto.SmsCode;
 import com.alena.booking.repository.VerifiedCustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +18,9 @@ public class SmsCodeStorage {
     private final VerifiedCustomerService verifiedCustomerService;
     private final VerifiedCustomerRepository verifiedPhoneRepository;
     private final GoogleSheetService googleSheetService;
+
+    private static final Logger log = LoggerFactory.getLogger(SmsCodeStorage.class);
+
 
 
     private final Map<String, SmsCode> codes =
@@ -32,7 +37,7 @@ public class SmsCodeStorage {
 
         SmsCode smsCode = codes.get(phone);
 
-        if (smsCode == null) {
+        if (!smsCode.code().equals(code)) {
             return false;
         }
 
@@ -41,13 +46,18 @@ public class SmsCodeStorage {
             return false;
         }
 
-        if(smsCode.code().equals(code) ){
-            verifiedCustomerService.saveVerified( name, phone);
-            googleSheetService.saveVerifiedPhone(name, phone);
+        verifiedCustomerService.saveVerified(name, phone);
+        log.info("New entry was saved to VerifiedCustomers DB table");
 
+        try {
+            googleSheetService.saveVerifiedPhone(name, phone);
+            log.info("New entry was saved to VerifiedCustomers sheet");
+        } catch (Exception ex) {
+            log.error("Cannot update VerifiedCustomers sheet", ex);
         }
 
-        return smsCode.code().equals(code);
+        codes.remove(phone);
+        return true;
     }
 
     public boolean isVerified(String phone) {

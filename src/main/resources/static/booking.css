@@ -480,6 +480,49 @@ button:disabled{
     font-weight:600;
 }
 
+    /* Общая анимация для всех кнопок */
+    button,
+    .cancel-booking-btn,
+    .language-menu button,
+    .language-btn,
+    .cabinet-btn,
+    #cabinetBtn,
+    #closeCabinet,
+    #sendCodeBtn,
+    #submitBtn {
+        transition: transform 0.08s ease,
+                    box-shadow 0.08s ease,
+                    opacity 0.08s ease;
+        cursor: pointer;
+    }
+
+    /* Наведение мыши */
+    button:hover,
+    .cancel-booking-btn:hover,
+    .language-menu button:hover,
+    .language-btn:hover,
+    .cabinet-btn:hover,
+    #cabinetBtn:hover,
+    #closeCabinet:hover,
+    #sendCodeBtn:hover,
+    #submitBtn:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    }
+
+    /* Момент нажатия */
+    button:active,
+    .cancel-booking-btn:active,
+    .language-menu button:active,
+    .language-btn:active,
+    .cabinet-btn:active,
+    #cabinetBtn:active,
+    #closeCabinet:active,
+    #sendCodeBtn:active,
+    #submitBtn:active {
+        transform: scale(0.96);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+        opacity: 0.92;
+    }
 
 phone-error{
     margin-top:8px;
@@ -784,6 +827,54 @@ select[multiple]{
 
     .hidden{
       display:none;
+    }
+
+ /* Общая анимация для всех кнопок */
+    button,
+    .cancel-booking-btn,
+    .language-menu button,
+    .language-btn,
+    .cabinet-btn,
+    #cabinetBtn,
+    #closeCabinet,
+    #sendCodeBtn,
+    #submitBtn {
+        transition: transform 0.08s ease,
+                    box-shadow 0.08s ease,
+                    opacity 0.08s ease;
+        cursor: pointer;
+    }
+
+    /* Наведение мыши */
+    button:hover,
+    .cancel-booking-btn:hover,
+    .language-menu button:hover,
+    .language-btn:hover,
+    .cabinet-btn:hover,
+    #cabinetBtn:hover,
+    #closeCabinet:hover,
+    #sendCodeBtn:hover,
+    #submitBtn:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    }
+
+    /* Момент нажатия */
+    button:active,
+    .cancel-booking-btn:active,
+    .language-menu button:active,
+    .language-btn:active,
+    .cabinet-btn:active,
+    #cabinetBtn:active,
+    #closeCabinet:active,
+    #sendCodeBtn:active,
+    #submitBtn:active {
+        transform: scale(0.96);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+        opacity: 0.92;
+    }
+
+    button {
+        -webkit-tap-highlight-color: transparent;
     }
 
     footer{
