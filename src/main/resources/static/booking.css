@@ -531,6 +531,9 @@ button:disabled{
         padding: 10px 12px;
         border-radius: 10px;
         font-size: 16px;
+        max-width: 90%;
+        display: block;
+        margin: 0 auto;
     }
 
 phone-error{
@@ -869,6 +872,9 @@ select[multiple]{
         padding: 10px 12px;
         border-radius: 10px;
         font-size: 16px;
+        max-width: 90%;
+        display: block;
+        margin: 0 auto;
     }
 
  /* Общая анимация для всех кнопок */
