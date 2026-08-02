@@ -524,6 +524,15 @@ button:disabled{
         opacity: 0.92;
     }
 
+    /* for date and time */
+    .field input[type="date"],
+    .field select#time {
+        width: min(220px, 90%);
+        padding: 10px 12px;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
 phone-error{
     margin-top:8px;
     color:#d32f2f;
@@ -851,6 +860,15 @@ select[multiple]{
 
     .hidden{
       display:none;
+    }
+
+    /* for date and time */
+    .field input[type="date"],
+    .field select#time {
+        width: min(220px, 90%);
+        padding: 10px 12px;
+        border-radius: 10px;
+        font-size: 16px;
     }
 
  /* Общая анимация для всех кнопок */
