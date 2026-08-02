@@ -245,7 +245,7 @@ select[multiple]{
 }
 
 button{
-    width:100%;
+    width:50%;
     height:56px;
     padding:20px;
     margin-top:18px;
@@ -257,6 +257,9 @@ button{
     font-weight:700;
     cursor:pointer;
     transition:.25s;
+    max-width: 70%;
+    display: block;
+    margin: 0 auto;
 }
 
 button:hover{
