@@ -55,7 +55,8 @@ public class LocalizationController {
                 "cancelBooking",
                 "confirmCancelBooking",
                 "bookingCancelled",
-                "nameRequired"
+                "nameRequired",
+                "location"
 
         };
 
