@@ -158,7 +158,7 @@ footer{
   .location-container{
       display:flex;
       justify-content:center;
-      margin:40px 0;
+      margin:0px 0;
   }
 
   .location-btn{
@@ -720,7 +720,7 @@ select[multiple]{
      .location-container{
          display:flex;
          justify-content:center;
-         margin:40px 0;
+         margin:0px 0;
      }
 
      .location-btn{
