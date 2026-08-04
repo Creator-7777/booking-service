@@ -245,7 +245,7 @@ select[multiple]{
 }
 
 button{
-    width:50%;
+    width:60%;
     height:56px;
     padding:20px;
     margin-top:18px;
@@ -321,13 +321,13 @@ button:disabled{
 }
 
 .cabinet-btn {
-    margin-top:60px;
-    margin-left:470px;
+    margin-top:50px;
+    margin-left:480px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: none;
-    background: #eef3f1;
+    background: #ffffff;
 
     font-size: 34px;
     cursor: pointer;
@@ -711,6 +711,7 @@ select[multiple]{
     }
 
     button{
+        width:60%;
         height:50px;
         font-size:15px;
     }
@@ -720,13 +721,13 @@ select[multiple]{
     }
 
     .cabinet-btn {
-        margin-top:60px;
-        margin-left:260px;
+        margin-top:45px;
+        margin-left:280px;
         width: 40px;
         height: 40px;
         border-radius: 50%;
         border: none;
-        background: #eef3f1;
+        background: #ffffff;
 
         font-size: 34px;
         cursor: pointer;
