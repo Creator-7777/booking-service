@@ -352,7 +352,7 @@ button:disabled{
 }
 
 .cabinet-btn {
-    margin-top:50px;
+    margin-top:10px;
     margin-left:480px;
     width: 40px;
     height: 40px;
@@ -783,7 +783,7 @@ select[multiple]{
     }
 
     .cabinet-btn {
-        margin-top:45px;
+        margin-top:10px;
         margin-left:270px;
         width: 40px;
         height: 40px;
