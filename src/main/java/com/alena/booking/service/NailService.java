@@ -27,7 +27,9 @@ public enum NailService {
 
     CLEANING(40),
 
-    PEDICURE_TOES(160),
+    PEDICURE_TOES_GEL(200),
+
+    PEDICURE_TOES(180),
 
     PEDICURE_GEL(220),
 
