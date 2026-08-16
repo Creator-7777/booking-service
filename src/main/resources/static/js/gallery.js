@@ -15,18 +15,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const galleryImages = [
 
-    "https://i.imgur.com/LSExOos",
-    "https://i.imgur.com/5ukYEXt",
-    "https://i.imgur.com/htjjFDI",
-    "https://i.imgur.com/HmUITUZ",
-    "https://i.imgur.com/edWSIk9",
-    "https://i.imgur.com/iVw4fPs",
-    "https://i.imgur.com/0wxEGTi",
-    "https://i.imgur.com/8e1IrkP",
-    "https://i.imgur.com/WNC5PDQ",
-    "https://i.imgur.com/lKq22XZ",
-    "https://i.imgur.com/kdGvPSp",
-    "https://i.imgur.com/cTv15uz"
+    "https://i.imgur.com/LSExOos.jpeg",
+    "https://i.imgur.com/5ukYEXt.jpeg",
+    "https://i.imgur.com/htjjFDI.jpeg",
+    "https://i.imgur.com/HmUITUZ.jpeg",
+    "https://i.imgur.com/edWSIk9.jpeg",
+    "https://i.imgur.com/iVw4fPs.jpeg",
+    "https://i.imgur.com/0wxEGTi.jpeg",
+    "https://i.imgur.com/8e1IrkP.jpeg",
+    "https://i.imgur.com/WNC5PDQ.jpeg",
+    "https://i.imgur.com/lKq22XZ.jpeg",
+    "https://i.imgur.com/kdGvPSp.jpeg",
+    "https://i.imgur.com/cTv15uz.jpeg"
 
     ];
 
