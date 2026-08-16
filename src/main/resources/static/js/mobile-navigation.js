@@ -3,11 +3,15 @@
    MOBILE BOTTOM NAVIGATION
    Главная / Запись / Цены / Мои записи
 ========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
-    const navItems = document.querySelectorAll(".mobile-nav-item");
+    const navItems =
+        document.querySelectorAll(".mobile-nav-item");
+
     navItems.forEach(item => {
         item.addEventListener("click", () => {
             const target = item.dataset.target;
+
             /* =========================================
                Active navigation item
             ========================================= */
@@ -27,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+
             /* =========================================
                BOOKING
             ========================================= */
@@ -41,9 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 return;
             }
+
             /* =========================================
                PRICES
             ========================================= */
+
             if (target === "prices") {
                 const pricesSection =
                     document.getElementById("prices-section");
@@ -56,50 +63,61 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 return;
             }
+
             /* =========================================
                MY APPOINTMENTS / CABINET
             ========================================= */
+
             if (target === "cabinet") {
-                const cabinetWindow =
-                    document.getElementById("cabinetWindow");
-                if (!cabinetWindow) {
-                    console.error(
-                        "Cabinet window #cabinetWindow was not found"
-                    );
-                    return;
-                }
+
                 /*
                  * IMPORTANT:
-                 * Do NOT use cabinetBtn here.
-                 * The old top Cabinet button was removed.
-                 */
-                cabinetWindow.classList.remove("hidden");
-                /*
-                 * If the existing application has a function
-                 * responsible for loading cabinet data, use it.
                  *
-                 * We intentionally don't replace the existing
-                 * cabinet functionality here.
+                 * Do NOT open cabinet directly here.
+                 *
+                 * Booking.openCabinet() contains the
+                 * existing business logic:
+                 *
+                 * 1. Get phone number
+                 * 2. Normalize phone
+                 * 3. Check phone
+                 * 4. Request booking history
+                 * 5. Render bookings
+                 * 6. Show cabinet
+                 *
                  */
-                if (typeof loadCabinet === "function") {
-                    loadCabinet();
+
+                if (
+                    typeof Booking !== "undefined" &&
+                    typeof Booking.openCabinet === "function"
+                ) {
+                    Booking.openCabinet();
+                } else {
+                    console.error(
+                        "Booking.openCabinet() is not available"
+                    );
                 }
                 return;
             }
         });
     });
+
     /* =========================================
        CLOSE CABINET
-       Keep existing close functionality
     ========================================= */
     const closeCabinet =
         document.getElementById("closeCabinet");
+
     const cabinetWindow =
         document.getElementById("cabinetWindow");
 
+
     if (closeCabinet && cabinetWindow) {
-        closeCabinet.addEventListener("click", () => {
-            cabinetWindow.classList.add("hidden");
-        });
+        closeCabinet.addEventListener(
+            "click",
+            () => {
+                cabinetWindow.classList.add("hidden");
+            }
+        );
     }
 });
