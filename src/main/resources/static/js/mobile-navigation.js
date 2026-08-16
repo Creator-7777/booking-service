@@ -1,25 +1,24 @@
+
+/* =========================================================
+   MOBILE BOTTOM NAVIGATION
+   Главная / Запись / Цены / Мои записи
+========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
-
     const navItems = document.querySelectorAll(".mobile-nav-item");
-    const bookingSection = document.getElementById("booking-section");
-    const pricesSection =  document.getElementById("prices-section");
-    const cabinetWindow =
-
-    document.getElementById("cabinetWindow");
     navItems.forEach(item => {
         item.addEventListener("click", () => {
             const target = item.dataset.target;
-
-            /* =========================
-               Active menu item
-            ========================= */
-            navItems.forEach(nav =>
-                nav.classList.remove("active")
-            );
+            /* =========================================
+               Active navigation item
+            ========================================= */
+            navItems.forEach(nav => {
+                nav.classList.remove("active");
+            });
             item.classList.add("active");
-            /* =========================
+
+            /* =========================================
                HOME
-            ========================= */
+            ========================================= */
             if (target === "top") {
                 window.scrollTo({
                     top: 0,
@@ -27,10 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 return;
             }
-            /* =========================
+
+            /* =========================================
                BOOKING
-            ========================= */
+            ========================================= */
             if (target === "booking") {
+                const bookingSection =
+                    document.getElementById("booking-section");
                 if (bookingSection) {
                     bookingSection.scrollIntoView({
                         behavior: "smooth",
@@ -39,33 +41,65 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 return;
             }
-            /* =========================
+            /* =========================================
                PRICES
-            ========================= */
-
+            ========================================= */
             if (target === "prices") {
+                const pricesSection =
+                    document.getElementById("prices-section");
+
                 if (pricesSection) {
                     pricesSection.scrollIntoView({
                         behavior: "smooth",
-                        block: "center"
+                        block: "start"
                     });
                 }
                 return;
             }
-            /* =========================
-               MY BOOKINGS
-            ========================= */
+            /* =========================================
+               MY APPOINTMENTS / CABINET
+            ========================================= */
             if (target === "cabinet") {
-                const cabinetBtn =
-                    document.getElementById("cabinetBtn");
-                if (cabinetBtn) {
-                    /*
-                     * Use existing cabinet functionality.
-                     * We don't duplicate its logic here.
-                     */
-                    cabinetBtn.click();
+                const cabinetWindow =
+                    document.getElementById("cabinetWindow");
+                if (!cabinetWindow) {
+                    console.error(
+                        "Cabinet window #cabinetWindow was not found"
+                    );
+                    return;
                 }
+                /*
+                 * IMPORTANT:
+                 * Do NOT use cabinetBtn here.
+                 * The old top Cabinet button was removed.
+                 */
+                cabinetWindow.classList.remove("hidden");
+                /*
+                 * If the existing application has a function
+                 * responsible for loading cabinet data, use it.
+                 *
+                 * We intentionally don't replace the existing
+                 * cabinet functionality here.
+                 */
+                if (typeof loadCabinet === "function") {
+                    loadCabinet();
+                }
+                return;
             }
         });
     });
+    /* =========================================
+       CLOSE CABINET
+       Keep existing close functionality
+    ========================================= */
+    const closeCabinet =
+        document.getElementById("closeCabinet");
+    const cabinetWindow =
+        document.getElementById("cabinetWindow");
+
+    if (closeCabinet && cabinetWindow) {
+        closeCabinet.addEventListener("click", () => {
+            cabinetWindow.classList.add("hidden");
+        });
+    }
 });
