@@ -59,7 +59,10 @@ public class LocalizationController {
                 "location",
                 "home",
                 "booking",
-                "prices"
+                "prices",
+                "masterWorks",
+                "masterWorksSubtitle",
+
 
         };
 

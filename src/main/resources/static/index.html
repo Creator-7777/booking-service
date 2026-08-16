@@ -94,6 +94,54 @@
         <p class="subtitle" data-i18n="subtitle"> Онлайн запись </p>
 
         <!-- ========================= -->
+        <!-- Master Works Gallery      -->
+        <!-- ========================= -->
+        <section
+                id="works-section"
+                class="works-section">
+            <div class="works-header">
+                <h2 data-i18n="masterWorks">
+                    Работы мастера
+                </h2>
+                <p data-i18n="masterWorksSubtitle">
+                    Последние работы
+                </p>
+            </div>
+            <div class="gallery">
+                <!-- Main image -->
+                <div class="gallery-main">
+                    <img
+                            id="galleryMainImage"
+                            src=""
+                            alt="Master work">
+
+                    <button
+                            type="button"
+                            id="galleryPrev"
+                            class="gallery-arrow gallery-prev">
+                        ‹
+                    </button>
+                    <button
+                            type="button"
+                            id="galleryNext"
+                            class="gallery-arrow gallery-next">
+                        ›
+                    </button>
+                    <div
+                            id="galleryCounter"
+                            class="gallery-counter">
+                        1 / 12
+                    </div>
+                </div>
+                <!-- Thumbnails -->
+                <div
+                        id="galleryThumbnails"
+                        class="gallery-thumbnails">
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================= -->
         <!-- Booking Form              -->
         <!-- ========================= -->
 
@@ -342,6 +390,7 @@
 <script src="js/booking.js"></script>
 <script src="js/app.js"></script>
 <script src="js/mobile-navigation.js"></script>
+<script src="js/gallery.js"></script>
 
 </body>
 </html>
