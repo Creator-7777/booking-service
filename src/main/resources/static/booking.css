@@ -941,3 +941,154 @@ footer {
         scroll-behavior: auto !important;
     }
 }
+
+/* ===========================================
+   MOBILE BOTTOM NAVIGATION
+=========================================== */
+
+/* По умолчанию скрыто */
+.mobile-bottom-nav {
+    display: none;
+}
+
+
+/* ===========================================
+   MOBILE
+=========================================== */
+
+@media (max-width: 600px) {
+
+    .mobile-bottom-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 76px;
+        display: flex;
+        align-items: stretch;
+        justify-content: space-around;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-top: 1px solid rgba(120, 70, 90, 0.12);
+        box-shadow:
+            0 -5px 25px rgba(0, 0, 0, 0.10);
+        z-index: 10000;
+        padding:
+            6px
+            8px
+            calc(6px + env(safe-area-inset-bottom));
+
+    }
+
+
+    /* ===========================================
+       Navigation item
+    =========================================== */
+
+    .mobile-nav-item {
+
+        flex: 1;
+        width: auto;
+        max-width: none;
+        height: 64px;
+        margin: 0 3px;
+        padding: 5px 3px;
+        border: none;
+        border-radius: 18px;
+        background: transparent;
+        color: #6b5360;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        font-size: 11px;
+        font-weight: 500;
+        cursor: pointer;
+        transition:
+            transform 0.12s ease,
+            background 0.15s ease,
+            color 0.15s ease,
+            box-shadow 0.15s ease;
+
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+
+    /* ===========================================
+       Icon
+    =========================================== */
+
+    .mobile-nav-item .nav-icon {
+        font-size: 24px;
+        line-height: 1;
+        height: 27px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+            transform 0.15s ease;
+    }
+
+
+    /* ===========================================
+       Label
+    =========================================== */
+
+    .mobile-nav-item .nav-label {
+        font-size: 11px;
+        line-height: 14px;
+        white-space: nowrap;
+    }
+
+
+    /* ===========================================
+       Active item
+    =========================================== */
+
+    .mobile-nav-item.active {
+        background: #fff0f6;
+        color: #7d2f50;
+        font-weight: 700;
+        box-shadow:
+            0 3px 12px rgba(125, 47, 80, 0.08);
+    }
+
+
+    .mobile-nav-item.active .nav-icon {
+        transform: scale(1.08);
+    }
+
+
+    /* ===========================================
+       Press animation
+    =========================================== */
+
+    .mobile-nav-item:active {
+        transform: scale(0.90);
+        box-shadow: none;
+    }
+
+
+    /* ===========================================
+       Make sure page content is not hidden
+       behind bottom navigation
+    =========================================== */
+
+    body {
+        padding-bottom: 90px;
+    }
+
+    .page {
+        padding-bottom: 20px;
+    }
+}
+
+#booking-section,
+#prices-section {
+    scroll-margin-top: 20px;
+    scroll-margin-bottom: 100px;
+}
+
