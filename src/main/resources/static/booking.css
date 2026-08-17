@@ -1252,3 +1252,77 @@ footer {
     transform: scale(.92);
 }
 
+/* =========================================================
+   QUICK ACTIONS - PRESS ANIMATION
+   Language / Instagram / Location
+========================================================= */
+
+.quick-actions .language-btn,
+.quick-actions .socials a,
+.quick-actions .location-btn {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Language */
+.quick-actions .language-btn {
+    transition:
+        transform .12s ease,
+        box-shadow .12s ease,
+        background .12s ease;
+}
+
+/* Instagram */
+.quick-actions .socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quick-actions .socials a img {
+    transition:
+        transform .12s ease,
+        box-shadow .12s ease;
+}
+
+/* Location */
+.quick-actions .location-btn {
+    transition:
+        transform .12s ease,
+        box-shadow .12s ease,
+        background .12s ease;
+}
+
+
+/* =========================================================
+   PRESS EFFECT
+========================================================= */
+
+.quick-actions .language-btn:active,
+.quick-actions .location-btn:active {
+    transform: scale(.90);
+    box-shadow:
+        0 2px 6px rgba(80,40,60,.20);
+}
+
+.quick-actions .socials a:active img {
+    transform: scale(.90);
+    box-shadow:
+        0 2px 6px rgba(80,40,60,.20);
+}
+
+
+/* Desktop hover */
+.quick-actions .language-btn:hover,
+.quick-actions .location-btn:hover {
+    transform: scale(1.08);
+    box-shadow:
+        0 7px 20px rgba(80,40,60,.20);
+}
+
+.quick-actions .socials a:hover img {
+    transform: scale(1.08);
+    box-shadow:
+        0 7px 20px rgba(80,40,60,.20);
+}
+
