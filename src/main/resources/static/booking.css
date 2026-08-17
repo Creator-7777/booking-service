@@ -130,7 +130,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 28px;
+    gap: 22px;
     margin-top: 4px;
     margin-bottom: 18px;
     position: relative;
@@ -1380,7 +1380,7 @@ footer {
 /* Mobile */
 @media (max-width:600px) {
     .quick-actions {
-        gap: 14px;
+        gap: 12px;
     }
 
     .quick-actions .waze-btn {
