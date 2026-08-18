@@ -1355,10 +1355,10 @@ footer {
         background .12s ease;
 }*/
 
-.quick-actions .waze-icon {
+/*.quick-actions .waze-icon {
     font-size: 25px;
     line-height: 1;
-}
+}*/
 
 /* Desktop */
 .quick-actions .waze-btn:hover {
@@ -1376,7 +1376,7 @@ footer {
 }
 
 /* Mobile */
-@media (max-width:600px) {
+/*@media (max-width:600px) {
     .quick-actions {
         gap: 12px;
     }
@@ -1389,7 +1389,7 @@ footer {
     .quick-actions .waze-icon {
         font-size: 22px;
     }
-}
+}*/
 
 /* =========================================================
    QUICK ACTIONS
@@ -1408,12 +1408,12 @@ footer {
    COMMON ROUND BUTTON
 ========================================================= */
 
-.quick-actions .location-container,
+/*.quick-actions .location-container,
 .quick-actions .waze-container {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+}*/
 
 /* =========================================================
    QUICK ACTIONS
