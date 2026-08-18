@@ -1330,7 +1330,7 @@ footer {
    WAZE BUTTON
 ========================================================= */
 
-.quick-actions .waze-container {
+/*.quick-actions .waze-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1353,7 +1353,7 @@ footer {
         transform .12s ease,
         box-shadow .12s ease,
         background .12s ease;
-}
+}*/
 
 .quick-actions .waze-icon {
     font-size: 25px;
@@ -1388,6 +1388,167 @@ footer {
 
     .quick-actions .waze-icon {
         font-size: 22px;
+    }
+}
+
+/* =========================================================
+   QUICK ACTIONS
+   Language / Instagram / Google Maps / Waze
+========================================================= */
+
+.quick-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+}
+
+
+/* =========================================================
+   COMMON ROUND BUTTON
+========================================================= */
+
+.quick-actions .location-container,
+.quick-actions .waze-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Google Maps + Waze */
+
+.quick-actions .location-btn,
+.quick-actions .waze-btn {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    min-height: 46px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,.85);
+    border: 1px solid rgba(120,60,85,.20);
+    box-shadow:
+        0 5px 15px rgba(80,40,60,.12);
+    text-decoration: none;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    transition:
+        transform .12s ease,
+        box-shadow .12s ease,
+        background .12s ease;
+}
+
+
+/* =========================================================
+   SVG ICONS
+   IMPORTANT FOR iPHONE / SAFARI
+========================================================= */
+
+.quick-actions .location-btn img,
+.quick-actions .waze-btn img {
+    display: block;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    max-width: 28px;
+    max-height: 28px;
+    object-fit: contain;
+    object-position: center;
+    flex: 0 0 28px;
+}
+
+
+/* =========================================================
+   GOOGLE MAPS
+========================================================= */
+
+.quick-actions .location-btn img {
+    width: 29px;
+    height: 29px;
+    min-width: 29px;
+    min-height: 29px;
+    max-width: 29px;
+    max-height: 29px;
+    flex-basis: 29px;
+}
+
+
+/* =========================================================
+   WAZE
+========================================================= */
+
+.quick-actions .waze-btn img {
+    width: 29px;
+    height: 29px;
+    min-width: 29px;
+    min-height: 29px;
+    max-width: 29px;
+    max-height: 29px;
+    flex-basis: 29px;
+}
+
+
+/* =========================================================
+   PRESS ANIMATION
+========================================================= */
+
+.quick-actions .location-btn:active,
+.quick-actions .waze-btn:active {
+    transform: scale(.90);
+    box-shadow:
+        0 2px 6px rgba(80,40,60,.20);
+}
+
+
+/* =========================================================
+   DESKTOP HOVER
+========================================================= */
+
+.quick-actions .location-btn:hover,
+.quick-actions .waze-btn:hover {
+    transform: scale(1.08);
+    background: rgba(255,255,255,.95);
+    box-shadow:
+        0 7px 20px rgba(80,40,60,.20);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+    .quick-actions {
+        gap: 12px;
+    }
+
+
+    .quick-actions .location-btn,
+    .quick-actions .waze-btn {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        min-height: 46px;
+        overflow: hidden;
+    }
+
+
+    .quick-actions .location-btn img,
+    .quick-actions .waze-btn img {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        min-height: 28px;
+        max-width: 28px;
+        max-height: 28px;
+        flex: 0 0 28px;
+        object-fit: contain;
     }
 }
 
