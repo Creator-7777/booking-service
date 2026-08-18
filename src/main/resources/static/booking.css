@@ -1415,26 +1415,29 @@ footer {
     justify-content: center;
 }
 
-
-/* Google Maps + Waze */
+/* =========================================================
+   QUICK ACTIONS
+   Google Maps + Waze
+========================================================= */
 
 .quick-actions .location-btn,
 .quick-actions .waze-btn {
-    width: 46px;
-    height: 46px;
-    min-width: 46px;
-    min-height: 46px;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+
     padding: 0;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
     border-radius: 50%;
     background: rgba(255,255,255,.85);
     border: 1px solid rgba(120,60,85,.20);
-    box-shadow:
-        0 5px 15px rgba(80,40,60,.12);
     text-decoration: none;
-    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(80,40,60,.12);
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     transition:
@@ -1443,61 +1446,25 @@ footer {
         background .12s ease;
 }
 
-
-/* =========================================================
-   SVG ICONS
-   IMPORTANT FOR iPHONE / SAFARI
-========================================================= */
+/* VERY IMPORTANT:
+   Explicit size for SVG/PNG inside the button.
+   Fixes iPhone Safari/WebView scaling. */
 
 .quick-actions .location-btn img,
 .quick-actions .waze-btn img {
     display: block;
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
-    min-height: 28px;
-    max-width: 28px;
-    max-height: 28px;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
+    max-width: 22px;
+    max-height: 22px;
     object-fit: contain;
-    object-position: center;
-    flex: 0 0 28px;
+    margin: 0;
+    padding: 0;
 }
 
-
-/* =========================================================
-   GOOGLE MAPS
-========================================================= */
-
-.quick-actions .location-btn img {
-    width: 29px;
-    height: 29px;
-    min-width: 29px;
-    min-height: 29px;
-    max-width: 29px;
-    max-height: 29px;
-    flex-basis: 29px;
-}
-
-
-/* =========================================================
-   WAZE
-========================================================= */
-
-.quick-actions .waze-btn img {
-    width: 29px;
-    height: 29px;
-    min-width: 29px;
-    min-height: 29px;
-    max-width: 29px;
-    max-height: 29px;
-    flex-basis: 29px;
-}
-
-
-/* =========================================================
-   PRESS ANIMATION
-========================================================= */
-
+/* Press */
 .quick-actions .location-btn:active,
 .quick-actions .waze-btn:active {
     transform: scale(.90);
@@ -1506,49 +1473,37 @@ footer {
 }
 
 
-/* =========================================================
-   DESKTOP HOVER
-========================================================= */
+/* Desktop */
+@media (hover: hover) and (pointer: fine) {
 
-.quick-actions .location-btn:hover,
-.quick-actions .waze-btn:hover {
-    transform: scale(1.08);
-    background: rgba(255,255,255,.95);
-    box-shadow:
-        0 7px 20px rgba(80,40,60,.20);
+    .quick-actions .location-btn:hover,
+    .quick-actions .waze-btn:hover {
+        transform: scale(1.08);
+        background: rgba(255,255,255,.95);
+        box-shadow:
+            0 7px 20px rgba(80,40,60,.20);
+    }
 }
 
 
-/* =========================================================
-   MOBILE
-========================================================= */
-
+/* Mobile */
 @media (max-width: 600px) {
-    .quick-actions {
-        gap: 12px;
-    }
-
-
     .quick-actions .location-btn,
     .quick-actions .waze-btn {
-        width: 46px;
-        height: 46px;
-        min-width: 46px;
-        min-height: 46px;
-        overflow: hidden;
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
     }
-
 
     .quick-actions .location-btn img,
     .quick-actions .waze-btn img {
-        width: 28px;
-        height: 28px;
-        min-width: 28px;
-        min-height: 28px;
-        max-width: 28px;
-        max-height: 28px;
-        flex: 0 0 28px;
-        object-fit: contain;
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        min-height: 22px;
+        max-width: 22px;
+        max-height: 22px;
     }
 }
 
