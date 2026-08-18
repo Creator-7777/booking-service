@@ -1422,10 +1422,10 @@ footer {
 
 .quick-actions .location-btn,
 .quick-actions .waze-btn {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    min-height: 40px;
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    min-height: 45px;
 
     padding: 0;
     margin: 0;
@@ -1453,12 +1453,12 @@ footer {
 .quick-actions .location-btn img,
 .quick-actions .waze-btn img {
     display: block;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     min-width: 30px;
     min-height: 30px;
-    max-width: 30px;
-    max-height: 30px;
+    max-width: 35px;
+    max-height: 35px;
     object-fit: contain;
     margin: 0;
     padding: 0;
@@ -1490,20 +1490,20 @@ footer {
 @media (max-width: 600px) {
     .quick-actions .location-btn,
     .quick-actions .waze-btn {
-        width: 40px;
-        height: 40px;
-        min-width: 40px;
-        min-height: 40px;
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        min-height: 45px;
     }
 
     .quick-actions .location-btn img,
     .quick-actions .waze-btn img {
-        width: 30px;
-        height: 30px;
-        min-width: 30px;
-        min-height: 30px;
-        max-width: 30px;
-        max-height: 30px;
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
+        min-height: 35px;
+        max-width: 35px;
+        max-height: 35px;
     }
 }
 
