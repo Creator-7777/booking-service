@@ -35,7 +35,7 @@ public class SmsStatusController {
                     sms.setProviderMsgId(callback.getMsgId());
                     sms.setStatus(callback.getStatus());
                     smsMessageRepository.save(sms);
-                    if (callback.getStatus() == 5) {
+                    if (callback.getStatus() == 5 || callback.getStatus() == 7) {
                         telegramService.send(
                                 "⚠️ SMS НЕ ДОСТАВЛЕН\n\n"
                                         + "📱 Номер: " + callback.getTo() + "\n"

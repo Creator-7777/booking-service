@@ -37,7 +37,7 @@ public class Sms4FreeService {
 
     private final SmsBlacklistService smsBlacklistService;
     private final SmsMessageRepository smsMessageRepository;
-    private static final Logger log = LoggerFactory.getLogger(BookingService.class);
+    private static final Logger log = LoggerFactory.getLogger(Sms4FreeService.class);
 
     public void sendSms(String phone, String message) {
 
@@ -56,9 +56,15 @@ public class Sms4FreeService {
         // ==========================================
         String userMsgId = UUID.randomUUID().toString();
 
-        Map<String, String> payload =
-                new HashMap<>();
+        //ResponseEntity<String> response = restTemplate.postForEntity("https://api.sms4free.co.il/ApiSMS/v2/SendSMS", payload, String.class);
 
+        SmsMessage sms = SmsMessage.builder()
+                .phone(phone)
+                .message(message)
+                .userMsgId(userMsgId)
+                .build();
+
+        Map<String, String> payload = new HashMap<>();
         payload.put("key", apiKey);
         payload.put("user", smsUser);
         payload.put("pass", smsPassword);
@@ -70,13 +76,12 @@ public class Sms4FreeService {
         // NEW
         payload.put("returnUrl", "https://booking-service-production-4dd0.up.railway.app/api/sms4free/callback");
 
-        //ResponseEntity<String> response = restTemplate.postForEntity("https://api.sms4free.co.il/ApiSMS/v2/SendSMS", payload, String.class);
-
-        SmsMessage sms = SmsMessage.builder()
-                .phone(phone)
-                .message(message)
-                .userMsgId(userMsgId)
-                .build();
+        // NEW //
+        payload.put("status", String.valueOf(sms.getStatus()));
+        // NEW //
+        payload.put("statusMessage", sms.getStatusMessage());
+        // NEW //
+        payload.put("providerMessageId", sms.getProviderMsgId());
 
         smsMessageRepository.save(sms);
 
@@ -97,6 +102,7 @@ public class Sms4FreeService {
                             .block();
 
             log.info("SMS RESPONSE = " + response);
+
         } catch(Exception ex){
             ex.printStackTrace();
         }
