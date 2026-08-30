@@ -1118,7 +1118,7 @@ footer {
 .gallery-main {
     position: relative;
     width: 100%;
-    height: 100%
+    height: auto;
     aspect-ratio: 1 / 0.78;
     overflow: hidden;
     border-radius: 22px;
@@ -1580,6 +1580,112 @@ footer {
             width: 35px;
             height: 35px;
         }
+    }
+
+    /* =========================================================
+       DESKTOP LAYOUT
+       Mobile version is NOT affected
+    ========================================================= */
+
+    @media (min-width: 601px) {
+
+        body {
+            padding: 30px 20px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .booking-card {
+            width: 100%;
+            max-width: 920px;
+            padding: 32px 55px 45px;
+            border-radius: 34px;
+        }
+
+        /* Gallery */
+        .works-section {
+            width: 100%;
+            max-width: 100%;
+            margin: 35px 0 45px;
+        }
+
+        .gallery {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .gallery-main {
+            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            height: auto;
+            overflow: hidden;
+            border-radius: 24px;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-thumbnails {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Header */
+
+        h1 {
+            font-size: 30px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+
+        /* Form */
+        input,
+        select {
+            height: 54px;
+        }
+
+        #service,
+        select[multiple] {
+            height: 180px;
+            min-height: 180px;
+        }
+
+        /* Buttons */
+        .primary,
+        .secondary {
+            height: 56px;
+            font-size: 16px;
+        }
+
+        /* Quick actions */
+        .quick-actions {
+            gap: 18px;
+            margin-top: 8px;
+            margin-bottom: 22px;
+        }
+
+        /* Desktop gallery heading */
+        .works-header h2 {
+            font-size: 27px;
+        }
+
+        .works-header p {
+            font-size: 16px;
+        }
+
     }
 }
 
