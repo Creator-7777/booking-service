@@ -25,8 +25,7 @@ public class ServiceController {
         Locale locale = Locale.forLanguageTag(lang);
         return Arrays.stream(NailService.values()).map(service -> new ServiceDto(
                 service.name(),
-                messageSource.getMessage("service." + service.name(),
-                        null, locale),
+                messageSource.getMessage("service." + service.name(), null, locale),
                 service.getPrice())).toList();
     }
 

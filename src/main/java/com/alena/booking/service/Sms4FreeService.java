@@ -1,6 +1,10 @@
 package com.alena.booking.service;
 
+import com.alena.booking.entity.SmsMessage;
+import com.alena.booking.repository.SmsMessageRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +35,26 @@ public class Sms4FreeService {
 
     private final WebClient webClient = WebClient.create();
 
+    private final SmsBlacklistService smsBlacklistService;
+    private final SmsMessageRepository smsMessageRepository;
+    private static final Logger log = LoggerFactory.getLogger(BookingService.class);
+
     public void sendSms(String phone, String message) {
+
+
+        // ==========================================
+        // BLACKLIST CHECK
+        // ==========================================
+        if (smsBlacklistService.isBlocked(phone)) {
+            log.info("SMS BLOCKED - phone is in blacklist: " + phone);
+            throw new IllegalStateException("This phone number is blocked");
+            //return;
+        }
+
+        // ==========================================
+        // Unique ID for SMS4Free
+        // ==========================================
+        String userMsgId = UUID.randomUUID().toString();
 
         Map<String, String> payload =
                 new HashMap<>();
@@ -41,8 +65,20 @@ public class Sms4FreeService {
         payload.put("sender", smsSender);
         payload.put("recipient", phone);
         payload.put("msg", message);
+        // NEW
+        payload.put("usermsgid", userMsgId);
+        // NEW
+        payload.put("returnUrl", "https://booking-service-production-4dd0.up.railway.app/api/sms4free/callback");
 
         //ResponseEntity<String> response = restTemplate.postForEntity("https://api.sms4free.co.il/ApiSMS/v2/SendSMS", payload, String.class);
+
+        SmsMessage sms = SmsMessage.builder()
+                .phone(phone)
+                .message(message)
+                .userMsgId(userMsgId)
+                .build();
+
+        smsMessageRepository.save(sms);
 
         try {
 
@@ -60,7 +96,7 @@ public class Sms4FreeService {
                             .bodyToMono(String.class)
                             .block();
 
-            System.out.println("SMS RESPONSE = " + response);
+            log.info("SMS RESPONSE = " + response);
         } catch(Exception ex){
             ex.printStackTrace();
         }
