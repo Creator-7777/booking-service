@@ -1336,39 +1336,7 @@ footer {
         0 7px 20px rgba(80,40,60,.20);
 }
 
-/* =========================================================
-   WAZE BUTTON
-========================================================= */
 
-/*.quick-actions .waze-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.quick-actions .waze-btn {
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,.85);
-    border: 1px solid rgba(120,60,85,.20);
-    text-decoration: none;
-    box-shadow:
-        0 5px 15px rgba(80,40,60,.12);
-    transition:
-        transform .12s ease,
-        box-shadow .12s ease,
-        background .12s ease;
-}*/
-
-/*.quick-actions .waze-icon {
-    font-size: 25px;
-    line-height: 1;
-}*/
 
 /* Desktop */
 .quick-actions .waze-btn:hover {
@@ -1398,17 +1366,6 @@ footer {
     gap: 22px;
 }
 
-
-/* =========================================================
-   COMMON ROUND BUTTON
-========================================================= */
-
-/*.quick-actions .location-container,
-.quick-actions .waze-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}*/
 
 /* =========================================================
    QUICK ACTIONS
@@ -1550,6 +1507,11 @@ footer {
     .quick-actions .whatsapp-btn:hover {
         transform: scale(1.08);
         background: rgba(255,255,255,.95);
+        box-shadow: 0 7px 20px rgba(80,40,60,.20);
+    }
+
+    .quick-actions .whatsapp img:hover {
+        transform: scale(1.08);
         box-shadow: 0 7px 20px rgba(80,40,60,.20);
     }
 
