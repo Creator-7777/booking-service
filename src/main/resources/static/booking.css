@@ -32,15 +32,28 @@ html {
 /* =========================================================
    BODY
 ========================================================= */
+html {
+    min-height: 100%;
+    background: #fff0f5;
+}
 
 body {
     min-height: 100vh;
     padding: 18px 10px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     font-family: 'Poppins', sans-serif;
     color: var(--text);
+
+    background: transparent;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
 
     background:
         linear-gradient(
@@ -48,7 +61,10 @@ body {
             rgba(255, 240, 245, .72)
         ),
         url('https://i.imgur.com/jekr8h8.jpeg')
-        center center / cover no-repeat fixed;
+        center center / cover no-repeat;
+
+    z-index: -1;
+    pointer-events: none;
 }
 
 
@@ -1579,6 +1595,12 @@ footer {
         .quick-actions .whatsapp-btn img {
             width: 35px;
             height: 35px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        body::before {
+            display: none;
         }
     }
 
