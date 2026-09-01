@@ -1510,6 +1510,11 @@ footer {
         box-shadow: 0 7px 20px rgba(80,40,60,.20);
     }
 
+    /* Desktop animation */
+    .whatsapp-btn:hover {
+      transform: translateY(-3px);
+    }
+
     .quick-actions .whatsapp img:hover {
         transform: scale(1.08);
         box-shadow: 0 7px 20px rgba(80,40,60,.20);
