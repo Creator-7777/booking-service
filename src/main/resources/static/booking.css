@@ -1324,7 +1324,8 @@ footer {
 
 /* Desktop hover */
 .quick-actions .language-btn:hover,
-.quick-actions .location-btn:hover {
+.quick-actions .location-btn:hover,
+.quick-actions .whatsapp-btn:hover{
     transform: scale(1.08);
     box-shadow:
         0 7px 20px rgba(80,40,60,.20);
@@ -1339,7 +1340,8 @@ footer {
 
 
 /* Desktop */
-.quick-actions .waze-btn:hover {
+.quick-actions .waze-btn:hover,
+.quick-actions .whatsapp-btn:hover{
     transform: scale(1.08);
     background: rgba(255,255,255,.95);
     box-shadow:
@@ -1373,7 +1375,8 @@ footer {
 ========================================================= */
 
 .quick-actions .location-btn,
-.quick-actions .waze-btn {
+.quick-actions .waze-btn,
+.quick-actions .whatsapp-btn {
     width: 45px;
     height: 45px;
     min-width: 45px;
