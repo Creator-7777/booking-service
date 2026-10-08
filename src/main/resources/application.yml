@@ -8,6 +8,10 @@ spring:
     url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASSWORD}
+    datasource:
+      hikari:
+        maximum-pool-size: 5
+        minimum-idle: 1
 
   jpa:
     hibernate:
@@ -54,6 +58,16 @@ sms:
 server:
   port: ${PORT:8080}
   forward-headers-strategy: framework
+
+  # =========================
+  # RAM optimization
+  # =========================
+  # Tomcat HTTP threads
+  tomcat:
+    threads:
+      max: 20
+      min-spare: 2
+
 
 
 

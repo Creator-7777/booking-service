@@ -6,15 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const counter =  document.getElementById("galleryCounter");
     const thumbnails = document.getElementById("galleryThumbnails");
 
-
     /*
      * ==========================================
      * MASTER WORKS
      * ==========================================
      */
-
     const galleryImages = [
-
     "https://i.imgur.com/jekr8h8.jpeg",
     "https://i.imgur.com/wPCEmU0.jpeg",
     "https://i.imgur.com/ECiQ2tM.jpeg",
@@ -42,24 +39,20 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://i.imgur.com/WNC5PDQ.jpeg",
     "https://i.imgur.com/lKq22XZ.jpeg",
     "https://i.imgur.com/kdGvPSp.jpeg",
-    "https://i.imgur.com/cTv15uz.jpeg"
-
+    "https://i.imgur.com/cTv15uz.jpeg",
+    "https://i.imgur.com/9bo5TX0.jpeg"
     ];
 
-
     let currentIndex = 0;
-
     /*
      * ==========================================
      * SHOW IMAGE
      * ==========================================
      */
-
     function showImage(index) {
         if (!galleryImages.length) {
             return;
         }
-
         currentIndex =
             (index + galleryImages.length)
             % galleryImages.length;

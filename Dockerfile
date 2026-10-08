@@ -1,0 +1,1 @@
+ENTRYPOINT ["java", "-XX:InitialRAMPercentage=10", "-XX:MaxRAMPercentage=55", "-XX:MaxMetaspaceSize=192m", "-jar", "app.jar"]

@@ -1,5 +1,6 @@
 package com.alena.booking.service;
 
+import com.alena.booking.dto.Sms4FreeStatuses;
 import com.alena.booking.entity.SmsMessage;
 import com.alena.booking.repository.SmsMessageRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -39,17 +41,39 @@ public class Sms4FreeService {
     private final SmsMessageRepository smsMessageRepository;
     private static final Logger log = LoggerFactory.getLogger(Sms4FreeService.class);
 
+    private static final Set<Integer> BLOCKING_STATUSES = Set.of(
+            Sms4FreeStatuses.NOT_DELIVERED,
+            Sms4FreeStatuses.NUMBER_IS_BLOCKED
+    );
+
+    private boolean isBlockedBySmsHistory(String phone) {
+        return smsMessageRepository.existsByPhoneAndStatusIn(
+                phone,
+                BLOCKING_STATUSES
+        );
+    }
+
     public void sendSms(String phone, String message) {
 
 
         // ==========================================
         // BLACKLIST CHECK
         // ==========================================
-        if (smsBlacklistService.isBlocked(phone)) {
+        if (smsBlacklistService.isBlocked(phone) ) {
             log.info("SMS BLOCKED - phone is in blacklist: " + phone);
             throw new IllegalStateException("This phone number is blocked");
             //return;
         }
+
+        // ==========================================
+        // SMS4FREE HISTORY CHECK
+        // ==========================================
+        if (isBlockedBySmsHistory(phone)) {
+            log.warn("SMS BLOCKED - phone has previous SMS4Free status 5 or 7: {}", phone);
+            throw new IllegalStateException("SMS cannot be sent to this phone number");
+        }
+
+
 
         // ==========================================
         // Unique ID for SMS4Free
@@ -87,10 +111,10 @@ public class Sms4FreeService {
 
         try {
 
-            System.out.println("=== SMS REQUEST ===");
-            System.out.println("Recipient = " + phone);
-            System.out.println("Sender = " + smsSender);
-            System.out.println("User = " + smsUser);
+            log.info("=== SMS REQUEST ===");
+            log.info("Recipient = " + phone);
+            log.info("Sender = " + smsSender);
+            log.info("User = " + smsUser);
 
             String response =
                     webClient.post()
