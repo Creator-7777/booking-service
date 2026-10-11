@@ -65,7 +65,7 @@ server:
   # Tomcat HTTP threads
   tomcat:
     threads:
-      max: 10
+      max: 7
       min-spare: 2
 
 
