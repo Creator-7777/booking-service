@@ -4,6 +4,7 @@ import com.alena.booking.dto.BookingRequest;
 import com.alena.booking.dto.BookingSheetDto;
 import com.alena.booking.dto.CancelBookingRequest;
 import com.alena.booking.dto.CancelOldBookingRequest;
+import com.alena.booking.repository.BlockedDayRepository;
 import com.alena.booking.service.BookingService;
 import com.alena.booking.service.GoogleSheetService;
 import com.alena.booking.service.SheetsService;
@@ -23,13 +24,29 @@ public class BookingController {
 
     private final BookingService service;
     private final GoogleSheetService googleSheetService;
-
+    private final BlockedDayRepository blockedDayRepository;
     private final SheetsService sheetsService;
 
-    @GetMapping("/booked-times")
+/*    @GetMapping("/booked-times")
     public List<String> bookedTimes(@RequestParam LocalDate date) throws IOException {
         return sheetsService.getBookedTimes(date);
         //return googleSheetService.getBookedTimes(date);
+    }*/
+
+    @GetMapping("/booked-times")
+    public List<String> bookedTimes(
+            @RequestParam LocalDate date) throws IOException {
+
+        if (blockedDayRepository.existsByBlockedDate(date)) {
+            return List.of(
+                    "10:00–12:00",
+                    "12:00–14:00",
+                    "14:00–16:00",
+                    "16:00–18:00"
+            );
+        }
+
+        return sheetsService.getBookedTimes(date);
     }
 
     @PostMapping

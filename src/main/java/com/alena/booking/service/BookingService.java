@@ -8,6 +8,7 @@ import com.alena.booking.entity.Appointment;
 import com.alena.booking.entity.VerifiedCustomer;
 import com.alena.booking.exception.BookingAlreadyExistsException;
 import com.alena.booking.repository.AppointmentRepository;
+import com.alena.booking.repository.BlockedDayRepository;
 import com.alena.booking.repository.VerifiedCustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -30,20 +31,27 @@ public class BookingService {
     private final AppointmentRepository repository;
     private final VerifiedCustomerRepository verifiedCustomerRepository;
     private final TelegramService telegramService;
-    //private final TelegramServiceGoogleAppScript telegramService;
-    //private final GoogleSheetService googleSheetService;
     private final SheetsService sheetsService;
     private final CalendarService calendarService;
     private static final Logger log = LoggerFactory.getLogger(BookingService.class);
 
+    private final BlockedDayRepository blockedDayRepository;
+
     @Transactional
     public void createBooking(BookingRequest request) throws IOException {
+
+        LocalDate appointmentDate = LocalDate.parse(request.getDate());
+
+        if (blockedDayRepository.existsByBlockedDate(appointmentDate)) {
+            throw new BookingAlreadyExistsException(" This day is blocked - Этот день закрыт для записи.");
+        }
 
         Appointment appointment = Appointment.builder()
                         .customerName(request.getName())
                         .phone(request.getPhone())
                         .services(request.getService())
-                        .appointmentDate(LocalDate.parse(request.getDate()))
+                        //.appointmentDate(LocalDate.parse(request.getDate()))
+                        .appointmentDate(appointmentDate)
                         .appointmentTime(request.getTime())
                         //.createdAt(LocalDateTime.now(TimeConfig.ZONE))
                         .createdAt(LocalDateTime.now())
@@ -59,14 +67,16 @@ public class BookingService {
 
         // Verify free time slots in Calendar
         boolean available = calendarService.isTimeSlotAvailable(
-                        LocalDate.parse(request.getDate()),
+                        //LocalDate.parse(request.getDate()),
                         //appointment.getAppointmentDate(),
+                        appointmentDate,
                         start,
                         end);
 
         // Verify free time slots in Google Sheet
-        //List<String> booked = googleSheetService.getBookedTimes(appointment.getAppointmentDate());
-        List<String> booked = sheetsService.getBookedTimes(appointment.getAppointmentDate());
+        //List<String> booked = sheetsService.getBookedTimes(appointment.getAppointmentDate());
+        //List<String> booked = sheetsService.getBookedTimes(LocalDate.parse(request.getDate()));
+        List<String> booked = sheetsService.getBookedTimes(appointmentDate);
 
         if (!available || booked.contains(appointment.getAppointmentTime())) {
             throw new BookingAlreadyExistsException(
@@ -76,13 +86,7 @@ public class BookingService {
 
         try {
             log.info("Sending to DB...");
-            //log.info("Before save: {}", appointment.getCreatedAt());
-            //log.info("System zone = {}", ZoneId.systemDefault());
-            //log.info("System property user.timezone = {}", System.getProperty("user.timezone"));
-            //log.info("Default TimeZone = {}", java.util.TimeZone.getDefault().getID());
-            //log.info("JVM version = {}", System.getProperty("java.version"));
             log.info("Now = {}", LocalDateTime.now());
-            //log.info("Jerusalem = {}", LocalDateTime.now(ZoneId.of("Asia/Jerusalem")));
 
             repository.save(appointment);
 
@@ -104,12 +108,6 @@ public class BookingService {
             log.error("Calendar event failed", e);
         }
 
-       /* try {
-            log.info("Sending to Google Sheet...");
-            googleSheetService.saveBooking(appointment);
-        } catch (Exception e) {
-            log.error("Google Sheet save failed", e);
-        }*/
 
         try {
             log.info("Sending to New Google Sheet...");

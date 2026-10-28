@@ -65,8 +65,14 @@ server:
   # Tomcat HTTP threads
   tomcat:
     threads:
-      max: 7
-      min-spare: 2
+      max: 5
+      min-spare: 1
+      max-connections: 10
+      # Уменьшаем очередь ожидания в ОС, чтобы не копились тяжелые запросы
+      accept-count: 5
+      # Отключаем сжатие ответов (GZIP в Tomcat тратит CPU и RAM на буферы)
+      compression:
+        enabled: false
 
 
 
