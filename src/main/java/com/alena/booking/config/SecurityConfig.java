@@ -50,25 +50,25 @@ public class SecurityConfig {
                         // Public booking availability for GET APIs
                         .requestMatchers(
                                 HttpMethod.GET,
-                                "/api/bookings/booked-times/*",
-                                "/api/cabinet/history/*",
-                                "/api/i18n/*",
-                                "/api/services/*",
-                                "/api/sms/is-verified/*",
-                                "/api/customers/verified/*"
+                                "/api/bookings/booked-times",
+                                "/api/cabinet/history",
+                                "/api/i18n",
+                                "/api/services",
+                                "/api/sms/is-verified",
+                                "/api/customers/verified"
                         ).permitAll()
 
                         // Existing public booking operations for POST APIs
                         .requestMatchers(
                                 HttpMethod.POST,
-                                "/api/bookings/*",
-                                "/api/bookings/cancel/*",
-                                "/api/bookings/cancel/old/*",
-                                "/api/sms4free/callback/*",
-                                "/api/sms4free/status/*",
-                                "/api/sms/send-code/*",
-                                "/api/sms/validate/*",
-                                "/api/sms/status/*"
+                                "/api/bookings",
+                                "/api/bookings/cancel",
+                                "/api/bookings/cancel/old",
+                                "/api/sms4free/callback",
+                                "/api/sms4free/status",
+                                "/api/sms/send-code",
+                                "/api/sms/validate",
+                                "/api/sms/status"
                         ).permitAll()
 
                         // All admin endpoints
@@ -107,33 +107,33 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf
                 .ignoringRequestMatchers(
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.POST, "/api/bookings/*"),
+                                .matcher(HttpMethod.POST, "/api/bookings"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.POST, "/api/bookings/cancel/*"),
+                                .matcher(HttpMethod.POST, "/api/bookings/cancel"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.POST, "/api/bookings/cancel/old/*"),
+                                .matcher(HttpMethod.POST, "/api/bookings/cancel/old"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.POST, "/api/sms4free/callback/*"),
+                                .matcher(HttpMethod.POST, "/api/sms4free/callback"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.POST, "/api/sms4free/status/*"),
+                                .matcher(HttpMethod.POST, "/api/sms4free/status"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.POST, "/api/sms/send-code/*"),
+                                .matcher(HttpMethod.POST, "/api/sms/send-code"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.POST, "/api/sms/validate/*"),
+                                .matcher(HttpMethod.POST, "/api/sms/validate"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.POST, "/api/sms/status/*"),
+                                .matcher(HttpMethod.POST, "/api/sms/status"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.GET, "/api/bookings/booked-times/*"),
+                                .matcher(HttpMethod.GET, "/api/bookings/booked-times"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.GET, "/api/cabinet/history/*"),
+                                .matcher(HttpMethod.GET, "/api/cabinet/history"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.GET, "/api/i18n/*"),
+                                .matcher(HttpMethod.GET, "/api/i18n"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.GET, "/api/services/*"),
+                                .matcher(HttpMethod.GET, "/api/services"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.GET, "/api/sms/is-verified/*"),
+                                .matcher(HttpMethod.GET, "/api/sms/is-verified"),
                         PathPatternRequestMatcher.withDefaults()
-                                .matcher(HttpMethod.GET, "/api/customers/verified/*")
+                                .matcher(HttpMethod.GET, "/api/customers/verified")
                 )
         );
 
