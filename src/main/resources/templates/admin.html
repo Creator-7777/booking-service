@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Elena Nails — Admin</title>
+
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 620px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        input, button {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .panel {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        #result {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+    </style>
+</head>
+<body>
+<h1>Elena Nails</h1>
+<h2>Admin — Working days</h2>
+
+<div class="panel">
+    <label for="date">Select date</label>
+    <input type="date" id="date" required>
+
+    <label for="reason">Reason for closing</label>
+    <input id="reason" type="text"
+           maxlength="255"
+           placeholder="Vacation, personal day...">
+
+    <button type="button" onclick="blockDay()">
+        Close day
+    </button>
+
+    <button type="button" onclick="unblockDay()">
+        Reopen day
+    </button>
+
+    <p id="result" role="status"></p>
+</div>
+
+<form method="post" th:action="@{/logout}">
+    <button type="submit">Log out</button>
+</form>
+
+<script>
+    const csrfToken =
+        document.querySelector('meta[name="_csrf"]').content;
+
+    const csrfHeader =
+        document.querySelector('meta[name="_csrf_header"]').content;
+
+    async function sendRequest(url, method, body) {
+        const headers = {
+            [csrfHeader]: csrfToken
+        };
+
+        if (body !== undefined) {
+            headers["Content-Type"] = "application/json";
+        }
+
+        const response = await fetch(url, {
+            method,
+            headers,
+            credentials: "same-origin",
+            body: body === undefined
+                ? undefined
+                : JSON.stringify(body)
+        });
+
+        const text = await response.text();
+
+        if (!response.ok) {
+            if (response.status === 401 ||
+                response.status === 403) {
+                throw new Error(
+                    "Access denied. Your session may have expired."
+                );
+            }
+
+            if (response.status === 404) {
+                throw new Error("This date is not blocked.");
+            }
+
+            throw new Error(
+                "Request failed: HTTP " + response.status +
+                (text ? " — " + text : "")
+            );
+        }
+
+        if (!text) {
+            return {};
+        }
+
+        try {
+            return JSON.parse(text);
+        } catch {
+            return { message: text };
+        }
+    }
+
+    function getSelectedDate() {
+        const date = document.getElementById("date").value;
+
+        if (!date) {
+            throw new Error("Please select a date first.");
+        }
+
+        return date;
+    }
+
+    async function blockDay() {
+        const result = document.getElementById("result");
+
+        try {
+            const date = getSelectedDate();
+            const reason =
+                document.getElementById("reason").value.trim();
+
+            const data = await sendRequest(
+                "/api/admin/blocked-days",
+                "POST",
+                { date, reason }
+            );
+
+            result.textContent =
+                data.message || "Day closed: " + date;
+        } catch (error) {
+            result.textContent = error.message;
+        }
+    }
+
+    async function unblockDay() {
+        const result = document.getElementById("result");
+
+        try {
+            const date = getSelectedDate();
+
+            if (!confirm("Reopen " + date + " for bookings?")) {
+                return;
+            }
+
+            const data = await sendRequest(
+                "/api/admin/blocked-days/" +
+                    encodeURIComponent(date),
+                "DELETE"
+            );
+
+            result.textContent =
+                data.message || "Day reopened: " + date;
+        } catch (error) {
+            result.textContent = error.message;
+        }
+    }
+</script>
+</body>
+</html>
