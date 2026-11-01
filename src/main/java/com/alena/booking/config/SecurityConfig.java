@@ -66,7 +66,9 @@ public class SecurityConfig {
                                 "/api/bookings/booked-times",
                                 "/api/cabinet/history",
                                 "/api/i18n",
+                                "/api/i18n/**",
                                 "/api/services",
+                                "/api/services/**",
                                 "/api/sms/is-verified",
                                 "/api/customers/verified"
                         ).permitAll()

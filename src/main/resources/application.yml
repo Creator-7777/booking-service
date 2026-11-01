@@ -4,7 +4,7 @@ spring:
   ADMIN_PASSWORD: ${ADMIN_PASSWORD}
 
   messages:
-    basename: i18n/messages/messages
+    basename: i18n/messages
     encoding: UTF-8
 
   datasource:
