@@ -47,6 +47,19 @@ public class SecurityConfig {
             HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(auth -> auth
+                        // Public booking website
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/favicon.ico",
+                                "/booking.css",
+                                "/js/**",
+                                "/images/**",
+                                "/fonts/**",
+                                "/assets/**",
+                                "/webjars/**"
+                        ).permitAll()
+
                         // Public booking availability for GET APIs
                         .requestMatchers(
                                 HttpMethod.GET,
