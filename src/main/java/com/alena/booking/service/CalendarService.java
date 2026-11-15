@@ -108,7 +108,7 @@ public class CalendarService {
                     .insert(calendarId, event)
                     .execute();
 
-            log.info("Calendar event created.");
+            log.info("Calendar event created for this phone " + booking.getPhone());
         } catch (Exception ex) {
             log.error("Cannot create calendar event", ex);
         }
@@ -175,7 +175,7 @@ public class CalendarService {
         for (Event event : events.getItems()) {
             if (event.getDescription() != null && event.getDescription().contains(appointment.getPhone())) {
                 calendar.events().delete(calendarId,event.getId()).execute();
-                log.info("Calendar deleted");
+                log.info("Calendar deleted for this phone " + appointment.getPhone());
                 return;
             }
         }
