@@ -198,6 +198,8 @@ phoneInput.addEventListener("blur", async () => {
     if (!validPhone(phone)) {
         sendCodeBtn.style.display = "block";
         codeSection.classList.add("hidden");
+
+        Booking.hideTelegramButton();
         return;
     }
     try {
@@ -207,13 +209,16 @@ phoneInput.addEventListener("blur", async () => {
         if (verified === true) {
             sendCodeBtn.style.display = "none";
             codeSection.classList.add("hidden");
+            Booking.showTelegramButton(phone); // Existing verified customer
         } else {
             sendCodeBtn.style.display = "block";
+            Booking.hideTelegramButton(); // New customer - not verified yet
         }
 
     } catch (e) {
         console.error(e);
         sendCodeBtn.style.display = "block";
+        Booking.hideTelegramButton();
     }
 });
 

@@ -28,29 +28,21 @@ public class TelegramService {
 
     private final WebClient webClient = WebClient.create();
 
-    private void send(String text) {
-
-       /* Map<String, Object> body = Map.of(
-                "chat_id", chatId,
-                "text", text
-
-        );*/
+    private void send(String targetChatId, String text) {
 
         Map<String, Object> body = new HashMap<>();
-               body.put("chat_id", chatId);
+               body.put("chat_id", targetChatId);
                body.put( "text", text );
                body.put("parse_mode", "HTML");
 
-
-        String response = webClient.post()
+        webClient.post()
                 .uri("https://api.telegram.org/bot" + token + "/sendMessage")
                 .bodyValue(body)
-                //.bodyValue(Map.of("chat_id", chatId, "text", message))
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
 
-        log.info("Telegram response={}", response);
+
     }
 
     public void sendBooking(Appointment appointment) {
@@ -74,13 +66,10 @@ public class TelegramService {
                     appointment.getAppointmentTime());
 
         try {
-            send(message);
-            log.info(" Notification to Telegram has been sent");
+            send(chatId, message);
+            log.info(" Booking notification sent to Telegram group ");
         } catch (Exception ex) {
-            log.error("Telegram failed to send booking notification", ex);
-            if (ex instanceof WebClientResponseException e) {
-                log.error("Telegram body={}", e.getResponseBodyAsString());
-            }
+            log.error("Telegram failed to send booking notification to the group ", ex);
         }
 
     }
@@ -102,13 +91,28 @@ public class TelegramService {
                 appointment.getAppointmentTime());
 
         try {
-            send(message);
-            log.info("Cancel Notification to Telegram has been sent");
+            send(chatId, message);
+            log.info("Cancellation notification sent to Telegram group");
         } catch (Exception ex) {
-            log.error("Telegram failed to send cancel notification", ex);
-            if (ex instanceof WebClientResponseException e) {
-                log.error("Telegram body={}", e.getResponseBodyAsString());
-            }
+            log.error("Telegram failed to send cancel notification to the group", ex);
+        }
+    }
+
+    /**
+     * Send a private message to a customer.
+     */
+    public void sendCustomerMessage(Long customerChatId, String message) {
+
+        if (customerChatId == null) {
+            log.debug("Customer Telegram chat ID is missing");
+            return;
+        }
+
+        try {
+            send(customerChatId.toString(), message);
+            log.info("Private Telegram notification sent to the client");
+        } catch (Exception ex) {
+            log.error("Failed to send private Telegram notification to the client", ex);
         }
     }
 

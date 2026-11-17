@@ -37,11 +37,15 @@ public class SmsCodeStorage {
 
         SmsCode smsCode = codes.get(phone);
 
+        if (smsCode == null) {
+            return false;
+        }
+
         if (!smsCode.code().equals(code)) {
             return false;
         }
 
-        else if (smsCode.expireAt().isBefore(LocalDateTime.now())) {
+       if (smsCode.expireAt().isBefore(LocalDateTime.now())) {
             codes.remove(phone);
             return false;
         }

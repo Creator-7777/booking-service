@@ -27,7 +27,7 @@ public class SmsController {
         String code = String.valueOf(ThreadLocalRandom.current().nextInt(1000, 10000));
 
         storage.save(request.phone(), code);
-        log.info("PHONE={} CODE={}", request.phone(), code);
+        //log.info("PHONE={} CODE={}", request.phone(), code);
         sms4FreeService.sendSms(request.phone(), "Ваш код подтверждения: " + code);
 
         return ResponseEntity.ok().build();

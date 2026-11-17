@@ -25,4 +25,10 @@ public class VerifiedCustomer {
 
     private LocalDateTime verifiedAt = LocalDateTime.now();
 
+    @Column(name = "telegram_chat_id")
+    private Long telegramChatId;
+
+    @Column(name = "telegram_enabled", nullable = false)
+    private Boolean telegramEnabled = false;
+
 }

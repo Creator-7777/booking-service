@@ -117,11 +117,14 @@ public class BookingService {
         }
 
         try {
-            log.info("Sending Notification to Telegram...");
+            log.info("Sending Notification to Telegram group...");
             telegramService.sendBooking(appointment);
         } catch (Exception e) {
-            log.error("Notification to Telegram failed", e);
+            log.error("Notification to Telegram group failed", e);
         }
+
+        // New private notification to customer
+        sendCustomerBookingNotification(appointment);
 
     }
 
@@ -140,7 +143,16 @@ public class BookingService {
         repository.delete(appointment);
         log.info("Canceled record was removed from DB");
 
-        telegramService.sendCancelNotification(appointment);
+        try {
+            // Existing notification to admin group
+            log.info("Sending Cancel Notification to Telegram group...");
+            telegramService.sendCancelNotification(appointment);
+        } catch (Exception e) {
+            log.error("Telegram group cancellation notification failed", e);
+        }
+
+        // New private notification to customer
+        sendCustomerCancelNotification(appointment);
 
     }
 
@@ -158,4 +170,76 @@ public class BookingService {
             sheetsService.deleteOldTabBooking(appointment);
         }
     }
+
+
+    private void sendCustomerBookingNotification(Appointment appointment) {
+
+        try {
+            VerifiedCustomer customer = verifiedCustomerRepository
+                    .findByPhone(appointment.getPhone())
+                    .orElse(null);
+
+            if (customer == null || !Boolean.TRUE.equals(customer.getTelegramEnabled()) || customer.getTelegramChatId() == null) {
+                log.info("Customer Telegram notification is not enabled");
+                return;
+            }
+
+            String message = """
+                💅 <b>Elena Nails — запись подтверждена!</b>
+
+                👤 %s
+                💅 %s
+                📅 %s
+                ⏰ %s
+
+                Будем рады вас видеть! ❤️
+                """.formatted(
+                    appointment.getCustomerName(),
+                    appointment.getServices(),
+                    appointment.getAppointmentDate(),
+                    appointment.getAppointmentTime()
+            );
+
+            telegramService.sendCustomerMessage(customer.getTelegramChatId(), message);
+
+        } catch (Exception e) {
+            log.error("Customer Telegram booking notification failed", e);
+        }
+    }
+
+    private void sendCustomerCancelNotification(Appointment appointment) {
+
+        try {
+            VerifiedCustomer customer = verifiedCustomerRepository
+                    .findByPhone(appointment.getPhone())
+                    .orElse(null);
+
+            if (customer == null || !Boolean.TRUE.equals(customer.getTelegramEnabled()) || customer.getTelegramChatId() == null) {
+                log.info("Customer Telegram notification is not enabled");
+                return;
+            }
+
+            String message = """
+                ❌ <b>Elena Nails — запись отменена</b>
+
+                👤 %s
+                💅 %s
+                📅 %s
+                ⏰ %s
+
+                Если хотите записаться снова, будем рады вас видеть! ❤️
+                """.formatted(
+                    appointment.getCustomerName(),
+                    appointment.getServices(),
+                    appointment.getAppointmentDate(),
+                    appointment.getAppointmentTime()
+            );
+
+            telegramService.sendCustomerMessage(customer.getTelegramChatId(), message);
+
+        } catch (Exception e) {
+            log.error("Customer Telegram cancellation notification failed", e);
+        }
+    }
+
 }

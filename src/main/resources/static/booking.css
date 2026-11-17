@@ -1653,3 +1653,31 @@ footer {
         }
     }
 
+    /* ========================= */
+    /* Telegram Link Button      */
+    /* ========================= */
+
+    .telegram-link-btn {
+        display: none;
+        width: 100%;
+        margin-top: 12px;
+        padding: 13px 16px;
+        border: none;
+        border-radius: 10px;
+        background: #229ED9;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .telegram-link-btn:hover {
+        background: #168AC0;
+    }
+
+    .telegram-link-btn:disabled {
+        opacity: 0.6;
+        cursor: wait;
+    }
+

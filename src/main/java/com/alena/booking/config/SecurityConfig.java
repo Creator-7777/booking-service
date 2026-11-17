@@ -83,7 +83,9 @@ public class SecurityConfig {
                                 "/api/sms4free/status",
                                 "/api/sms/send-code",
                                 "/api/sms/validate",
-                                "/api/sms/status"
+                                "/api/sms/status",
+                                "/api/telegram/webhook",
+                                "/api/telegram/link"
                         ).permitAll()
 
                         // All admin endpoints
@@ -137,6 +139,10 @@ public class SecurityConfig {
                                 .matcher(HttpMethod.POST, "/api/sms/validate"),
                         PathPatternRequestMatcher.withDefaults()
                                 .matcher(HttpMethod.POST, "/api/sms/status"),
+                        PathPatternRequestMatcher.withDefaults()
+                                .matcher(HttpMethod.POST, "/api/telegram/webhook"),
+                        PathPatternRequestMatcher.withDefaults()
+                                .matcher(HttpMethod.POST, "/api/telegram/link"),
                         PathPatternRequestMatcher.withDefaults()
                                 .matcher(HttpMethod.GET, "/api/bookings/booked-times"),
                         PathPatternRequestMatcher.withDefaults()

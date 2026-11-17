@@ -14,6 +14,8 @@ const Booking = (() => {
     let cabinetWindow;
     let cabinetContent;
     let closeCabinet;
+    let telegramLinkButton;
+    let telegramPhone = "";
 
     //-------------------------------------------------
     // Initialize
@@ -23,6 +25,28 @@ const Booking = (() => {
 
         form = document.getElementById("form");
         status = document.getElementById("status");
+
+        const phoneInput = document.getElementById("phone");
+
+        if (phoneInput) {
+            telegramLinkButton = document.createElement("button");
+
+            telegramLinkButton.type = "button";
+            telegramLinkButton.textContent = "✈️ Подключить Telegram";
+            telegramLinkButton.className = "telegram-link-btn";
+            telegramLinkButton.style.display = "none";
+
+            //phoneInput.insertAdjacentElement("afterend", telegramLinkButton);
+            status.insertAdjacentElement("afterend", telegramLinkButton);
+
+            telegramLinkButton.addEventListener("click", connectTelegram);
+            // Check whether the phone belongs to a verified customer
+            phoneInput.addEventListener("blur", () => {
+                const phone = Utils.normalizePhone(phoneInput.value);
+                checkTelegramAvailability(phone);
+            });
+        }
+
         // Cabinet elements
         cabinetWindow = document.getElementById("cabinetWindow");
         cabinetContent = document.getElementById("cabinetContent");
@@ -268,6 +292,103 @@ const Booking = (() => {
         return true;
     }
 
+
+    //-------------------------------------------------
+    // Telegram connection
+    //-------------------------------------------------
+
+    function showTelegramButton(phone) {
+        if (!telegramLinkButton) return;
+
+        telegramPhone = phone;
+        telegramLinkButton.style.display = "block";
+    }
+
+    function hideTelegramButton() {
+        if (!telegramLinkButton) return;
+
+        telegramPhone = "";
+        telegramLinkButton.style.display = "none";
+    }
+
+    async function connectTelegram() {
+
+        if (!telegramPhone || !Utils.validPhone(telegramPhone)) {
+            alert("Сначала укажите подтверждённый номер телефона.");
+            return;
+        }
+
+        telegramLinkButton.disabled = true;
+        telegramLinkButton.textContent = "Создание ссылки...";
+
+        try {
+            const response = await fetch("/api/telegram/link", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    phone: telegramPhone
+                })
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    result.message || "Не удалось создать ссылку Telegram"
+                );
+            }
+
+            if (!result.link) {
+                throw new Error("Telegram link was not returned");
+            }
+
+            // Open Telegram
+            window.location.href = result.link;
+
+        } catch (e) {
+            console.error("Telegram connection error:", e);
+
+            alert(e.message || "Ошибка подключения Telegram");
+
+            telegramLinkButton.disabled = false;
+            telegramLinkButton.textContent = "✈️ Подключить Telegram";
+        }
+    }
+
+    async function checkTelegramAvailability(phone) {
+
+        if (!Utils.validPhone(phone)) {
+            hideTelegramButton();
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                "/api/sms/is-verified?phone=" + encodeURIComponent(phone)
+            );
+
+            if (!response.ok) {
+                hideTelegramButton();
+                return;
+            }
+
+            const verified = await response.json();
+
+            if (verified) {
+                showTelegramButton(phone);
+            } else {
+                hideTelegramButton();
+            }
+
+        } catch (e) {
+            console.error("Telegram availability check failed:", e);
+            hideTelegramButton();
+        }
+    }
+
+
     //-------------------------------------------------
     // Submit booking
     //-------------------------------------------------
@@ -344,6 +465,9 @@ const Booking = (() => {
             // --------------------------------------
             status.textContent = t("bookingSuccess");
 
+            // Keep verified phone for Telegram linking
+            showTelegramButton(booking.phone);
+
             // --------------------------------------
             // Reset Form
             // --------------------------------------
@@ -372,6 +496,9 @@ const Booking = (() => {
         // IMPORTANT:
         // mobile-navigation.js uses this
         openCabinet,
-        cancelBooking
+        cancelBooking,
+        showTelegramButton,
+        hideTelegramButton,
+        checkTelegramAvailability
     };
 })();
