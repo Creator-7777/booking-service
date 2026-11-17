@@ -36,12 +36,19 @@ const Booking = (() => {
             telegramLinkButton.className = "telegram-link-btn";
             telegramLinkButton.style.display = "none";
 
-            //phoneInput.insertAdjacentElement("afterend", telegramLinkButton);
-            status.insertAdjacentElement("afterend", telegramLinkButton);
+            phoneInput.insertAdjacentElement("afterend", telegramLinkButton);
+            //status.insertAdjacentElement("afterend", telegramLinkButton);
 
             telegramLinkButton.addEventListener("click", connectTelegram);
-            // Check whether the phone belongs to a verified customer
+
+            // Check phone when user leaves the field
             phoneInput.addEventListener("blur", () => {
+                const phone = Utils.normalizePhone(phoneInput.value);
+                checkTelegramAvailability(phone);
+            });
+
+            // Also check when phone value is changed
+            phoneInput.addEventListener("change", () => {
                 const phone = Utils.normalizePhone(phoneInput.value);
                 checkTelegramAvailability(phone);
             });
@@ -359,6 +366,8 @@ const Booking = (() => {
 
     async function checkTelegramAvailability(phone) {
 
+    console.log("Telegram check started:", phone);
+
         if (!Utils.validPhone(phone)) {
             hideTelegramButton();
             return;
@@ -375,6 +384,8 @@ const Booking = (() => {
             }
 
             const verified = await response.json();
+
+            console.log("Phone verification result:", verified);
 
             if (verified) {
                 showTelegramButton(phone);
