@@ -1660,20 +1660,26 @@ footer {
     .telegram-link-btn {
         display: none;
         width: 100%;
-        margin-top: 12px;
+        min-height: 52px;
+        margin: 8px 0 18px;
         padding: 13px 16px;
         border: none;
-        border-radius: 10px;
+        border-radius: 16px;
         background: #229ED9;
         color: white;
+        font-family: inherit;
         font-size: 15px;
         font-weight: 600;
         cursor: pointer;
-        transition: background 0.2s ease;
+        transition: background 0.2s ease, transform 0.1s ease;
     }
 
     .telegram-link-btn:hover {
         background: #168AC0;
+    }
+
+    .telegram-link-btn:active {
+        transform: scale(0.97);
     }
 
     .telegram-link-btn:disabled {

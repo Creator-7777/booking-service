@@ -23,10 +23,14 @@ const Booking = (() => {
 
     function init() {
 
+    console.log("[Telegram] Booking.init() started");
+
         form = document.getElementById("form");
         status = document.getElementById("status");
 
         const phoneInput = document.getElementById("phone");
+
+        console.log("[Telegram] Phone input:", !!phoneInput);
 
         if (phoneInput) {
             telegramLinkButton = document.createElement("button");
@@ -305,10 +309,17 @@ const Booking = (() => {
     //-------------------------------------------------
 
     function showTelegramButton(phone) {
+
+        console.log("[Telegram] showTelegramButton called");
+        console.log("[Telegram] Button exists:", !!telegramLinkButton);
+        console.log("[Telegram] Phone:", phone);
+
         if (!telegramLinkButton) return;
 
         telegramPhone = phone;
         telegramLinkButton.style.display = "block";
+
+        console.log("[Telegram] Button display:", telegramLinkButton.style.display);
     }
 
     function hideTelegramButton() {
@@ -386,6 +397,7 @@ const Booking = (() => {
             const verified = await response.json();
 
             console.log("Phone verification result:", verified);
+            console.log("[Telegram] Verification result:", verified);
 
             if (verified) {
                 showTelegramButton(phone);
